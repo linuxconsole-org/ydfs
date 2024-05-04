@@ -1,12 +1,9 @@
 version: '3'
 services:
-    linuxconsole64:
-        build: ./
-        environment:
-            BUILDYDFS: "fast"
-            SLEEPTIME: 1
-    linuxconsole32:
-        build: ./32/
+    linuxconsole64-2024:
+        image: yledoare/ydfs-2.10
+        volumes:
+            - $HOME/iso:/home/linuxconsole2024/iso
         environment:
             BUILDYDFS: "fast"
             SLEEPTIME: 1
