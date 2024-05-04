@@ -355,7 +355,6 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
         echo $ARCHIVE | grep guile && LC_CONFIGURE_OPTS="--disable-static  --disable-error-on-warning"
 	echo $ARCHIVE | grep wxsvg && LC_CONFIGURE_OPTS="--disable-static --enable-static=no"
 	echo $ARCHIVE | grep freetuxtv && LC_CONFIGURE_OPTS="--with-gtk=3.0"
-	echo $ARCHIVE | grep libappindicator && LC_CONFIGURE_OPTS="--with-gtk=3.0"
 	echo $ARCHIVE | grep freetype && LC_CONFIGURE_OPTS="--without-bzip2 --enable-freetype-config "
 	echo $ARCHIVE | grep armagetronad && LC_CONFIGURE_OPTS="--enable-uninstall=no"
 	echo $ARCHIVE | grep lxdm && LC_CONFIGURE_OPTS="--sysconfdir=$HOME/$ARCH/etc --enable-gtk3"
@@ -371,7 +370,6 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
 	echo $ARCHIVE | grep dossizola && LC_CONFIGURE_OPTS="--datadir=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep mate-panel && LC_CONFIGURE_OPTS="--enable-x11 --disable-wayland"
-#	echo $ARCHIVE | grep mate-control-center && LC_CONFIGURE_OPTS="-D libappindicator=false"
 	echo $ARCHIVE | grep mate-power-manager && LC_CONFIGURE_OPTS="--enable-applets \
         	--disable-strict \
         	--without-keyring"
@@ -419,7 +417,7 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep NetworkManager-openvpn &&  LC_CONFIGURE_OPTS="--disable-static"
 	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
 	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
-	echo $ARCHIVE | grep network-manager-applet-1.24 && LC_CONFIGURE_OPTS="-Dappindicator=no -Dselinux=false"
+	echo $ARCHIVE | grep network-manager-applet-1.24 && LC_CONFIGURE_OPTS="-Dselinux=false"
 	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep alsa-plugins && LC_CONFIGURE_OPTS="--with-alsalconfdir=$HOME/$ARCH/etc/alsa/conf.d"
