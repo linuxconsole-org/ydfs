@@ -2,10 +2,15 @@
 
 (Your Distro From Scratch) is a tool to build your own linux distribution 
 
-# Fast Build (32 & 64 bits)
+# Full Build (32 & 64 bits)
 
 * cd 2.10
 * docker-compose up -d
+
+# Fast Build (32 & 64 bits)
+
+* cd 2.10
+* BUILDYDFS="fast" docker-compose up -d
 
 # Manual build
 
@@ -14,7 +19,7 @@
 * cd 2.10
 
 # For fast option
-* export BUILDYDFS=fast
 
+* export BUILDYDFS=fast
 * make iso
 
