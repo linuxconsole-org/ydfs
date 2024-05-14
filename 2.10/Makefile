@@ -387,12 +387,12 @@ fixopkg:
 	./scripts/make_opkg_filelist opkg
 opkg: ${HOME}/ydfs/opkg/Packages
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
-ifeq ($(SKIPOPKG),OK)
-	echo "Skip opkg"
-else
+ifeq ($(BUILDOPKG),OK)
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
+else
+	echo "Skip opkg"
 endif
    
 ${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
