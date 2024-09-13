@@ -1,0 +1,11 @@
+version: '3'
+services:
+    linuxconsole64-2024:
+        image: yledoare/ydfs-2.10
+        volumes:
+            - $HOME/iso:/home/linuxconsole2024/iso
+        environment:
+            BUILDYDFS: "$BUILDYDFS"
+            SLEEPTIME: 1
+        security_opt:
+            - seccomp:unconfined

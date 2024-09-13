@@ -16,7 +16,7 @@ then
 	bash $HOME_DIBAB/scripts/make_multilib 
 
 	echo "Clean zst build-32"
-	rm $HOME/ydfs/src/zstd-1.5.2/ydfs-multilib-buildt
+	rm $HOME/ydfs/src/zstd-1.5.5/ydfs-multilib-buildt
 	echo "4nd Multilib build"
 	bash $HOME_DIBAB/scripts/make_multilib 
 

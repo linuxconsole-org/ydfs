@@ -27,8 +27,11 @@ echo "SLEEPTIME=$SLEEPTIME" >> config.ini
 [ "$SEND_BUILD_LOG" = "" ] && SEND_BUILD_LOG=NO
 echo "SEND_BUILD_LOG=$SEND_BUILD_LOG" >> config.ini
 
-[ "$SKIPOPKG" = "" ] && SKIPOPKG=NO
-echo "SKIPOPKG=$SKIPOPKG" >> config.ini
+[ "$BUILDMODULES" = "YES" ] && BUILDMODULES=YES
+echo "BUILDMODULES=$BUILDMODULES" >> config.ini
+
+[ "$BUILDOPKG" = "YES" ] && BUILDOPKG=YES
+echo "BUILDOPKG=$BUILDOPKG" >> config.ini
 
 [ "$YDFS_MODULES" = "" ] && YDFS_MODULES="fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps"
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
@@ -95,7 +98,7 @@ BOOT=NAND
       else
         if [ "$arch" = "x86" ]
 	    then
-              echo "KERNEL3=5.4.268" >> config.ini
+              echo "KERNEL3=5.4.283" >> config.ini
 	      echo "BUSYBOX=1.24.2" >> config.ini
 	    else
 	      if [ "$KERNEL3" = "latest" ]
@@ -106,7 +109,7 @@ BOOT=NAND
 	        echo "Latest kernel is $LATEST"
                 echo "KERNEL3=$LATEST" >> config.ini
 	      else
-                echo "KERNEL3=6.6.22" >> config.ini
+                echo "KERNEL3=6.6.49" >> config.ini
 	      fi
 	      echo "BUSYBOX=1.31.1" >> config.ini
 	    fi
