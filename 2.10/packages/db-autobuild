@@ -1868,7 +1868,10 @@ Cflags: -I${includedir}' > glm.pc
 	DESTDIR=/tmp/grub make install
 	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
         touch buildok-$ARCH
-	exit 0
+  	if [ "$MODULE" != "opkg" ]
+	then
+		exit 0
+	fi
   fi
   if [ -e nss/build.sh ]
   then
