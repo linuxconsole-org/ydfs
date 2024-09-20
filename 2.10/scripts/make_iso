@@ -74,10 +74,14 @@ fi
   echo KERNEL $KERNEL36
   echo "APPEND $COMMON xterm $LIVE"
 
-
-  echo LABEL init2
+  echo LABEL Debug init2
   echo KERNEL $KERNEL36
-  echo "APPEND $COMMON rdinit=/init2 quiet"
+  echo "APPEND $COMMON rdinit=/init2 quiet text"
+  
+  echo LABEL Debug init3
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON rdinit=/init3 quiet text"
+
 
 #  echo LABEL Custom initramfs
 #  echo KERNEL $KERNEL36
@@ -345,7 +349,7 @@ gunzip memtest86+-5.01.bin.gz || exit $?
 fi
 cp memtest86+-5.01.bin /$ISOTMP/iso/isolinux/memtest
 
-[ -e $HOME/ydfs/wineprogs ] && cp -fR $HOME/ydfs/wineprogs $ISOTMP/iso/
+[ "$NOLCM" != "OK" ] && [ -e $HOME/ydfs/wineprogs ] && cp -fR $HOME/ydfs/wineprogs $ISOTMP/iso/
 
 # For unetbootin
 cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/initramfs
@@ -405,7 +409,7 @@ CPUARCH="amd64"
 [ "$ARCH" = "x86" ] && CPUARCH="i386"
 
 install -d .disk
-echo "LinuxConsole \"LinuxConsole\" - Release $CPUARCH (2022)" > .disk/info
+echo "LinuxConsole \"LinuxConsole\" - Release $CPUARCH (2024)" > .disk/info
 install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/

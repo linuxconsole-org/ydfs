@@ -38,6 +38,8 @@ do
 	/ntfs-3g -o remove_hiberfile /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
 	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
+	# MultiOS-USB
+	[ -e /disk/$ISOPATH ] && mount /disk/$ISOPATH /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
@@ -73,5 +75,18 @@ then
 	# sleep 10
 	touch /ydfs/boot/options/liveusb
 	touch /tmp/waitusb
+	clear
 	ash /ydfs/detect/media
 fi
+
+if [ -e /tmp-count ]
+then
+  COUNT=`cat /tmp-count`
+else
+  COUNT=0
+fi
+
+echo $(( $COUNT + 1)) > /tmp-count
+echo $COUNT
+
+[ $COUNT = 20 ] && echo "Failed" && ash
