@@ -13,11 +13,11 @@ export DIBAB_ARCH=${ARCH}
 export ARCH
 export KERNEL3
 export MEDIA
+export BUILDMODULES
 ifeq ($(BUILDMODULES),YES)
-then
-	export YDFS_MODULES
+  export YDFS_MODULES
 else
-	YDFS_MODULES=""
+  YDFS_MODULES=""
 endif
 
 export SUBARCH
