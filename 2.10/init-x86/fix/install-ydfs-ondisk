@@ -1,15 +1,39 @@
-# mke2fs -L $DISTRONAME /dev/sda1
+# mke2fs -L $DISTRONAME /dev/"$DISK"1
 # sh /ydfs/start/automount
 
-DISTRONAME=`cat /ydfs-name`
-if [ ! -e /dev/sda ]
+LIST_DISK=""
+
+for device in `ls /sys/class/block/`
+do
+  [ -e /sys/class/block/$device/partition ] && continue
+  echo $device |grep loop >/dev/null && continue
+  SIZE=$(LC_ALL=EN fdisk -l /dev/$device |grep sector |head -1 | cut -d':' -f2 |cut -d',' -f1|sed s@' '@_@g)
+  MODEL=$(LC_ALL=EN fdisk -l /dev/$device |grep model |cut -d':' -f2|sed s@' '@_@g)
+  LIST_DISK="$LIST_DISK FALSE $device $MODEL $SIZE"
+done
+
+echo $LIST_DISK
+
+if [ "$LANG" = "fr_FR.UTF8" ]
 then
-  zenity --info --text="You need a /dev/sda disk for this !" &>/dev/null
+DISK=$(zenity  --width=600 --height=300  --list --text "Disque où installer GRUB :" --radiolist --column "Choix"  --column "Disque" --column "Nom" --column "Taille" $LIST_DISK)
+[ "$DISK" = "" ] && zenity --info --text="Abandon !" &&  exit 0
+else
+DISK=$(zenity  --width=600 --height=300  --list --text "Disk where you want to install GRUB :" --radiolist --column "Choice"  --column "Disk" --column "Name" --column "Size" $LIST_DISK)
+[ "$DISK" = "" ] && zenity --info --text="Cancelled !" &&  exit 0
+fi
+
+echo Install on $DISK
+
+DISTRONAME=`cat /ydfs-name`
+if [ ! -e /dev/$DISK ]
+then
+  zenity --info --text="You need a /dev/"$DISK" disk for this !" &>/dev/null
   exit 1	  
 else
-  if [ -e /dev/sda1 ]
+  if [ -e /dev/"$DISK"1 ]
 	then
-           zenity --question --text="Warning, grub will be installed on your /dev/sda disk ! Are you sure ?" &>/dev/null
+           zenity --question --text="Warning, grub will be installed on your /dev/"$DISK" disk ! Are you sure ?" &>/dev/null
 	   ans=$?
 	   echo $ans  
 	   [ "$ans" != "0" ] && exit 1
@@ -45,7 +69,7 @@ fi
 if [ ! -e /sys/firmware/efi ]
 then
   [ ! -e /boot ] && ln -sf /media/$DISTRONAME /boot
-  grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || exit 1
+  grub-install /dev/"$DISK"  --boot-directory=/media/$DISTRONAME || grub-install /dev/"$DISK"  --boot-directory=/media/$DISTRONAME || exit 1
   echo "Installing kernel and initramfs"
   mkdir /media/$DISTRONAME/rootfs
   KVER=`uname -r`
@@ -57,7 +81,7 @@ then
   sed -i 's@target=device /`@target=device /media/DISTRONAME`@'  `which grub-mkconfig`
   sed -i "s@DISTRONAME@$DISTRONAME@"  `which grub-mkconfig`
   echo "running grub-mkconfig"
-  find /sys |grep sda|grep usb && BOOTOPTION=" liveusb "
+  find /sys |grep "$DISK"|grep usb && BOOTOPTION=" liveusb "
   LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
   [ -e /media/$DISTRONAME/grub/grub.cfg.new ] && cp /media/$DISTRONAME/grub/grub.cfg.new /media/$DISTRONAME/grub/grub.cfg
   sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
