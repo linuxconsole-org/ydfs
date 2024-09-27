@@ -6,13 +6,19 @@ then
  exit 1
 fi
 
+[ -e $HOME/.local/tmp/$2 ] && zenity --info --text="$2 already installed" && exit 1
+zenity --info --text="Installing $2, if it fails, look at https://github.com/yledoare/apt-get"
+
 cd $HOME
+install -d .local/bin
+cd .local
+
 [ -e download ] && rm download
 if [ "$ARCH" = "x86" ]
 then
-  wget https://packages.debian.org/buster/i386/$2/download  
+  wget https://packages.debian.org/bookworm/i386/$2/download  
 else
-  wget https://packages.debian.org/buster/amd64/$2/download  
+  wget https://packages.debian.org/bookworm/amd64/$2/download  
 fi
 
 URL=$(grep ftp.fr.debian.org download | cut -d '"' -f2)
@@ -37,19 +43,33 @@ then
   zenity --info --text="Error when downloading $URL"
   exit 1
 fi
-cd /
+
+cd $HOME/.local
+
 #extract
-dpkg -x $HOME/$DEB .
+if [ $USER == "/root" ]
+then
+  dpkg -x $HOME/.local/$DEB /
+else
+  dpkg -x $HOME/.local/$DEB .
+  ls usr/bin/ | while read file
+  do
+	  echo "Look for  $HOME/.local/bin/$file"
+	  [ ! -e $HOME/.local/bin/$file ] && ln -s $HOME/.local/usr/bin/$file $HOME/.local/bin/$file
+  done
+fi
 
 # look for dep
 
-install -d $HOME/tmp/$2
-cd $HOME/tmp/$2
-ar -x $HOME/$DEB control.tar.xz
+install -d $HOME/.local/tmp/$2
+cd $HOME/.local/tmp/$2
+[ -e control.tar.xz ] && rm control.tar.xz
+ar -x $HOME/.local/$DEB control.tar.xz
 
 # extract control
 
 tar xJvf control.tar.xz 
+[ $? != 0 ] &&  zenity --info --error="Tar failed" && exit 1
 DEPS=$(grep Depends control | cut -d: -f2,3,4,5)
 
 echo "Dep list : $DEPS"
@@ -98,11 +118,11 @@ do
   echo "$element" | grep ')' > /dev/null && continue
   echo "$element" | grep '(' > /dev/null && continue
   #echo "DEP : $element"
-  if [ ! -e "$HOME/tmp/$element" ]
+  if [ ! -e "$HOME/.local/tmp/$element" ]
   then
 	echo "Running apt-get install $element"
 	zenity --question --text="Install $element ?" && /fix/apt-get install $element
   fi
 done
-rm $HOME/$DEB
+rm $HOME/.local/$DEB
 zenity --info --text="$DEB installed"
