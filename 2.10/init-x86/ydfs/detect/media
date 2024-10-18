@@ -39,7 +39,7 @@ do
 	# Wubi
 	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
 	# MultiOS-USB
-	[ -e /disk/$ISOPATH ] && mount /disk/$ISOPATH /media/ydfs && break
+	[ "$ISOPATH" != "" ] && [ -e /disk/$ISOPATH ] && mount /disk/$ISOPATH /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
