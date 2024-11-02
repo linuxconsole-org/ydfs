@@ -36,5 +36,6 @@ done
 
 which docker || install_docker_engine
 enable_docker_engine
+[ ! -e /media/ydfs/docker ] && install -d /media/ydfs/docker
 [ ! -e /var/lib/docker ] && ln -s /media/ydfs/docker /var/lib
 DOCKER_RAMDISK=true dockerd 
