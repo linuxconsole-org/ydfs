@@ -65,8 +65,8 @@ class InstallationPage(Page):
             max_space_mb = max(max_space_mb, drive.free_space_mb)
             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
-        if max_space_mb < 1024:
-            message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
+        if max_space_mb < 32 :
+            message = _("Only %sMB of disk space are available.\nAt least 32MB are required as a bare minimum. Quitting")
             self.frontend.show_error_message(message % int(max_space_mb))
             self.application.quit()
         if max_space_mb2 < min_space_mb:
@@ -231,7 +231,7 @@ class InstallationPage(Page):
             self.main, h*4 + w, h*7,
             "lock.bmp", _("Password:"), None)
         label.move(h*4 + w + 42, h*7 - 24)
-        password = ""
+        password = "test"
         if self.info.password:
             password = self.info.password
         elif self.info.test:

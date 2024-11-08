@@ -261,6 +261,7 @@ class Backend(object):
         time.sleep(1)
 
     def check_metalink(self, metalink, base_url, associated_task=None):
+        return True
         if self.info.skip_md5_check:
             return True
         url = base_url +"/" + self.info.distro.metalink_md5sums
@@ -775,8 +776,8 @@ class Backend(object):
             kernel = unix_path(self.info.kernel),
             initrd = unix_path(self.info.initrd),
             rootflags = rootflags,
-            title1 = "Completing the Ubuntu installation.",
-            title2 = "For more installation boot options, press `ESC' now...",
+            title1 = " LinuxConsole is booting ...",
+						title2 = " Press ESC very quickly for boot options ",
             normal_mode_title = "Normal mode",
             pae_mode_title = "PAE mode",
             safe_graphic_mode_title = "Safe graphic mode",

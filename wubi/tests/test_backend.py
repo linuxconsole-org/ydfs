@@ -22,16 +22,14 @@ class BackendTests(unittest.TestCase):
             ('HKEY_LOCAL_MACHINE', 'registry-key', 'UninstallString',
              'Z:\\tmp\\uninstall-wubi.exe'),
             ('HKEY_LOCAL_MACHINE', 'registry-key', 'InstallationDir', '/tmp'),
-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ubuntu'),
+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'LinuxConsole'),
             ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayIcon',
              os.path.join(os.getcwd(), 'build\\wubi\\data\\images\\Wubi.ico')),
             ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayVersion',
              self.back.info.version_revision),
-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Ubuntu'),
-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout',
-             'http://www.ubuntu.com'),
-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink',
-             'http://www.ubuntu.com/support')]
+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'LinuxConsole'),
+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout', 'http://www.linuxconsole.org'),
+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink', 'http://support.linuxconsole.org')]
         # Python2.3 doesn't have addCleanup (2.7), so we need to manage
         # cleaning up after this mock ourselves.
         self.save_registry = registry.set_value
