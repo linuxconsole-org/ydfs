@@ -1,3 +1,452 @@
+wubi (22.04.4r346) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04.4
+    https://github.com/hakuna-m/wubiuefi/issues/348
+  * Change device name loop0 to loopw0 in wubildr.cfg to suppress "already exists" errors
+    https://github.com/hakuna-m/wubiuefi/issues/345
+  * Add version_find_latest in 10_lupin to support newer GRUB versions
+    https://github.com/hakuna-m/wubiuefi/issues/342
+    https://github.com/hakuna-m/wubiuefi/issues/341
+
+wubi (22.04.2r345) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04.2
+    https://github.com/hakuna-m/wubiuefi/issues/334
+    https://github.com/hakuna-m/wubiuefi/issues/329
+
+wubi (22.04.1r345) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04.1
+    https://github.com/hakuna-m/wubiuefi/issues/316
+
+wubi (22.04r345) jammy; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 22.04
+  * workaround for missing boot option debian-installer/custom-installation=
+  * replacement for missing package lupin-support
+    https://github.com/hakuna-m/wubiuefi/issues/305
+  * Change link for www.voidspace.org.uk
+    https://github.com/hakuna-m/wubiuefi/issues/289
+
+wubi (20.04r344) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * new desktop environment "Wubi lz4"
+  * error handling for unsupported pattern in .disk/info
+    https://github.com/hakuna-m/wubiuefi/issues/287 
+
+wubi (20.04r343) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * new pattern for .disk/info
+    https://github.com/hakuna-m/wubiuefi/issues/282    
+
+wubi (20.04r342) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * skip "no EFI partition" messages and errors (#163)(#209)
+
+wubi (20.04r341) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * metalink for .list instead of missing .metalink files (#226)
+
+wubi (20.04r340) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * Downgrade shim and mok (#194)
+  * Minor fix in post-installer.sh
+
+wubi (20.04r339) focal; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 20.04
+    https://github.com/hakuna-m/wubiuefi/issues/191
+  * Merge changes of LeapofAzzam for new Xubuntu logo
+    https://github.com/hakuna-m/wubiuefi/pull/173
+  * New pattern to work with version "20.04 LTS"
+    fix for changes of 18.10r335
+    https://github.com/hakuna-m/wubiuefi/issues/124
+  * New shim for blacklisted shim
+
+wubi (19.10r338) eoan; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 19.10
+    https://github.com/hakuna-m/wubiuefi/issues/172
+  * Update Python to 2.7.17 to avoid "empty certificate" error
+    https://bugs.python.org/issue26313
+  * fix for changed initramfs-tools
+    https://github.com/hakuna-m/wubiuefi/issues/169
+
+wubi (19.04r337) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * copy wubildr also to root directory of target drive
+    https://github.com/hakuna-m/wubiuefi/issues/159
+
+wubi (19.04r336) disco; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 19.04
+  * change lupin-support/grub-mkimage because of new sync error
+    https://github.com/hakuna-m/wubiuefi/issues/143
+
+wubi (18.10r335) cosmic; urgency=low
+
+  [Hakuna Matata]
+
+  * New pattern for info file to work with more Ubuntu based distros
+    https://github.com/hakuna-m/wubiuefi/issues/124
+
+wubi (18.10r334) cosmic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.10
+  * Lubuntu 18.10 has been temporarily disabled
+    https://github.com/hakuna-m/wubiuefi/issues/121
+
+wubi (18.04.xr333) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change initrd.lz to initrd
+    https://github.com/hakuna-m/wubiuefi/issues/112
+
+wubi (18.04.1r332) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04.1
+  * Wubi gz: change vmlinuz.efi to vmlinuz for 64 bit ISOs
+
+wubi (18.04r331) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * change vmlinuz.efi to vmlinuz for 64 bit ISOs
+    https://github.com/hakuna-m/wubiuefi/issues/97
+
+wubi (18.04r330) bionic; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 18.04
+  * Fix too many loop devices issue
+    https://github.com/hakuna-m/wubiuefi/issues/91
+    https://bugs.launchpad.net/ubuntu/+source/grub-installer/+bug/1762034
+
+wubi (17.10.1r329) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Replace shim 0.9+1474479173.6c180c6 with newer version
+
+wubi (17.10.1r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Change download links to 17.10.1 to use ISOs with fix for 
+    https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1734147
+
+wubi (17.10r327) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * fix plural forms for some locale settings
+    https://github.com/hakuna-m/wubiuefi/issues/77
+
+wubi (17.10r326) artful; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 17.10
+  * add nvidia boot option
+    https://github.com/hakuna-m/wubiuefi/issues/57
+
+wubi (17.04r325) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Remove fallback.efi/fbx64.efi
+  * Replace shim 0.9+1474479173.6c180c6 with previous version
+    https://github.com/hakuna-m/wubiuefi/issues/64
+    https://github.com/hakuna-m/wubiuefi/issues/66
+
+wubi (17.04r323) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * additional fix for text translations of plural forms 
+    https://github.com/hakuna-m/wubiuefi/issues/20
+  * Import commit from https://github.com/jacwib/wubiuefi
+    Update check_wine
+
+wubi (17.04r322) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * disk size > 30 GB
+    https://github.com/hakuna-m/wubiuefi/issues/56
+
+wubi (17.04r321) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * 'make' for new shim files
+    https://github.com/hakuna-m/wubiuefi/issues/45
+  * minor enhancements for 17.04
+    * adjust size of iso
+    * remove mythbuntu preseed
+
+wubi (17.04r320) zesty; urgency=low
+
+  [Hakuna Matata]
+
+  * Bump to 17.04
+    * add Ubuntu Budgie
+    * remove Mythbuntu
+  * error handling for powercfg
+    https://github.com/hakuna-m/wubiuefi/issues/43
+
+wubi (16.10r319) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add Budgie-Remix as Wubi SHA256
+    https://github.com/hakuna-m/wubiuefi/issues/28
+
+wubi (16.10r318) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add boot options
+    https://github.com/hakuna-m/wubiuefi/issues/27
+
+wubi (16.10r317) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add support for NVMe devices
+    https://github.com/hakuna-m/wubiuefi/issues/26
+
+wubi (16.10r316) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * add missing package lupin-support
+    https://github.com/hakuna-m/wubiuefi/issues/24
+
+wubi (16.10r315) yakkety; urgency=low
+
+  [Hakuna Matata]
+
+  * Links for final release, remove Mythbuntu 16.10
+  * Improve and update README file
+
+wubi (16.10r314) yakkety; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 16.10
+
+wubi (16.04r313) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix text translation of plural forms
+    https://github.com/hakuna-m/wubiuefi/issues/20
+
+wubi (16.04r312) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * https://github.com/hakuna-m/wubiuefi/issues/19
+    * update url for mock-0.3.1.zip
+    * add 'make distclean' to remove configuration
+    * more detailed checks for wine_check
+
+wubi (16.04r311) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix for MMC devices
+    https://github.com/hakuna-m/wubiuefi/issues/14
+    https://github.com/hakuna-m/wubiuefi/issues/11
+
+wubi (16.04r310) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Migrate from Python 2.3 to 2.7
+  * Add support for SHA-2 (SHA224, SHA256, SHA384, SHA512)
+    * Add support for Ubuntu GPG signature with SHA512
+    * Add desktop environment "Wubi SHA256" with SHA256 checksums
+
+wubi (16.04r309) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Add desktop environment "Wubi gz"
+
+wubi (16.04r308) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Skip mismatched iso files
+    https://github.com/hakuna-m/wubiuefi/issues/9
+  * pre-select local ISOs
+  * backward compatibility for efi patch
+
+wubi (16.04r307) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Add different Wubi configurations for various Ubuntu based distros/versions
+
+wubi (16.04r306) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * fix for make errors on Ubuntu 16.04
+    https://github.com/hakuna-m/wubiuefi/issues/7
+  * create empty folder for first 'make'
+ 
+wubi (16.04r305) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * loop-remount (LP: #1317437):
+    additional fix for initramfs-tools updates
+    https://github.com/hakuna-m/wubiuefi/issues/5
+           
+wubi (16.04r304) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Fix EFI error if bcdedit returns unknown device
+    https://github.com/hakuna-m/wubiuefi/issues/3
+           
+wubi (16.04r303) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * Fix Ubiquity bug (LP: #1385930)
+     Remove workaround from rev. 293
+     Add fix for parted >= 3.2 in autopartition-loop
+
+wubi (16.04r302) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * Add Xubuntu
+  * Add Ubuntu Kylin
+  * Add new icons for Ubuntu GNOME
+
+wubi (16.04r301) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * 32 bit UEFI support
+  * SecureBoot
+
+wubi (16.04r300) xenial; urgency=low
+
+  [Hakuna Matata]
+
+  * bzr -> git
+
+wubi (16.04) xenial; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 16.04
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
+  * Error handling for signatures with unsupported hash algorithm
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
+  * Add support for Ubuntu GNOME
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
+  * Add support for Ubuntu MATE
+
+wubi (15.10) wily; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 15.10
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
+  * EFI support
+  * Windows: BCD entries for UEFI, disable Hibernate and Fast Startup
+  * Ubuntu: GRUB for x86_64-efi platform
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bypass Ubiquity bug (LP: #1385930):
+     Use libparted and parted_server version of 14.04
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
+  * loop-remount (LP: #1317437):
+    allow remounting of loop device as read-write
+    patch is necessary because of unreleased fix
+    https://code.launchpad.net/~noorez-kassam/ubuntu/utopic/initramfs-tools/fix-for-1317437
+
+wubi (15.04) vivid; urgency=low
+
+  [Hakuna Matata]
+   
+  * Bump to 15.04
+  * Use vmlinuz.efi on all amd64 ISOs except Ubuntu Studio
+  * Set confirm_nooverwrite on preseeds
+ 
+wubi (14.10) utopic; urgency=medium
+
+  [ Stéphane Graber ]
+  * Bump to 14.10
+
+  [ Colin Watson ]
+  * Adjust grub-ntldr-img invocation to avoid implicit build-dependency on
+    grub-pc.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Thu, 16 Oct 2014 16:21:26 +0200
+
 wubi (14.04) trusty; urgency=low
 
   * Bump to 14.04
@@ -15,6 +464,7 @@ wubi (13.10) saucy; urgency=low
 wubi (13.04) raring; urgency=low
 
   [ bcbc ]
+  * Prevent installation on EFI systems (LP: #694242)
   * Use vmlinuz.efi kernel on the amd64 Ubuntu ISO (LP: #1134770)
   * Suppress use of disk images (LP: #1155704)
   

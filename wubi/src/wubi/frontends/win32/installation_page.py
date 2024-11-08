@@ -65,8 +65,8 @@ class InstallationPage(Page):
             max_space_mb = max(max_space_mb, drive.free_space_mb)
             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
-        if max_space_mb < 32 :
-            message = _("Only %sMB of disk space are available.\nAt least 32MB are required as a bare minimum. Quitting")
+        if max_space_mb < 1024:
+            message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
             self.frontend.show_error_message(message % int(max_space_mb))
             self.application.quit()
         if max_space_mb2 < min_space_mb:
@@ -115,7 +115,13 @@ class InstallationPage(Page):
         target_drive = self.get_drive()
         self.size_list_gb = []
         self.size_list.clear()
-        for i in range(1, 31):
+        i_size_list = range(1, 33) + [64, 128, 256, 512]
+        if self.info.installation_size_mb:
+            i = int(self.info.installation_size_mb/1000)
+            if i not in i_size_list:
+               i_size_list.append(i)
+               i_size_list.sort()
+        for i in i_size_list:
             #~ log.debug("%s < %s and %s > %s" % (i * 1000 + self.info.distro.max_iso_size/1024**2 + 100 , target_drive.free_space_mb, i * 1000 , self.info.distro.min_disk_space_mb))
             if self.info.skip_size_check \
             or i * 1000 >= self.info.distro.min_disk_space_mb: #use 1000 as it is more conservative
@@ -225,7 +231,7 @@ class InstallationPage(Page):
             self.main, h*4 + w, h*7,
             "lock.bmp", _("Password:"), None)
         label.move(h*4 + w + 42, h*7 - 24)
-        password = "test"
+        password = ""
         if self.info.password:
             password = self.info.password
         elif self.info.test:
@@ -289,7 +295,7 @@ class InstallationPage(Page):
         language4 = language3 and language3.split('.')[0]
         language5 = language4 and language4.split('_')[0]
         translation = gettext.translation(self.info.application_name, localedir=self.info.translations_dir, languages=[language1, language2, language3, language4, language5])
-        translation.install(unicode=True)
+        translation.install(unicode=True, names=[ngettext])
 
     def on_drive_change(self):
         self.info.target_drive = self.get_drive()

@@ -37,7 +37,7 @@ from metalink import parse_metalink
 from tasklist import ThreadedTaskList, Task
 from distro import Distro
 from mappings import lang_country2linux_locale
-from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_md5, reversed, find_line_in_file, unix_path, rm_tree, spawn_command
+from utils import join_path, run_nonblocking_command, md5_password, copy_file, read_file, write_file, get_file_hash, reversed, find_line_in_file, unix_path, rm_tree, spawn_command
 from signature import verify_gpg_signature
 from wubi import errors
 from os.path import abspath
@@ -70,7 +70,7 @@ class Backend(object):
         if self.info.locale:
             locale.setlocale(locale.LC_ALL, self.info.locale)
             log.debug('user defined locale = %s' % self.info.locale)
-        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True)
+        gettext.install(self.info.application_name, localedir=self.info.translations_dir, unicode=True, names=['ngettext'])
 
     def get_installation_tasklist(self):
         self.cache_cd_path()
@@ -261,7 +261,6 @@ class Backend(object):
         time.sleep(1)
 
     def check_metalink(self, metalink, base_url, associated_task=None):
-        return True
         if self.info.skip_md5_check:
             return True
         url = base_url +"/" + self.info.distro.metalink_md5sums
@@ -273,11 +272,25 @@ class Backend(object):
             return False
         md5sums = read_file(metalink_md5sums)
         log.debug("metalink md5sums:\n%s" % md5sums)
-        md5sums = dict([reversed(line.split()) for line in md5sums.split('\n') if line])
-        md5sum = md5sums.get(os.path.basename(metalink))
-        md5sum2 = get_file_md5(metalink)
-        if md5sum != md5sum2:
-            log.error("The md5 of the metalink does match")
+        md5sums = dict([reversed(line.split()) for line in md5sums.replace('*','').split('\n') if line])
+        hashsum = md5sums.get(os.path.basename(metalink))
+        if not hashsum:
+            log.error("Could not find %s in metalink md5sums)" % os.path.basename(metalink))
+            return False
+        hash_len = len(hashsum)*4
+        if hash_len == 160:
+            hash_name = 'sha1'
+        elif hash_len in [224, 256, 384, 512]:
+            hash_name = 'sha' + str(hash_len)
+        else:
+            hash_name = 'md5'
+        if self.info.distro.metalink:
+           self.info.distro.metalink.files[0].hashes[0].type = hash_name
+           self.info.distro.metalink.files[0].hashes[0].hash = hashsum
+           return True
+        hashsum2 = get_file_hash(metalink, hash_name)
+        if hashsum != hashsum2:
+            log.error("The %s of the metalink does not match (%s != %s)" % (hash_name, hashsum, hashsum2))
             return False
         return True
 
@@ -305,7 +318,7 @@ class Backend(object):
         self.set_distro_from_arch(iso_path)
         if self.info.skip_md5_check:
             return True
-        md5sum = None
+        hashsum = None
         if not self.info.distro.metalink:
             get_metalink = associated_task.add_subtask(
                 self.get_metalink, description=_("Downloading information on installation files"))
@@ -314,21 +327,22 @@ class Backend(object):
                 log.error("ERROR: the metalink file is not available, cannot check the md5 for %s, ignoring" % iso_path)
                 return True
         for hash in self.info.distro.metalink.files[0].hashes:
-            if hash.type == 'md5':
-                md5sum = hash.hash
-        if not md5sum:
+            if hash.type in ['md5','sha1','sha224','sha256','sha384','sha512']:
+                hashsum = hash.hash
+                hash_name = hash.type
+        if not hashsum:
             log.error("ERROR: Could not find any md5 hash in the metalink for the ISO %s, ignoring" % iso_path)
             return True
-        md5sum2 = self.info.iso_md5_hashes.get(iso_path, None)
-        if not md5sum2:
-            get_md5 = associated_task.add_subtask(
-                get_file_md5,
+        hashsum2 = self.info.iso_md5_hashes.get(iso_path, None)
+        if not hashsum2:
+            get_hash = associated_task.add_subtask(
+                get_file_hash,
                 description = _("Checking installation files") )
-            md5sum2 = get_md5(iso_path)
+            hashsum2 = get_hash(iso_path, hash_name)
             if not iso_path.startswith(self.info.install_dir):
-                self.info.iso_md5_hashes[iso_path] = md5sum2
-        if md5sum != md5sum2:
-            log.exception("Invalid md5 for ISO %s (%s != %s)" % (iso_path, md5sum, md5sum2))
+                self.info.iso_md5_hashes[iso_path] = hashsum2
+        if hashsum != hashsum2:
+            log.exception("Invalid %s for ISO %s (%s != %s)" % (hash_name, iso_path, hashsum, hashsum2))
             return False
         return True
 
@@ -406,8 +420,7 @@ class Backend(object):
             if not self.info.distro.metalink:
                 raise Exception("Cannot download the metalink and therefore the ISO")
         file = self.info.distro.metalink.files[0]
-#       save_as = join_path(self.info.install_dir, file.name)
-        save_as = join_path(self.info.install_dir, "installation.iso")
+        save_as = join_path(self.info.install_dir, file.name)
         urls = self.select_mirrors(file.urls)
         for url in urls[:5]:
             if url.type == 'bittorrent':
@@ -457,9 +470,17 @@ class Backend(object):
             except Exception, err:
                 log.error("Cannot download metalink file2 %s err=%s" % (url, err))
                 return
+        metalink_filename, metalink_extension = os.path.splitext(metalink)
+        if metalink_extension == '.list':
+            self.info.distro.metalink = parse_metalink(join_path(self.info.data_dir, 'list.metalink'))
+            metalink = metalink_filename + ".iso"
+            self.info.distro.metalink.files[0].name = os.path.basename(metalink)
+            self.info.distro.metalink.files[0].urls[0].url = base_url + "/" + self.info.distro.metalink.files[0].name + ".torrent"
+            self.info.distro.metalink.files[0].urls[1].url = base_url + "/" + self.info.distro.metalink.files[0].name
         if not self.check_metalink(metalink, base_url):
             log.exception("Cannot authenticate the metalink file, it might be corrupt")
-        self.info.distro.metalink = parse_metalink(metalink)
+        if not self.info.distro.metalink:
+            self.info.distro.metalink = parse_metalink(metalink)
 
     def get_prespecified_diskimage(self, associated_task):
         '''
@@ -638,10 +659,17 @@ class Backend(object):
         md5line = find_line_in_file(md5sums, "./%s" % relpath, endswith=True)
         if not md5line:
             raise Exception("Cannot find md5 in %s for %s" % (md5sums, relpath))
-        reference_md5 = md5line.split()[0]
-        md5  = get_file_md5(file_path, associated_task)
-        log.debug("  %s md5 = %s %s %s" % (file_path, md5, md5 == reference_md5 and "==" or "!=", reference_md5))
-        return md5 == reference_md5
+        reference_hash = md5line.split()[0]
+        hash_len = len(reference_hash)*4
+        if hash_len == 160:
+            hash_name = 'sha1'
+        elif hash_len in [224, 256, 384, 512]:
+            hash_name = 'sha' + str(hash_len)
+        else:
+            hash_name = 'md5'
+        hash_file = get_file_hash(file_path, hash_name, associated_task)
+        log.debug("  %s %s = %s %s %s" % (file_path, hash_name, hash_file, hash_file == reference_hash and "==" or "!=", reference_hash))
+        return hash_file == reference_hash
 
     def create_preseed_diskimage(self):
         source = join_path(self.info.data_dir, 'preseed.disk')
@@ -675,6 +703,10 @@ class Backend(object):
         if not os.path.exists(template_file):
             template_file = join_path(self.info.data_dir, 'preseed.lupin')
         template = read_file(template_file)
+        if self.info.distro.packages:
+            distro_packages_skip = ''
+        else:
+            distro_packages_skip = '#'
         partitioning = ""
         partitioning += "d-i partman-auto/disk string LIDISK\n"
         partitioning += "d-i partman-auto/method string loop\n"
@@ -702,13 +734,15 @@ class Backend(object):
             timezone = self.info.timezone,
             password = password,
             user_full_name = self.info.user_full_name,
+            distro_packages_skip  = distro_packages_skip,
             distro_packages = self.info.distro.packages,
             host_username = self.info.host_username,
             username = self.info.username,
             partitioning = partitioning,
             user_directory = user_directory,
             safe_host_username = safe_host_username,
-            host_os_name = host_os_name,)
+            host_os_name = host_os_name,
+            custom_installation_dir = unix_path(self.info.custominstall),)
         content = template
         for k,v in dic.items():
             k = "$(%s)" % k
@@ -741,10 +775,13 @@ class Backend(object):
             kernel = unix_path(self.info.kernel),
             initrd = unix_path(self.info.initrd),
             rootflags = rootflags,
-            title1 = " LinuxConsole is booting ...",
-						title2 = " Press ESC very quickly for boot options ",
+            title1 = "Completing the Ubuntu installation.",
+            title2 = "For more installation boot options, press `ESC' now...",
             normal_mode_title = "Normal mode",
+            pae_mode_title = "PAE mode",
             safe_graphic_mode_title = "Safe graphic mode",
+            intel_graphics_workarounds_title = "Intel graphics workarounds",
+            nvidia_graphics_workarounds_title = "Nvidia graphics workarounds",
             acpi_workarounds_title = "ACPI workarounds",
             verbose_mode_title = "Verbose mode",
             demo_mode_title =  "Demo mode",
@@ -785,7 +822,7 @@ class Backend(object):
 
     def find_any_iso(self):
         '''
-        look for USB keys with ISO or pre specified ISO
+        look for local ISOs or pre specified ISO
         '''
         #Use pre-specified ISO
         if self.info.iso_path \
@@ -795,9 +832,9 @@ class Backend(object):
                 if distro.is_valid_iso(self.info.iso_path, self.info.check_arch):
                     self.info.cd_path = None
                     return self.info.iso_path, distro
-        #Search USB devices
-        log.debug("Searching ISOs on USB devices")
-        for path in self.get_usb_search_paths():
+        #Search local ISOs
+        log.debug("Searching for local ISOs")
+        for path in self.get_iso_search_paths():
             path = join_path(path, '*.iso')
             isos = glob.glob(path)
             for iso in isos:
@@ -869,7 +906,7 @@ class Backend(object):
             log.info("Launching asynchronously previous uninstaller %s" % uninstaller)
             run_nonblocking_command(command, show_window=True)
             return True
-        elif get_file_md5(self.info.original_exe) == get_file_md5(self.info.previous_uninstaller_path):
+        elif get_file_hash(self.info.original_exe) == get_file_hash(self.info.previous_uninstaller_path):
             log.info("This is the uninstaller running")
         else:
             log.info("Launching previous uninestaller %s" % uninstaller)

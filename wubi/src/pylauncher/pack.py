@@ -21,6 +21,7 @@
 
 import sys
 import os
+import subprocess
 import shutil
 from os.path import abspath, join, dirname
 
@@ -34,13 +35,14 @@ def compress(target_dir):
     cwd = os.getcwd()
     compressor = ajoin("C:", "Program Files", "7-Zip","7z.exe")
     if not os.path.exists(compressor):
-        compressor = '7z'
+        compressor = ajoin("C:", "Program Files (x86)", "7-Zip","7z.exe")
 
     cmd = '%s a -t7z -m0=lzma -mx=9 -mfb=256 -md=32m -ms=on ../archive.7z *'
     cmd = cmd % (compressor,)
     print cmd
     os.chdir(target_dir)
-    os.system(cmd)
+    subprocess.call([compressor, "a", "-t7z", "-m0=lzma", "-mx=9", "-mfb=256",
+                     "-md=32m", "-ms=on", "../archive.7z", "*"])
     os.chdir(cwd)
 
 def cat(outfile, *infiles):
@@ -65,7 +67,7 @@ def make_self_extracting_exe(target_dir):
 
 def add_python_interpreter(target_dir):
     #TBD detect the dll/lib of the current python instance
-    for f in ('pylauncher.exe', 'python23.dll', 'pyrun.exe'):
+    for f in ('pylauncher.exe', 'python27.dll', 'pyrun.exe'):
         source = ajoin(dirname(__file__), f)
         shutil.copy(source, target_dir)
 

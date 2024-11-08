@@ -3,8 +3,8 @@ PROGRAM = pylauncher
 #LDFLAGS = -shared -dll
 #LIB = -lm -static
 #LIBS = user32.lib gdi32.lib shell32.lib
-CC = i686-w64-mingw32-gcc
-WINDRES = i686-w64-mingw32-windres
+CC = i586-mingw32msvc-gcc
+WINDRES = i586-mingw32msvc-windres
 CFLAGS = \
 	-c \
 	-Os \
@@ -34,7 +34,7 @@ ifdef DEBUG
 else
 	DEBUGFLAG =
 	LDFLAGS = -mwindows
-	STRIP = i686-w64-mingw32-strip
+	STRIP = i586-mingw32msvc-strip
 endif
 
 7Z_OBJS = \

@@ -36,6 +36,7 @@ import mappings
 import shutil
 import logging
 import tempfile
+import struct
 log = logging.getLogger('WindowsBackend')
 
 
@@ -72,6 +73,7 @@ class WindowsBackend(Backend):
         self.info.drives = self.get_drives()
         drives = [(d.path[:2].lower(), d) for d in self.info.drives]
         self.info.drives_dict = dict(drives)
+        self.info.efi = self.check_EFI()
 
     def select_target_dir(self):
         target_dir = join_path(self.info.target_drive.path, self.info.distro.installation_dir)
@@ -548,6 +550,112 @@ class WindowsBackend(Backend):
             'HKEY_LOCAL_MACHINE',
             self.info.registry_key)
 
+    def check_EFI(self):
+        efi = False
+        if self.info.bootloader == 'vista':
+            bcdedit = join_path(os.getenv('SystemDrive'), 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                bcdedit = join_path(os.environ['systemroot'], 'sysnative', 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                bcdedit = join_path(os.environ['systemroot'], 'System32', 'bcdedit.exe')
+            if not os.path.isfile(bcdedit):
+                log.error("Cannot find bcdedit")
+                return False
+            command = [bcdedit, '/enum']
+            result = run_command(command)
+            result = result.lower()
+            if "bootmgfw.efi" in result:
+                efi = True
+            if "winload.efi" in result:
+                efi = True
+        log.debug('EFI boot = %s' % efi)
+        return efi
+     
+    def modify_EFI_folder(self, associated_task,bcdedit):
+        command = [bcdedit, '/enum', '{bootmgr}']
+        boot_drive = run_command(command)
+        if 'partition=' in boot_drive:
+            boot_drive = boot_drive[boot_drive.index('partition=')+10:]
+        else:
+            boot_drive = boot_drive[boot_drive.index('device')+24:]
+        boot_drive = boot_drive[:boot_drive.index('\r')]
+        log.debug("EFI boot partition %s" % boot_drive)
+        # if EFI boot partition is mounted we use it
+        if boot_drive[1]==':':
+            efi_drive = boot_drive
+        else:
+            for efi_drive in 'HIJKLMNOPQRSTUVWXYZ':
+                drive = Drive(efi_drive)
+                if not drive.type:
+                    break
+            efi_drive = efi_drive + ':'
+            log.debug("Temporary EFI drive %s" % efi_drive)
+        if efi_drive != boot_drive:
+            run_command(['mountvol', efi_drive, '/s'])
+        src = join_path(self.info.root_dir, 'winboot','EFI')
+        src.replace(' ', '_')
+        src.replace('__', '_')
+        dest = join_path(efi_drive, 'EFI',self.info.target_dir[3:])
+        dest.replace(' ', '_')
+        dest.replace('__', '_')
+        if not os.path.exists(dest):
+            shutil.os.mkdir(dest)
+        dest = join_path(dest,'wubildr')
+        if os.path.exists(dest):
+            shutil.rmtree(dest)        
+        log.debug('Copying EFI folder %s -> %s' % (src, dest))
+        shutil.copytree(src,  dest)
+        if self.get_efi_arch(associated_task,efi_drive)=="ia32":
+            efi_path = join_path(dest, 'grubia32.efi')[2:]
+        else:
+            efi_path = join_path(dest, 'shimx64.efi')[2:]
+        if efi_drive != boot_drive:
+            run_command(['mountvol', efi_drive, '/d'])
+        return efi_path
+
+    def get_efi_arch(self, associated_task, efi_drive):
+        machine=0
+        bootmgfw=join_path(efi_drive,'EFI','Microsoft','Boot','bootmgfw.efi')
+        if os.path.exists(bootmgfw):
+            f=open(bootmgfw, 'rb')
+            s=f.read(2)
+            if s=='MZ':
+                f.seek(60)
+                s=f.read(4)
+                header_offset=struct.unpack("<L", s)[0]
+                f.seek(header_offset+4)
+                s=f.read(2)
+                machine=struct.unpack("<H", s)[0]
+            f.close()
+        if machine==332:
+            efi_arch = "ia32"
+        elif machine==34404:
+            efi_arch = "x64"
+        else:
+            efi_arch ="unknown"
+        log.debug("efi_arch=%s" % efi_arch)
+        return efi_arch
+
+    def undo_EFI_folder(self, associated_task):
+        for efi_drive in 'HIJKLMNOPQRSTUVWXYZ':
+            drive = Drive(efi_drive)
+            if not drive.type:
+                break
+        efi_drive = efi_drive + ':'
+        log.debug("Temporary EFI drive %s" % efi_drive)
+        try: 
+            run_command(['mountvol', efi_drive, '/s'])
+            dest = join_path(efi_drive, 'EFI',self.info.previous_target_dir[3:],'wubildr')
+            dest.replace(' ', '_')
+            dest.replace('__', '_')
+            if os.path.exists(dest):
+                log.debug('Removing EFI folder %s' % dest)
+                shutil.rmtree(dest)
+            run_command(['mountvol', efi_drive, '/d'])
+        except Exception, err: #this shouldn't be fatal
+            log.error(err)            
+        return
+
     def modify_bootloader(self, associated_task):
         for drive in self.info.drives:
             if drive.type not in ('removable', 'hd'):
@@ -574,6 +682,14 @@ class WindowsBackend(Backend):
                 f = join_path(drive.path, f)
                 if os.path.isfile(f):
                     os.unlink(f)
+
+        if self.info.efi:
+            log.debug("Undo EFI boot")
+            self.undo_EFI_folder(associated_task)
+            try:
+                run_command(['powercfg', '/h', 'on'])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
 
     def modify_bootini(self, drive, associated_task):
         log.debug("modify_bootini %s" % drive.path)
@@ -669,7 +785,8 @@ class WindowsBackend(Backend):
         log.debug("modify_bcd %s" % drive)
         if drive is self.info.system_drive \
         or drive.path == "C:" \
-        or drive.path == os.getenv('SystemDrive').upper():
+        or drive.path == os.getenv('SystemDrive').upper() \
+        or drive.path == self.info.target_drive.path:
             src = join_path(self.info.root_dir, 'winboot', 'wubildr')
             dest = join_path(drive.path, 'wubildr')
             shutil.copyfile(src,  dest)
@@ -688,6 +805,30 @@ class WindowsBackend(Backend):
             return
         if registry.get_value('HKEY_LOCAL_MACHINE', self.info.registry_key, 'VistaBootDrive'):
             log.debug("BCD has already been modified")
+            return
+
+        if self.info.efi:
+            log.debug("EFI boot")
+            efi_path = self.modify_EFI_folder(associated_task,bcdedit)
+            try:
+                run_command(['powercfg', '/h', 'off'])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
+            command = [bcdedit, '/copy', '{bootmgr}', '/d', '%s' % self.info.distro.name]
+            id = run_command(command)
+            id = id[id.index('{'):id.index('}')+1]
+            run_command([bcdedit, '/set', id, 'path', efi_path])
+            try:
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'displayorder', id, '/addlast'])
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'timeout', '10'])
+                run_command([bcdedit, '/set', '{fwbootmgr}', 'bootsequence', id])
+            except Exception, err: #this shouldn't be fatal
+                log.error(err)
+            registry.set_value(
+                'HKEY_LOCAL_MACHINE',
+                self.info.registry_key,
+                'VistaBootDrive',
+                id)
             return
 
         command = [bcdedit, '/create', '/d', '%s' % self.info.distro.name, '/application', 'bootsector']

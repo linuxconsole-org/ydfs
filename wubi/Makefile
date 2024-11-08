@@ -1,8 +1,8 @@
 export SHELL = sh
 PACKAGE = wubi
 ICON = data/images/Wubi.ico
-REVISION = 2014
-VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
+VERSION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g" | cut -d r -f 1)
+REVISION = $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g" | cut -d r -f 2)
 COPYRIGHTYEAR = 2009
 AUTHOR = Agostino Russo
 EMAIL = agostino.russo@gmail.com
@@ -13,20 +13,19 @@ build: wubi
 
 wubi: wubi-pre-build
 	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
-	python -OO build/pylauncher/pack.py build/wubi
+	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
 	mv build/application.exe build/wubi.exe
-	cp build/wubi.exe build/linuxconsole.exe
 
 wubizip: wubi-pre-build
 	PYTHONPATH=src tools/pywine src/pypack/pypack --verbose --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
-	cp wine/drive_c/Python23/python.exe build/wubi #TBD
+	cp wine/drive_c/Python27/python.exe build/wubi #TBD
 	cd build; zip -r wubi.zip wubi
 
-wubi-pre-build: check_wine pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
+wubi-pre-build: check_wine check_winboot pylauncher winboot2 src/main.py src/wubi/*.py cpuid version.py translations
 	rm -rf build/wubi
 	rm -rf build/bin
 	cp -a blobs build/bin
-	cp wine/drive_c/windows/system32/python23.dll build/pylauncher || cp wine/drive_c/windows/syswow64/python23.dll build/pylauncher #TBD
+	cp wine/drive_c/Python27/python27.dll build/pylauncher #TBD
 	cp build/cpuid/cpuid.dll build/bin
 
 pot:
@@ -75,13 +74,31 @@ cpuid: src/cpuid/cpuid.c
 winboot2:
 	mkdir -p build/winboot
 	cp -f data/wubildr.cfg data/wubildr-bootstrap.cfg build/winboot/
-	grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
+	/usr/lib/grub/i386-pc/grub-ntldr-img --grub2 --boot-file=wubildr -o build/winboot/wubildr.mbr
 	cd build/winboot && tar cf wubildr.tar wubildr.cfg
 	mkdir -p build/grubutil
 	grub-mkimage -O i386-pc -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/grubutil/core.img \
 		loadenv biosdisk part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux boot minicmd cat cpuid chain halt help ls reboot \
 		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true vbe vga video_bochs video_cirrus probe
 	cat /usr/lib/grub/i386-pc/lnxboot.img build/grubutil/core.img > build/winboot/wubildr
+	mkdir -p build/winboot/EFI
+	grub-mkimage -O x86_64-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubx64.efi \
+		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
+		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
+		all_video gfxterm_background png gfxmenu
+	cp /usr/lib/shim/shim.efi.signed build/winboot/EFI/shimx64.efi 2>/dev/null || \
+		cp shim/shimx64.efi.signed build/winboot/EFI/shimx64.efi 2>/dev/null || \
+		cp /usr/lib/shim/shimx64.efi.signed build/winboot/EFI/shimx64.efi
+	cp /usr/lib/shim/MokManager.efi.signed build/winboot/EFI/MokManager.efi 2>/dev/null || \
+		cp shim/mmx64.efi build/winboot/EFI/mmx64.efi 2>/dev/null || \
+		cp /usr/lib/shim/mmx64.efi build/winboot/EFI/mmx64.efi
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubx64.efi build/winboot/EFI/grubx64.efi
+	grub-mkimage -O i386-efi -c build/winboot/wubildr-bootstrap.cfg -m build/winboot/wubildr.tar -o build/winboot/EFI/grubia32.efi \
+		loadenv part_msdos part_gpt fat ntfs ext2 ntfscomp iso9660 loopback search linux linuxefi boot minicmd cat cpuid chain halt help ls reboot \
+		echo test configfile gzio normal sleep memdisk tar font gfxterm gettext true efi_gop efi_uga video_bochs video_cirrus probe efifwsetup \
+		all_video gfxterm_background png gfxmenu
+	sbsign --key .key/*.key --cert .key/*.crt --output build/winboot/EFI/grubia32.efi build/winboot/EFI/grubia32.efi
+	cp .key/*.cer build/winboot/EFI/.
 
 winboot: grub4dos grubutil
 	mkdir -p build/winboot
@@ -102,6 +119,7 @@ grubutil: src/grubutil/grubinst/*
 
 # not compiling 7z at the moment, but source is used by pylauncher
 7z: src/7z/C/*.c
+	mkdir -p build/7z
 	cp -rf src/7z build
 
 runbin: wubi
@@ -111,6 +129,9 @@ runbin: wubi
 
 check_wine: tools/check_wine
 	tools/check_wine
+
+check_winboot: tools/check_winboot
+	tools/check_winboot
 
 unittest:
 	tools/pywine tools/test
@@ -125,5 +146,14 @@ clean:
 	rm -rf dist/*
 	rm -rf build/*
 
-.PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin ckeck_wine unittest
-	7z translations version.py pylauncher winboot grubutil grub4dos
+distclean: clean
+	rm -rf wine
+	rm -rf tools/buildtest/*
+	find . -type f -name "*.pyo" -delete
+	find . -type f -name "*.pyc" -delete
+	rm -rf .key
+	rm -rf data/custom-installation/packages
+	rm -rf shim
+
+.PHONY: all build test wubi wubizip wubi-pre-build pot runpy runbin check_wine check_winboot unittest
+	7z translations version.py pylauncher winboot winboot2 grubutil grub4dos clean distclean

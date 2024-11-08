@@ -24,7 +24,7 @@ import logging
 import re
 
 log = logging.getLogger('Distro')
-disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\d.]+)(?: LTS)? \"(?P<codename>[\D]+)\" - (?P<subversion>[\D]+) (?P<arch>i386|amd64) \((?P<build>[\d.]+)\)'''
+disk_info_re = '''(?P<name>[\w\s-]+) (?P<version>[\w.]+)(?: LTS)?(?: (?:[\"\(])?(?P<codename>[\w\s-]+)(?:[\"\)])?)? - (?P<subversion>[\D]+)? (?P<arch>i386|amd64)(?:[\D]+)?(?P<build>[\d:.-]+)?'''
 disk_info_re = re.compile(disk_info_re)
 
 class Distro(object):
@@ -110,6 +110,9 @@ class Distro(object):
             log.debug('    file does not exist')
             return False
         files = self.backend.get_iso_file_names(iso_path)
+        if not files:
+            log.debug('    does not contain any file')
+            return False
         files = [f.strip().lower() for f in files]
         required_files = self.get_required_files()
         for file in required_files:
@@ -163,7 +166,7 @@ class Distro(object):
             log.debug('could not get info %s' % info)
             return False
         name, version, subversion, arch = info # used in backend as well
-        if self.name and name != self.name:
+        if self.name and name != self.name and self.version:
             log.debug('wrong name: %s != %s' % (name, self.name))
             return False
         if self.version and not (version == self.version or version.startswith(self.version + '.')):
@@ -171,7 +174,7 @@ class Distro(object):
             return False
         if check_arch and self.arch and arch != self.arch:
             log.debug('wrong arch: %s != %s' % (arch, self.arch))
-            return True
+            return False
         return True
 
     def parse_isoinfo(self, info):
@@ -184,16 +187,20 @@ class Distro(object):
         Ubuntu Split Name 9.04.1 "Jaunty Jackalope" - Final Release i386 (20090106.2)
         Ubuntu-Studio 12.10 "Quantal Quetzal" - Release amd64 (20121017.1)
         '''
-        log.debug(" DBG Yann parsing info from str=%s" % info)
+        log.debug("  parsing info from str=%s" % info)
         if not info:
             return
         info = disk_info_re.match(info)
-        name = info.group('name').replace('-', ' ')
-        log.debug("  name=%s" % name)
-        version = info.group('version')
-        log.debug("  version=%s" % version)
-        subversion = info.group('subversion')
-        log.debug("  subversion=%s" % subversion)
-        arch = info.group('arch')
-        log.debug("  parsed info=%s" % info.groupdict())
+        if info is None:
+            name = ""
+            version = ""
+            subversion = ""
+            arch = self.arch
+            log.debug("  parsed info=None")
+        else:
+            name = info.group('name').replace('-', ' ')
+            version = info.group('version')
+            subversion = info.group('subversion')
+            arch = info.group('arch')
+            log.debug("  parsed info=%s" % info.groupdict())
         return name, version, subversion, arch

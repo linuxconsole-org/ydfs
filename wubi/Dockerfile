@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM debian:bookworm
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
@@ -27,9 +27,13 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get update && apt-get install -y gcc-mingw-w64 grub-pc
-
+RUN apt-get update && apt-get install -y make sudo wget unzip 
+RUN dpkg --add-architecture i386 && sudo apt update
+RUN apt-get update && apt-get install -y wine32
+RUN apt-get update && apt-get install -y wine
+RUN useradd debian
+RUN usermod -aG sudo debian
 RUN mkdir -p /work
 WORKDIR /work
 
-CMD echo ">>> Making Wubi" && make \
-    echo ">>> Waiting" && tail -f /dev/null
+CMD make && tail -f /dev/null

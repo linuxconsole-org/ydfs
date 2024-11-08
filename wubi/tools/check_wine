@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #Required programs
-python_url="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
-python_md5="ba6f9eb9da40ad23bc631a1f31149a01"
-p7zip_url="https://master.dl.sourceforge.net/project/sevenzip/7-Zip/4.64/7z464.exe"
+python_url="https://www.python.org/ftp/python/2.7.17/python-2.7.17.msi"
+python_md5="4cc27e99ad41cd3e0f2a50d9b6a34f79"
+p7zip_url="https://downloads.sourceforge.net/project/sevenzip/7-Zip/4.64/7z464.exe"
 p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
-pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
-pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
+pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-220.win32-py2.7.exe"
+pywin_md5="59be43a3f010602ce623612ecdf34908"
 
 #Compiled modules
-pycrypto_url="http://www.voidspace.org.uk/downloads/pycrypto-2.0.1.win32-py2.3.zip"
-pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
+pycrypto_url="https://web.archive.org/web/20200502114359/http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win32-py2.7.exe"
+pycrypto_md5="e7875e7f6bf0b23701bdd5ef1d8679cd"
 
 #2.3 modules (not needed in python 2.4+)
 ctypes_url="http://downloads.sourceforge.net/ctypes/ctypes-1.0.2.win32-py2.3.exe"
@@ -19,12 +19,19 @@ subprocess_url="http://effbot.org/media/downloads/subprocess-0.1-20041012.win32-
 subprocess_md5="00a249ec321786b17b8bb87a4eebcaeb"
 
 # Unit test stuff
-mock_url="http://mock.googlecode.com/files/mock-0.3.1.zip"
+mock_url="https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mock/mock-0.3.1.zip"
 mock_md5="b9f800d9908c158b1e67149e1508571b"
+
+# Ubuntu packages for mingw32
+mingw32_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32/mingw32_4.2.1.dfsg-2ubuntu1_"
+mingw32_binutils_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-binutils/mingw32-binutils_2.20-0.2ubuntu1_"
+mingw32_runtime_url="http://archive.ubuntu.com/ubuntu/pool/universe/m/mingw32-runtime/mingw32-runtime_3.15.2-0ubuntu1_all.deb"
 
 root="$(cd ${0%/*}/../;pwd)"
 export WINEPREFIX="$root"/wine
-python_site="$WINEPREFIX/drive_c/Python23/Lib/site-packages"
+program_dir="$WINEPREFIX/drive_c/Program"
+python_dir="$WINEPREFIX/drive_c/Python27"
+python_site="$python_dir/Lib/site-packages"
 toolsdir="$root/tools"
 
 download(){
@@ -57,6 +64,14 @@ install_mingw32(){
 		echo "Installing mingw32..."
 		sudo apt-get install mingw32 #TBD do not assume apt
 	fi
+	if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
+		echo "Installing mingw32 via dpkg..."
+		arch=$(dpkg --print-architecture)
+		wget "$mingw32_url$arch.deb" -P /tmp -O "/tmp/mingw32.deb"
+		wget "$mingw32_binutils_url$arch.deb" -P /tmp -O "/tmp/mingw32-binutils.deb"
+		wget "$mingw32_runtime_url" -P /tmp -O "/tmp/mingw32-runtime.deb"
+		sudo dpkg -i /tmp/mingw32*.deb
+	fi
 }
 
 install_unzip(){
@@ -68,9 +83,9 @@ install_unzip(){
 
 install_python(){
 	echo "Installing python..."
-	download "$python_url" "/tmp/python.exe" "$python_md5"
-    #wine msiexec /i /tmp/${python_url##*/} /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
-	wine "/tmp/python.exe"
+	download "$python_url" "/tmp/python.msi" "$python_md5"
+    wine msiexec /i /tmp/python.msi /qb /ADDLOCAL=DefaultFeature /ALLUSERS=1
+	# wine "/tmp/python.exe"
 }
 
 install_pywin(){
@@ -99,24 +114,28 @@ install_subprocess(){
 
 install_pycrypto(){
 	echo "Installing pycrypto..."
-	download "$pycrypto_url" "/tmp/pycrypto.zip" "$pycrypto_md5"
-    install_unzip
-	unzip "/tmp/pycrypto.zip" -d "/tmp"
-	cp -a "/tmp/Crypto" "$python_site"
-}
-
-make_wine(){
-	install_wine
-	install_mingw32
-	install_python
-	install_ctypes
-	install_7z
-	install_pycrypto
-	#~ install_pywin
-	install_subprocess
-	install_mock
+	download "$pycrypto_url" "/tmp/pycrypto.exe" "$pycrypto_md5"
+    wine "/tmp/pycrypto.exe"
 }
 
 if [ ! -e "$root/wine" ]; then
-	make_wine
+	install_wine
+fi
+if [ ! -x /usr/bin/i586-mingw32msvc-gcc -a ! -x /usr/local/bin/i586-mingw32msvc-gcc ]; then
+	install_mingw32
+fi
+if [ ! -e "$python_dir/python.exe" ]; then
+        install_python
+	#~ install_pywin
+	#~ install_subprocess
+	#~ install_ctypes
+fi
+if [ ! -e "$python_site/Crypto" ]; then
+	install_pycrypto
+fi
+if [ ! -e "$python_site/mock.py" ]; then
+	install_mock
+fi
+if [ ! -e "$program_dir"*"/7-Zip/7z.exe" ]; then
+	install_7z
 fi
