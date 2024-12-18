@@ -1,6 +1,6 @@
 https://download.qemu.org/qemu-9.1.0.tar.xz
-https://waffle.freedesktop.org/files/release/waffle-1.8.1/waffle-1.8.1.tar.xz
-git://gitlab.steamos.cloud/steamrt/steam-runtime-tools.git
+#https://waffle.freedesktop.org/files/release/waffle-1.8.1/waffle-1.8.1.tar.xz
+#git://gitlab.steamos.cloud/steamrt/steam-runtime-tools.git
 https://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz
 #Steam
 https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.59.tgz

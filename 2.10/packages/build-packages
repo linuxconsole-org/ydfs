@@ -319,11 +319,21 @@ fi
 
   if [  -n "`echo $ARCHIVE | grep 'pip::'`" ] 
   then
-    modpython=`echo $ARCHIVE | cut -d ':' -f3` 
-    # pip3 install --upgrade pip
-    echo "Run  pip3 install $modpython" 
+    if [  -n "`echo $ARCHIVE | grep 'requirements.txt'`" ] 
+    then
+      pip3 install --upgrade pip
+      requirements=`echo $ARCHIVE | cut -d ':' -f3,4` 
+      [ -e requirements.txt ] && rm requirements.txt
+      wget $requirements || exit 41
+      echo "Run  pip3 install -r requirements.txt" 
+      pip3 install -r requirements.txt || exit 41
+    else
+      modpython=`echo $ARCHIVE | cut -d ':' -f3` 
+      # pip3 install --upgrade pip
+      echo "Run  pip3 install $modpython" 
 	  pip3 install $modpython || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
+          [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
+    fi
     continue
   fi
 

@@ -1915,7 +1915,9 @@ Cflags: -I${includedir}' > glm.pc
 
   if [ -e src/backend/utils/misc/postgresql.conf.sample ]
   then
-    LDFLAGS="" CFLAGS="" CPPFLAGS="-I$PWD/src/backend -I$PWD/src/backend/lmgr $CPPFLAGS" LLVM_CONFIG=/usr/bin/llvm-config-9 ./configure --prefix=$PREFIX --without-readline # --with-perl --with-libxml --with-openssl  --with-python --with-tcl --with-pam --with-uuid=e2fs --with-icu --with-ldap --with-llvm --enable-nls --enable-thread-safety --disable-rpath || exit 1
+    echo "cp src/backend/storage/lmgr/lwlocknames.h" && install -d $HOME/$ARCH/include/storage && cp src/backend/storage/lmgr/lwlocknames.h $HOME/$ARCH/include/storage && sleep 5
+    LDFLAGS="" CFLAGS="" CPPFLAGS="-I$PWD/src/backend -I$PWD/src/backend/lmgr $CPPFLAGS" ./configure --prefix=$PREFIX --without-readline
+    # LDFLAGS="" CFLAGS="" CPPFLAGS="-I$PWD/src/backend -I$PWD/src/backend/lmgr $CPPFLAGS" LLVM_CONFIG=/usr/bin/llvm-config-9 ./configure --prefix=$PREFIX # --without-readline --with-perl --with-libxml --with-openssl  --with-python --with-tcl --with-pam --with-uuid=e2fs --with-icu --with-ldap --with-llvm --enable-nls --enable-thread-safety --disable-rpath || exit 1
     make || bash
     exit 1
   fi
