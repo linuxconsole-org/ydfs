@@ -4,7 +4,9 @@
 
 [ ! -e /dev/ppp ] && mknod /dev/ppp c 108 0
 [ ! -e /usr/sbin/pppd ] && ln -s /usr/bin/pppd /usr/sbin/pppd
- 
+
+[ ! -e /usr/lib/ssl ] && ln -s /etc/ssl/ /usr/lib 
+
 ifconfig lo 127.0.0.1
 
 if [ ! -e $HOME_DIBAB/$ARCH/etc/smb.conf ]
