@@ -1,3 +1,4 @@
+echo "YDFS" $YDFS
 cd packages
 for URL in `cat list-$ARCH | cut -d '#' -f1`
 do

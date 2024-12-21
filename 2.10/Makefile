@@ -29,7 +29,7 @@ export SKIPOPKG
 export SEND_BUILD_LOG
 export TOOLCHAIN
 export HOME_DIBAB
-export YDFS=$(shell basename ${PWD})
+export YDFS ?= $(shell git rev-parse --abbrev-ref HEAD)
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
 export MKSQUASHFS_OPT
