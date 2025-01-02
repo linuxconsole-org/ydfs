@@ -10,8 +10,8 @@
 # Live Gui test 
 
 * xhost +
-* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2024/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-2.10 
-* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.10 ; make live-test'
+* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2024/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-core 
+* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/core ; make live-test'
 
 
 # Write ISO to USB key

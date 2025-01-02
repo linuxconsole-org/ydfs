@@ -5,7 +5,7 @@ Manual Docker
 * git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
 * git checkout 2.10
-* cd 2.10
+* cd core
 
 # Build docker images
 
@@ -45,7 +45,7 @@ docker build -f Dockerfile32 -t ydfs32-2.10 .
 * cd $HOME
 * git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
-* cd 2.10
+* cd core
 * make 
 
 # Build from WSL2 (Ubunut bullseye / 64 bits)
