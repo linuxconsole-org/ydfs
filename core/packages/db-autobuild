@@ -764,10 +764,11 @@ grep share/Surge src/common/SurgeStorage.cpp
 	mkdir -p build
 	cd       build
 	CXX="g++" CPPFLAGS=" -DWstringop-truncation -I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
-	PYTHONPATH="" meson --prefix=$PREFIX                \
-      --sysconfdir=$PREFIX/etc            \
-      --localstatedir=$PREFIX/var         \
-      -Daudit=false                 \
+	PYTHONPATH="" meson        \
+      -Drc-local=$PREFIX/etc/rc.local  \
+      -Dsysvinit-path=$PREFIX/etc/init.d  \
+      -Dsysvinit-path=$PREFIX/etc  \
+      -Daudit=false                \
       -Dblkid=true                 \
       -Dpamconfdir=no              \
       -Dbuildtype=release          \
