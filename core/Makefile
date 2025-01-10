@@ -4,7 +4,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
 				  -e s/sh[234].*/sh/ )
 ARCH		?= $(SUBARCH)
-include config.ini
+include ${HOME}/config.ini
 
 THEMODULENAME1=$(shell echo ${MODULES} | sed -e s/${ARCH}//g -e s/drivers-// -e s/firmware-// )
 THEMODULENAME = $(subst -, ,$(THEMODULENAME1))
@@ -29,7 +29,11 @@ export SKIPOPKG
 export SEND_BUILD_LOG
 export TOOLCHAIN
 export HOME_DIBAB
-export YDFS ?= $(shell git rev-parse --abbrev-ref HEAD)
+ifeq (,$(wildcard ../ydfs))
+ 	export YDFS ?= $(shell git rev-parse --abbrev-ref HEAD)
+else
+	export YDFS ?= $(shell cat ../ydfs)
+endif
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
 export MKSQUASHFS_OPT
@@ -128,7 +132,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
+isodep: ${HOME}/config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}
@@ -151,7 +155,7 @@ ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/
 
 linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
 
-${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
+${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: ${HOME}/config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
 	./scripts/make_initramfs
 
 initramfs: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}
@@ -169,10 +173,10 @@ iso: isodep wineprogs ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs config.ini #  ${LCMBUILD}
+${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${HOME}/config.ini #  ${LCMBUILD}
 	./scripts/make_iso
 
-config.ini:
+${HOME}/config.ini:
 	@echo ARCH IS ${SUBARCH}
 	./scripts/make_config_ini
 live-test:
@@ -223,6 +227,8 @@ ${LCMBUILD}/${ARCH}.squashfs: packages/list-${LIST} scripts/make_modules
 	./scripts/make_modules
 
 check:
+	@echo YDFS is ${YDFS}
+check_url:
 	./scripts/check_url
 archives: ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2
 

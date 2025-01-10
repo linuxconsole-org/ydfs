@@ -1,6 +1,9 @@
-#par la commande echo,créé un fichier config.ini;attention:avec la distribution LinuxConsole par défaut
+#par la commande echo,créé un fichier $CONFIGINI;attention:avec la distribution LinuxConsole par défaut
 #ce script est lancé par ?
 # commande echo pour créer le fichier
+
+CONFIGINI=$HOME/config.ini
+
 echo '
 KERNEL_PREFIX=k
 CROSSTOOL=1.15.3
@@ -16,44 +19,44 @@ HOME_DIBAB=${PWD}
 
 # enable this to configure toolchain, busybox and kernel
 # MENUCONFIG=YES
-' > config.ini
+' > $CONFIGINI
 
-echo "#BUILDYDFS=fast" >> config.ini
-echo "BUILDYDFS=$BUILDYDFS" >> config.ini
+echo "#BUILDYDFS=fast" >> $CONFIGINI
+echo "BUILDYDFS=$BUILDYDFS" >> $CONFIGINI
 
 [ "$DISTRONAME" = "" ] && DISTRONAME=linuxconsole
-echo "DISTRONAME=$DISTRONAME" >> config.ini
+echo "DISTRONAME=$DISTRONAME" >> $CONFIGINI
 
 [ "$SLEEPTIME" = "" ] && SLEEPTIME=3600
-echo "SLEEPTIME=$SLEEPTIME" >> config.ini
+echo "SLEEPTIME=$SLEEPTIME" >> $CONFIGINI
 
 [ "$SEND_BUILD_LOG" = "" ] && SEND_BUILD_LOG=NO
-echo "SEND_BUILD_LOG=$SEND_BUILD_LOG" >> config.ini
+echo "SEND_BUILD_LOG=$SEND_BUILD_LOG" >> $CONFIGINI
 
 [ "$BUILDMODULES" = "YES" ] && BUILDMODULES=YES
-echo "BUILDMODULES=$BUILDMODULES" >> config.ini
+echo "BUILDMODULES=$BUILDMODULES" >> $CONFIGINI
 
 [ "$BUILDOPKG" = "YES" ] && BUILDOPKG=YES
-echo "BUILDOPKG=$BUILDOPKG" >> config.ini
+echo "BUILDOPKG=$BUILDOPKG" >> $CONFIGINI
 
 [ "$YDFS_MODULES" = "" ] && YDFS_MODULES="fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps"
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
-echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> config.ini
+echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> $CONFIGINI
 
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> $CONFIGINI
 
 if [ "$BUILDMODULES" = "YES" ]
 then
-  echo 'BUILDMODULES=YES' >> config.ini
+  echo 'BUILDMODULES=YES' >> $CONFIGINI
 else
-  echo '#BUILDMODULES=YES' >> config.ini
+  echo '#BUILDMODULES=YES' >> $CONFIGINI
 fi
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then
-  echo 'DIBAB_VERBOSE_BUILD=YES' >> config.ini
+  echo 'DIBAB_VERBOSE_BUILD=YES' >> $CONFIGINI
 else
-  echo '#DIBAB_VERBOSE_BUILD=YES' >> config.ini
+  echo '#DIBAB_VERBOSE_BUILD=YES' >> $CONFIGINI
 fi
 
 # Disable old code
@@ -68,7 +71,7 @@ def_arch=${ARCH}
 echo -n  "Arch ? (x86,x86_64,i586,mini2440,raspi,raspi-qemu) : $def_arch : "
 read arch
 [ "$arch" = "" ] && arch=$def_arch
-# modification de config.ini selon le type de processeur saisi
+# modification de $CONFIGINI selon le type de processeur saisi
 if [ "$arch" = "mini2440" ]
 then
   echo "Warning, arm mini2440 built was done to make this contest: http://www.linuxembedded.fr/concours2011/, run make test to see what it does"
@@ -89,31 +92,31 @@ BOOT=NAND
 # BOOT=NOR
 # ARM_BOOT_LOADER=barebox
 # ARM_BOOT_LOADER=vboot
-' >> config.ini
-  echo "KERNEL3=3.3.4" >> config.ini
-  echo "ARCH=arm" >> config.ini
-  echo "SUBARCH=mini2440" >> config.ini
+' >> $CONFIGINI
+  echo "KERNEL3=3.3.4" >> $CONFIGINI
+  echo "ARCH=arm" >> $CONFIGINI
+  echo "SUBARCH=mini2440" >> $CONFIGINI
   else
     if [ "$arch" = "raspi" ]
     then
-      echo "ARCH=arm" >> config.ini
-      echo "SUBARCH=raspi" >> config.ini
-      echo "KERNEL3=rpi-3.12.y" >> config.ini
-      echo "#TOOLCHAIN=crosstool-ng" >> config.ini
-      echo "#CROSSTOOL=1.15.3" >> config.ini
+      echo "ARCH=arm" >> $CONFIGINI
+      echo "SUBARCH=raspi" >> $CONFIGINI
+      echo "KERNEL3=rpi-3.12.y" >> $CONFIGINI
+      echo "#TOOLCHAIN=crosstool-ng" >> $CONFIGINI
+      echo "#CROSSTOOL=1.15.3" >> $CONFIGINI
     else
       if [ "$arch" = "raspi-qemu" ]
       then
-        echo "ARCH=arm" >> config.ini
-        echo "SUBARCH=raspi-qemu" >> config.ini
-        echo "KERNEL3=3.6.11" >> config.ini
-        echo "#TOOLCHAIN=crosstool-ng" >> config.ini
-        echo "#CROSSTOOL=1.15.3" >> config.ini
+        echo "ARCH=arm" >> $CONFIGINI
+        echo "SUBARCH=raspi-qemu" >> $CONFIGINI
+        echo "KERNEL3=3.6.11" >> $CONFIGINI
+        echo "#TOOLCHAIN=crosstool-ng" >> $CONFIGINI
+        echo "#CROSSTOOL=1.15.3" >> $CONFIGINI
       else
         if [ "$arch" = "x86" ]
 	    then
-              echo "KERNEL3=5.4.283" >> config.ini
-	      echo "BUSYBOX=1.24.2" >> config.ini
+              echo "KERNEL3=5.4.283" >> $CONFIGINI
+	      echo "BUSYBOX=1.24.2" >> $CONFIGINI
 	    else
 	      if [ "$KERNEL3" = "latest" ]
 	      then
@@ -121,15 +124,15 @@ BOOT=NAND
 	        wget https://kernel.org
 	        LATEST=`grep downloadarrow_small index.html.1 |cut -d'"' -f2 |cut -d'/' -f8 |cut -d'-' -f2 | sed s/.tar.xz//`
 	        echo "Latest kernel is $LATEST"
-                echo "KERNEL3=$LATEST" >> config.ini
+                echo "KERNEL3=$LATEST" >> $CONFIGINI
 	      else
-                echo "KERNEL3=6.12.6" >> config.ini
+                echo "KERNEL3=6.12.6" >> $CONFIGINI
 	      fi
-	      echo "BUSYBOX=1.31.1" >> config.ini
+	      echo "BUSYBOX=1.31.1" >> $CONFIGINI
 	    fi
         # autres cas non prévus
-        echo "ARCH=$arch" >> config.ini
+        echo "ARCH=$arch" >> $CONFIGINI
       fi
     fi
 fi
-[ "$YDFS_CUSTOM_KERNEL" = "" ] || echo "KERNEL3=$YDFS_CUSTOM_KERNEL" >> config.ini
+[ "$YDFS_CUSTOM_KERNEL" = "" ] || echo "KERNEL3=$YDFS_CUSTOM_KERNEL" >> $CONFIGINI
