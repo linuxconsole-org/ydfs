@@ -4,7 +4,8 @@ archlinux:x265
 #archlinux:gdbm
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.24.tar.gz
 archlinux:jsoncpp
-#archlinux:re2
+archlinux:abseil-cpp
+archlinux:re2
 #archlinux:snappy
 #archlinux:gmp
 archlinux:pkg-config
