@@ -127,5 +127,7 @@ RUN apt-get install -y xz-utils
 RUN apt-get install -y zlib1g-dev 
 RUN apt-get install -y zstd 
 
+RUN apt-get install -y libgtest-dev
+
 USER linuxconsole2025
 #CMD /build-lc2025

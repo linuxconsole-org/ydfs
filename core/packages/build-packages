@@ -14,6 +14,11 @@ install -d $HOME/opkg/share/aclocal
 install -d $HOME/opkg/share/pixmaps
 
 git config --global url."https://".insteadOf git://
+git config --global url."https://bitbucket.org".insteadOf git+https://bitbucket.org
+git config --global url."https://git.gnu.org.ua".insteadOf git+https://git.gnu.org.ua
+git config --global url."https://github.com".insteadOf git+https://github.com
+git config --global url."https://git.kernel.org".insteadOf git+https://git.kernel.org
+# git config --global url."https://github.com".insteadOf ncurses::git+https://github.com
 
 echo $SRC_PATH/list-$1
 # normalement c'est un double crochet, le simple crochet est utilisé pour des raisons de compatibilité
@@ -251,7 +256,7 @@ fi
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
-  if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
+  if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'git+https'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/virgl/virglrenderer.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/upower/upower.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/pipewire/pipewire.git'`" ] \
@@ -273,6 +278,9 @@ fi
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/gtk-doc.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ] 
   then
+    ARCHIVE=$(echo $ARCHIVE | sed "s/?signed//")
+    #echo "$ARCHIVE"
+    #exit 1
     cd $HOME/ydfs/src
     # echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
     echo $ARCHIVE | grep 'SKIP' && ARCHIVE=$(echo $ARCHIVE | cut -d' ' -f1)
@@ -294,7 +302,8 @@ fi
     COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
     if [ "$TAG" != "" ]
     then
-	git checkout -q tags/$TAG ||  git checkout -q $TAG # || exit 1
+	echo "Got to TAG $TAG"
+	git checkout -q tags/$TAG 2>/dev/null ||  git checkout -q $TAG || echo "FIXME"  # || exit 1
     fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 

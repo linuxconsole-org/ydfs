@@ -1,6 +1,9 @@
 #!/bin/bash
 donotbuild=('gtk-update-icon-cache' 'gcc-libs' 'sh' 'libsysprof-capture' 'util-linux-libs' 'systemd-libs' 'glibc')
 
+echo "TEST" && sleep 3
+git config --global url."https://bitbucket.org".insteadOf git+https://bitbucket.org
+
 export DIBAB_PREFIX=$HOME
 export SRC_PATH=$PWD
 

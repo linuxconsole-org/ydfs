@@ -61,6 +61,7 @@ case "$FILE" in
    *rpm)  ARCHIVE=RPM;;
  *zip)  ARCHIVE=ZIP;;
    *.tgz)  ARCHIVE=TARGZ;;
+   *.tar.zst)  ARCHIVE=TARZST;;
    *.run)  ARCHIVE=RUN; DIR=`basename $FILE | sed 's/\.[^\.]*$//'`;;
  *)     ;;
 esac
@@ -128,6 +129,35 @@ case "$ARCHIVE" in
     gunzip "$FILE"  
     ;;
   TAR)
+    ;;
+  TARZST)
+    if [ "$CHOICE" = "decompress" ]
+    then
+      if [ -e $PREFIX/$DIR2 ] 
+      then
+        echo "$PREFIX/$DIR2 exists"
+      else
+        echo "tar xvf $FILE --directory=$MYPREFIX" && tar xvf "$FILE" --directory=$MYPREFIX 1> $HOME/ydfs/tmp/tar.$$.log
+        [ ! -e $MYPREFIX/$DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && echo "DIR2 was $DIR2"
+      fi
+    fi
+    if [ "$CHOICE" = "installfromsrc" ]
+    then
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
+      if [ ! -e $DIR2 ]
+      then
+        echo $FILE
+        tar xvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
+      fi
+      # [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " 
+      [ ! -e $DIR2 ] && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) # && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
+      cd $DIR2
+      export DIR2=$DIR2
+      export MYPREFIX=$MYPREFIX
+      export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
+      build_ydfs_package
+    fi
     ;;
   TARGZ)
     if [ "$CHOICE" = "decompress" ]

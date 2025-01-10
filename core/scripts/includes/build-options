@@ -94,7 +94,6 @@ echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep samba-4 &&  LC_CONFIGURE_OPTS="--with-system-mitkrb5 --with-experimental-mit-ad-dc"
 echo $ARCHIVE | grep NetworkManager-strongswan &&  LC_CONFIGURE_OPTS="--disable-static --disable-more-warnings \
     --without-libnm-glib "
-echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep assimp/assimp &&  LC_CONFIGURE_OPTS="-DASSIMP_WARNINGS_AS_ERRORS=OFF"
 echo $ARCHIVE | grep warzone2100 &&  LC_CONFIGURE_OPTS="-DWARNINGS_AS_ERRORS=OFF -DWZ_ENABLE_WARNINGS_AS_ERRORS=OFF"
@@ -105,9 +104,7 @@ echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
     --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
-echo $ARCHIVE | grep session-settings && LC_CONFIGURE_OPTS="-Dsystemd=false "
-echo $ARCHIVE | grep gala &&  LC_CONFIGURE_OPTS="-Dsystemd=false "
-echo $ARCHIVE | grep mutter &&  LC_CONFIGURE_OPTS="-Dsystemd=false -Dcore_tests=false -Dprofiler=false" && wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/xorg-server/trunk/xvfb-run && mv xvfb-run $HOME/$ARCH/bin && chmod +x $HOME/$ARCH/bin/xvfb-run
+echo $ARCHIVE | grep mutter &&  LC_CONFIGURE_OPTS="-Dcore_tests=false -Dprofiler=false" && wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/xorg-server/trunk/xvfb-run && mv xvfb-run $HOME/$ARCH/bin && chmod +x $HOME/$ARCH/bin/xvfb-run
 # echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="-Ddocs=false"
 echo $ARCHIVE | grep gcab &&  LC_CONFIGURE_OPTS="-Ddocs=false"
 # echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="--disable-gtk-doc"
@@ -122,7 +119,7 @@ echo $ARCHIVE | grep mlt-6 &&  LC_CONFIGURE_OPTS="--avformat-swscale \
         --enable-opencv"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep box2d &&  LC_CONFIGURE_OPTS="-DBOX2D_BUILD_UNIT_TESTS=OFF"
-echo $ARCHIVE | grep tracker-miner &&  LC_CONFIGURE_OPTS="-Dminer_rss=false -Dsystemd_user_services=false -Dman=false"
+echo $ARCHIVE | grep tracker-miner &&  LC_CONFIGURE_OPTS="-Dminer_rss=false -Dman=false"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep telepathy-glib &&  LC_CONFIGURE_OPTS=" --enable-vala-bindings "
@@ -139,7 +136,7 @@ echo $ARCHIVE | grep ruby &&  LC_CONFIGURE_OPTS="--enable-shared \
     --disable-rpath \
     --with-dbm-type=gdbm_compat"
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
-echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs --without-systemd"
+echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs "
 echo $ARCHIVE | grep libmtp &&  LC_CONFIGURE_OPTS="--with-udev=$HOME/$ARCH/lib/udev"
 echo $ARCHIVE | grep mm-common &&  LC_CONFIGURE_OPTS="-Duse-network=true"
 echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS="--without-lvm_dbus --without-dmraid -without-gtk-doc  --disable-introspection"
@@ -169,7 +166,7 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
 echo $ARCHIVE | grep gegl-0 &&  LC_CONFIGURE_OPTS="-Ddocs=false "
 echo $ARCHIVE | grep gegl-0 && [ -e $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir ] && [ ! -e $HOME/$ARCH/share/gir-1.0/babl-0.1.gir ] && cp $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir $HOME/$ARCH/share/gir-1.0/babl-0.1.gir
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
-echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Dsystemd_user_services=false -Ddocs=false -Dman=false"
+echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Ddocs=false -Dman=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep librsvg &&  LC_CONFIGURE_OPTS=" --disable-static --enable-vala \
@@ -181,9 +178,9 @@ echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
     -DDISTRIBUTOR='linuxconsole.org'"
 echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
 echo $ARCHIVE | grep cinnamon-desktop &&  LC_CONFIGURE_OPTS="-Dalsa=true"
-echo $ARCHIVE | grep vte-0.7 &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
-echo $ARCHIVE | grep vte.git &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
-echo $ARCHIVE | grep gnome-settings-daemon &&  LC_CONFIGURE_OPTS=" -Dsystemd=false"
+echo $ARCHIVE | grep vte-0.7 &&  LC_CONFIGURE_OPTS="-Dfribidi=false "
+echo $ARCHIVE | grep vte.git &&  LC_CONFIGURE_OPTS="-Dfribidi=false "
+echo $ARCHIVE | grep gnome-settings-daemon &&  LC_CONFIGURE_OPTS=" "
 
 echo $ARCHIVE | grep qpdf && LC_CONFIGURE_OPTS="   --disable-static \
     --enable-crypto-gnutls \
@@ -246,13 +243,12 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
     -D microsoft-clc=disabled \
     " && ln -sf /usr/bin/llvm-config-13 $HOME/$ARCH/bin/llvm-config
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
-        echo $ARCHIVE | grep polkit-12 && LC_CONFIGURE_OPTS="-D systemdsystemunitdir=foo \
+        echo $ARCHIVE | grep polkit-12 && LC_CONFIGURE_OPTS=" \
       -D session_tracking=ConsoleKit "
         echo $ARCHIVE | grep ConsoleKit2 && LC_CONFIGURE_OPTS=" --enable-polkit \
         --enable-pam-module \
         --enable-udev-acl \
         --with-dbus-services=$PREFIX/share/dbus-1/services \
-        --without-systemdsystemunitdir \
         --disable-cgroups "
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
@@ -375,8 +371,8 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
         	--without-keyring"
 	echo $ARCHIVE | grep openldap && LC_CONFIGURE_OPTS="--with-tls=no  --disable-static  --enable-dynamic  --disable-debug "
 	echo $ARCHIVE | grep wayland-1 && LC_CONFIGURE_OPTS="--buildtype=release -Ddocumentation=false"
-	echo $ARCHIVE | grep pulseaudio-1 && LC_CONFIGURE_OPTS="-Dsystemd=disabled -Dudevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d" 
-	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--disable-systemd-login --with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
+	echo $ARCHIVE | grep pulseaudio-1 && LC_CONFIGURE_OPTS=" -Dudevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d" 
+	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
 #	echo $ARCHIVE | grep evince && LC_CONFIGURE_OPTS="--disable-nautilus --without-keyring"
 	echo $ARCHIVE | grep evince && LC_CONFIGURE_OPTS="-D nautilus=false -D keyring=disabled"
 	echo $ARCHIVE | grep mate-dock-applet && LC_CONFIGURE_OPTS="--with-gtk3"
@@ -392,10 +388,8 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep gdb- && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls --with-python=$HOME/$ARCH/bin/python3"
 	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
-	echo $ARCHIVE | grep upower && LC_CONFIGURE_OPTS="-Dsystemdsystemunitdir=no"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
 	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/$MODULE/share/dbus-1/system.d \
-    -D systemdsystemunitdir=no \
     -D nmtui=false \
     -D libaudit=no \
     -D session_tracking_consolekit=false \
@@ -413,7 +407,7 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
     -D more_logging=false \
     -D qt=false \
     -D session_tracking=no \
-    -D systemd_journal=false -D udev_dir=$DIBAB_PREFIX/$MODULE/lib/udev -D dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
+    -D udev_dir=$DIBAB_PREFIX/$MODULE/lib/udev -D dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
 	echo $ARCHIVE | grep NetworkManager-openvpn &&  LC_CONFIGURE_OPTS="--disable-static"
 	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
 	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
@@ -506,7 +500,7 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
 	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
-	echo $ARCHIVE | grep bluez-5 && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
+	echo $ARCHIVE | grep bluez-5 && LC_CONFIGURE_OPTS="--enable-library --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
           --enable-btpclient \
           --enable-midi \
           --enable-sixaxis \
@@ -632,7 +626,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
 	# echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
-	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown --disable-bash-completion"
+	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="   -Dbuild-chfn-chsh=disabled -Dbuild-login=disabled -Dbuild-nologin=disabled -Dbuild-sulogin=disabled -Dbuild-su=disabled -Dbuild-runuser=disabled"
 	#echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
 	#echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
 	#QT5 
@@ -778,7 +772,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
   	# echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
   	# echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
-  	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower --without-systemd "
+  	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs "
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 #	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" "

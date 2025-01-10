@@ -4,7 +4,7 @@ then
   echo $0 needs directory as argument
   exit 1
 fi
-. ./config.ini
+. $HOME/ydfs/config.ini
 cd $HOME/ydfs/packages-$ARCH/$1 || exit $?
 find | while read file 
 do

@@ -249,16 +249,14 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   if [ -e gdm.doap ]
   then
 	set -e
-	sed -i -r '/(^| )systemd_dep/d' meson.build
-	sed 's@systemd@elogind@' -i data/pam-lfs/gdm-launch-environment.pam 
+	//sed -i -r '/(^| )systemd_dep/d' meson.build
+	//sed 's@systemd@elogind@' -i data/pam-lfs/gdm-launch-environment.pam 
 	mkdir build
 	cd build
 	echo "Gdm"
 	PYTHONPATH="" meson --prefix=$PREFIX -Dplymouth=disabled         \
       -Dgdm-xsession=true         \
-      -Dsystemd-journal=false     \
-      -Dsystemdsystemunitdir=/tmp \
-      -Dsystemduserunitdir=/tmp ../
+        ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..
@@ -427,7 +425,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dlibdir=$PREFIX/lib -Dman=false -Dsystemd=false -D libcolordcompat=true \
+	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dlibdir=$PREFIX/lib -Dman=false -D libcolordcompat=true \
     -D sane=true \
     -D vapi=true \
     -D print_profiles=true \
@@ -771,11 +769,11 @@ grep share/Surge src/common/SurgeStorage.cpp
       --localstatedir=$PREFIX/var         \
       -Daudit=false                 \
       -Dblkid=true                 \
+      -Dpamconfdir=no              \
       -Dbuildtype=release          \
       -Ddefault-dnssec=no          \
       -Dfirstboot=false            \
       -Dinstall-tests=false        \
-      -Dkill-path=/bin/kill        \
       -Dkmod-path=/bin/kmod        \
       -Dldconfig=false             \
       -Dmount-path=/bin/mount      \
@@ -1709,19 +1707,8 @@ fi
 
     if [ -e snappy-c.cc ]
 	then
-	install -d $PREFIX/lib/pkgconfig
-
-	echo 'prefix='"$PREFIX"'
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: snappy
-Description: A fast compression/decompression library
-Version: 1.1.4
-Libs: -L${libdir} -lsnappy
-Cflags: -I${includedir}' > $PREFIX/lib/pkgconfig/snappy.pc
-	LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DBUILD_SHARED_LIBS=yes"
+	wget https://gitlab.archlinux.org/archlinux/packaging/packages/snappy/-/raw/main/snappy.pc.in?ref_type=heads -O snappy.pc.in || exit 1
+	LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DBUILD_SHARED_LIBS=ON -DSNAPPY_BUILD_BENCHMARKS=OFF  -DCMAKE_BUILD_TYPE=None  -W no-dev -DCMAKE_CXX_STANDARD=23 "
 	fi
 
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 
@@ -2242,7 +2229,7 @@ ln -sf $PREFIX/bin/2H4U .
 	mkdir build
 	cd build
 	echo "Gvfs"
-	PYTHONPATH="" meson --prefix=$PREFIX -Dlibdir=$PREFIX/lib --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
+	PYTHONPATH="" meson --prefix=$PREFIX -Dlibdir=$PREFIX/lib --sysconfdir=$PREFIX/etc -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..
