@@ -18,7 +18,7 @@ docker-image-64: core/Dockerfile
 	cd core && docker build -f Dockerfile -t ydfs64-${YDFS} .
 	touch docker-image-64
 
-docker-64: docker-image-64
+docker-64: docker-image-64 mkdir
 	docker run -ti --rm --security-opt seccomp=unconfined \
 	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
 	-v "${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH}" \
