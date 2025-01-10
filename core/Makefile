@@ -4,7 +4,7 @@ SUBARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
 				  -e s/sh[234].*/sh/ )
 ARCH		?= $(SUBARCH)
-include ${HOME}/config.ini
+include ${HOME}/ydfs/config.ini
 
 THEMODULENAME1=$(shell echo ${MODULES} | sed -e s/${ARCH}//g -e s/drivers-// -e s/firmware-// )
 THEMODULENAME = $(subst -, ,$(THEMODULENAME1))
@@ -132,7 +132,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: ${HOME}/config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
+isodep: ${HOME}/ydfs/config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}
@@ -155,7 +155,7 @@ ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/
 
 linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
 
-${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: ${HOME}/config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
+${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: ${HOME}/ydfs/config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
 	./scripts/make_initramfs
 
 initramfs: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}
@@ -173,10 +173,10 @@ iso: isodep wineprogs ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${HOME}/config.ini #  ${LCMBUILD}
+${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${HOME}/ydfs/config.ini #  ${LCMBUILD}
 	./scripts/make_iso
 
-${HOME}/config.ini:
+${HOME}/ydfs/config.ini:
 	@echo ARCH IS ${SUBARCH}
 	./scripts/make_config_ini
 live-test:
@@ -456,4 +456,4 @@ ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
 
 archive:
 	cd ..
-	tar czvf linuxconsole-2.4.tar.gz --exclude config.ini --exclude .git 2.4
+	tar czvf linuxconsole-2.4.tar.gz --exclude ydfs/config.ini --exclude .git 2.4

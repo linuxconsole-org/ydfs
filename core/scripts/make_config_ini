@@ -2,7 +2,7 @@
 #ce script est lancé par ?
 # commande echo pour créer le fichier
 
-CONFIGINI=$HOME/config.ini
+CONFIGINI=$HOME/ydfs/config.ini
 
 echo '
 KERNEL_PREFIX=k
