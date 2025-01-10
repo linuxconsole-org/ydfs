@@ -1,2 +1,1 @@
-* move release to branch name
 * build image from new Dockerfile using trixie 

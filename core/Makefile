@@ -173,6 +173,7 @@ ${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs
 	./scripts/make_iso
 
 config.ini:
+	@echo ARCH IS ${SUBARCH}
 	./scripts/make_config_ini
 live-test:
 	./scripts/make_live_test

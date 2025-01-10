@@ -149,7 +149,7 @@ LIST2=$SRC_PATH/list-$LIST
 [ -n "$1" ] && [ -e $SRC_PATH/list-$1 ] && LIST2=$SRC_PATH/list-$1
 
 [ -e $HOME/ydfs-error ] && rm $HOME/ydfs-error
-
+echo $HOME_DIBAB/scripts/first-env
 $HOME_DIBAB/scripts/first-env
 
 readarray -t PACKAGE < $LIST2 || exit $?
