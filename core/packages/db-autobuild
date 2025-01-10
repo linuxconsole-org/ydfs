@@ -357,7 +357,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e ryzom/ryzom ] && cd ryzom
   export SHELL=/bin/bash
   [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
-  [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
+  # [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
   
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
   [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -1709,7 +1709,7 @@ fi
     if [ -e snappy-c.cc ]
 	then
 	wget https://gitlab.archlinux.org/archlinux/packaging/packages/snappy/-/raw/main/snappy.pc.in?ref_type=heads -O snappy.pc.in || exit 1
-	LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DBUILD_SHARED_LIBS=ON -DSNAPPY_BUILD_BENCHMARKS=OFF  -DCMAKE_BUILD_TYPE=None  -W no-dev -DCMAKE_CXX_STANDARD=23 "
+	LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSNAPPY_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON -DSNAPPY_BUILD_BENCHMARKS=OFF  -DCMAKE_BUILD_TYPE=None  -W no-dev -DCMAKE_CXX_STANDARD=23 "
 	fi
 
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 

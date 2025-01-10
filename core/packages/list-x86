@@ -6,7 +6,7 @@ http://ftp.gnu.org/gnu/gdbm/gdbm-1.24.tar.gz
 archlinux:jsoncpp
 archlinux:abseil-cpp
 archlinux:re2
-#archlinux:snappy
+archlinux:snappy
 #archlinux:gmp
 archlinux:pkg-config
 archlinux:gzip
@@ -829,7 +829,6 @@ http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
 https://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.11/lp_solve_5.5.2.11_source.tar.gz
 https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
-https://github.com/google/googletest/archive/release-1.11.0.tar.gz
 https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
 https://movit.sesse.net/movit-1.6.2.tar.gz
 #Gtkmm For Ardour
