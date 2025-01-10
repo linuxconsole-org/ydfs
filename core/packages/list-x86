@@ -35,9 +35,12 @@ archlinux:zerofree
 archlinux:nasm
 archlinux:zlib
 archlinux:openexr
-https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
-https://github.com/maxmind/geoip-api-c/archive/v1.6.12.tar.gz
-http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.6-src.tar.gz
+#https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
+archlinux:opus
+#https://github.com/maxmind/geoip-api-c/archive/v1.6.12.tar.gz
+archlinux:geoip-api-c
+#http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.6-src.tar.gz
+archlinux:tcl
 https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 https://download.savannah.gnu.org/releases/lzip/lzip-1.20.tar.gz
 git://github.com/plougher/squashfs-tools#tag=4.5
