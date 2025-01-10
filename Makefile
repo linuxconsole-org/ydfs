@@ -6,6 +6,10 @@ ARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/sh[234].*/sh/ )
 
 all: docker-64
+
+clean:
+	rm -fR ${HOME}/ydfs
+	rm -fR ${HOME}/${ARCH}
 mkdir:
 	@echo mkdir
 	install -d ${HOME}/ydfs
@@ -25,6 +29,7 @@ docker-64: docker-image-64 mkdir
 	-v "${PWD}:/ydfs-src" \
 	-w="/ydfs-src" \
 	-e "HOME_DIBAB=/ydfs-src/core" \
+	-e "SEND_BUILD_LOG=YES" \
 	ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 bash: mkdir
