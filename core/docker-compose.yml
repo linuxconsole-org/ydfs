@@ -3,7 +3,7 @@ services:
     linuxconsole64-2024-fast:
         image: yledoare/ydfs-2.10
         volumes:
-            - $HOME/iso:/home/linuxconsole2024/iso
+            - $HOME/iso:/home/linuxconsole2025/iso
         environment:
             BUILDYDFS: "fast"
             SLEEPTIME: 1

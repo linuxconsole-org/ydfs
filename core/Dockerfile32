@@ -26,7 +26,7 @@ ENV LANG fr_FR.utf8
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN useradd linuxconsole2024 --create-home
+RUN useradd linuxconsole2025 --create-home
 COPY build-lc2024 /build-lc2024
 
 RUN apt-get update && apt-get install -y  apt-utils
@@ -43,5 +43,5 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 
-USER linuxconsole2024
+USER linuxconsole2025
 CMD /build-lc2024
