@@ -21,6 +21,7 @@ git config --global url."https://git.kernel.org".insteadOf git+https://git.kerne
 git config --global url."https://gitlab.gnome.org".insteadOf git+https://gitlab.gnome.org
 git config --global url."https://git.savannah.gnu.org".insteadOf git+https://git.savannah.gnu.org
 git config --global url."https://sourceware.org".insteadOf git+https://sourceware.org
+git config --global url."https://gitlab.freedesktop.org".insteadOf  git+https://gitlab.freedesktop.org
 # git config --global url."https://github.com".insteadOf ncurses::git+https://github.com
 
 echo $SRC_PATH/list-$1
@@ -284,6 +285,7 @@ fi
     ARCHIVE=$(echo $ARCHIVE | sed "s/?signed//")
     ARCHIVE=$(echo $ARCHIVE | sed "s/ncurses::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/expat::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/git+https/https/")
     #echo "$ARCHIVE"
     #exit 1
     cd $HOME/ydfs/src
@@ -402,7 +404,7 @@ fi
 #  echo $ARCHIVE | grep net-snmp && export LDFLAGS="$LDFLAGS -lnl" 
   echo $ARCHIVE | grep fftw && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
   echo $ARCHIVE | grep json-c && export CFLAGS="$CFLAGS -Wno-error"
-  echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+#  echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
   echo $ARCHIVE | grep foomatic-db-engine && export LIBDIR=$DIBAB_PREFIX/$MODULE/share/foomatic 
   echo $ARCHIVE | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gtk+-2.24.9/gdk/.libs/"
   echo $ARCHIVE | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS" 

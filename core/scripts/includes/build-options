@@ -19,6 +19,11 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
     -DCMAKE_BUILD_TYPE=Release "
 
+echo $ARCHIVE | grep jasper &&  LC_CONFIGURE_OPTS=" -D CMAKE_INSTALL_PREFIX=/usr    \
+      -D CMAKE_BUILD_TYPE=Release     \
+      -D CMAKE_SKIP_INSTALL_RPATH=ON  \
+      -D JAS_ENABLE_DOC=NO            \
+      -D ALLOW_IN_SOURCE_BUILD=YES  "
 echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"

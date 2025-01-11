@@ -326,7 +326,10 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
         touch buildok-$ARCH
         exit 0
   fi    
+  [ -e src/libbluray.pc.in ] && ./bootstrap
+  [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
+  [ -e fontconfig.pc.in ] && rm autogen.sh
   pwd | grep mesa-demos && rm configure
 
   pwd | grep jxrlib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
@@ -1724,8 +1727,14 @@ fi
 
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 
       export SDL2DIR=$HOME/$ARCH
-      install -d build
-      cd build
+      if [ -e src/libjasper ]
+      then
+        install -d build-jasper
+        cd build-jasper
+      else
+        install -d build
+        cd build
+      fi
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
 CMAKEOPTIONS="-DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
 	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
