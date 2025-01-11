@@ -72,9 +72,9 @@ archlinux:pixman
 https://ftp.gnu.org/gnu/cpio/cpio-2.15.tar.bz2
 archlinux:miniupnpc
 archlinux:libunistring
-#STOP
 archlinux:elfutils
-archlinux:libexpat
+#STOP
+archlinux:expat
 archlinux:perl
 archlinux:openssl
 archlinux:libidl

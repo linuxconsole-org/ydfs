@@ -283,6 +283,7 @@ fi
   then
     ARCHIVE=$(echo $ARCHIVE | sed "s/?signed//")
     ARCHIVE=$(echo $ARCHIVE | sed "s/ncurses::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/expat::git+https/https/")
     #echo "$ARCHIVE"
     #exit 1
     cd $HOME/ydfs/src
