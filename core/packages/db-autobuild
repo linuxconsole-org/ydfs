@@ -759,37 +759,39 @@ grep share/Surge src/common/SurgeStorage.cpp
   if [ -e src/systemd/sd-event.h ] && [ ! -e man/elogind.xml ]
   then
 	echo "Build systemd"
-	# [ ! -e systemd-239-glibc_statx_fix-1.patch ] && wget http://www.linuxfromscratch.org/patches/blfs/svn/systemd-239-glibc_statx_fix-1.patch && patch -Np1 -i systemd-239-glibc_statx_fix-1.patch
 	rm -fR build
 	mkdir -p build
 	cd       build
 	CXX="g++" CPPFLAGS=" -DWstringop-truncation -I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
-	PYTHONPATH="" meson        \
-      -Drc-local=$PREFIX/etc/rc.local  \
-      -Dsysvinit-path=$PREFIX/etc/init.d  \
-      -Dsysvinit-path=$PREFIX/etc  \
-      -Daudit=false                \
-      -Dblkid=true                 \
-      -Dpamconfdir=no              \
-      -Dbuildtype=release          \
-      -Ddefault-dnssec=no          \
-      -Dfirstboot=false            \
-      -Dinstall-tests=false        \
-      -Dkmod-path=/bin/kmod        \
-      -Dldconfig=false             \
-      -Dmount-path=/bin/mount      \
-      -Drootprefix=                \
-      -Drootlibdir=/lib            \
-      -Dsplit-usr=true             \
-      -Dsulogin-path=/sbin/sulogin \
-      -Dsysusers=false             \
-      -Dumount-path=/bin/umount    \
-      -Db_lto=false                \
+	PYTHONPATH="" meson   \
+      --prefix=$PREFIX        \
+      --buildtype=release     \
+      -D default-dnssec=no    \
+      -D firstboot=false      \
+      -D install-tests=false  \
+      -D ldconfig=false       \
+      -D sysusers=false       \
+      -D rpmmacrosdir=no      \
+      -D homed=disabled       \
+      -D userdb=false         \
+      -D man=disabled         \
+      -D mode=release         \
+      -D pamconfdir=no        \
+      -D dev-kvm-mode=0660    \
+      -D nobody-group=nogroup \
+      -D sysupdate=disabled   \
+      -D ukify=disabled       \
+      -D docdir=$PREFIX/share/doc/systemd
       ..
 	LANG=en_US.UTF-8 PYTHONPATH="" ninja -v  || exit 1
-	DESTDIR="$HOME/systemd" PYTHONPATH="" ninja install || exit 1 
+	DESTDIR="$HOME/ydfs/packages-$ARCH/systemd" PYTHONPATH="" ninja install || exit 1 
 	cd ..
+	echo "Copy $HOME/ydfs/packages-$ARCH/systemd/$HOME/$ARCH to $PREFIX"
+	cp -a $HOME/ydfs/packages-$ARCH/systemd/$HOME/$ARCH/* $PREFIX
+	sed -i -e "s|systemdsystemunitdir=${rootprefix}/lib/systemd/system|systemdsystemunitdir=${prefix}/lib/systemd/system|" $PREFIX/share/pkgconfig/systemd.pc
+
 	touch buildok-$ARCH
+	exit 0
   fi
 
   if [ -e libtommath.pc.in ]

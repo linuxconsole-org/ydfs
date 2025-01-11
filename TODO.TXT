@@ -1,1 +1,0 @@
-* build image from new Dockerfile using trixie 

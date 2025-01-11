@@ -32,6 +32,16 @@ docker-64: docker-image-64 mkdir
 	-e "SEND_BUILD_LOG=YES" \
 	ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
+uninstall:
+	docker run -ti --rm --security-opt seccomp=unconfined \
+	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
+	-v "${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH}" \
+	-v "${PWD}:/ydfs-src" \
+	-w="/ydfs-src" \
+	-e "HOME_DIBAB=/ydfs-src/core" \
+	-e "SEND_BUILD_LOG=YES" \
+	ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package systemd'
+
 bash: mkdir
 	docker run -ti --rm --security-opt seccomp=unconfined \
 	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
