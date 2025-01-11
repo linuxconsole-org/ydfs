@@ -63,13 +63,14 @@ archlinux:libseccomp
 archlinux:intltool
 archlinux:libzip
 archlinux:gettext
-#STOP
 archlinux:icu
 archlinux:gobject-introspection
 archlinux:babl
 archlinux:json-glib
 archlinux:pixman
-archlinux:cpio
+#STOP
+#archlinux:cpio
+https://ftp.gnu.org/gnu/cpio/cpio-2.15.tar.bz2
 archlinux:miniupnpc
 archlinux:libunistring
 archlinux:elfutils

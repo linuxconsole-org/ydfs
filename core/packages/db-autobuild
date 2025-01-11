@@ -154,6 +154,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
      sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/id3tag.pc
   fi
 
+  [ -e src/cpio.h ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e libarchive ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   # [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
   if [ -e source/zita-resampler ]
@@ -1930,6 +1931,7 @@ libconsolekit/libconsolekit.c \
 nm-l2tp-service.name.in \
 neon.pc.in \
 asciidoc.py \
+src/cpio.h \
 libbonobo-zip.in \
 src/node.cc \
 data/blueman-adapters.desktop.in \
