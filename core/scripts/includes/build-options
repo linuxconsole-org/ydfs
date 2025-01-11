@@ -100,7 +100,7 @@ echo $ARCHIVE | grep assimp/assimp &&  LC_CONFIGURE_OPTS="-DASSIMP_WARNINGS_AS_E
 echo $ARCHIVE | grep warzone2100 &&  LC_CONFIGURE_OPTS="-DWARNINGS_AS_ERRORS=OFF -DWZ_ENABLE_WARNINGS_AS_ERRORS=OFF"
 echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS=" --disable-static \
     --enable-threading"
-echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS="--disable-libdebuginfod --enable-libdebuginfod=dummy --disable-debuginfod"
+echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS='    --program-prefix="eu-"     --enable-deterministic-archives     --enable-maintainer-mode'
 echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
     --enable-lib-only"
