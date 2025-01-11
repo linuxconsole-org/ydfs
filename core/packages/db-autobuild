@@ -571,6 +571,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	exit 0
   fi
 
+  [ -e gobject-introspection.doap ] &&  git submodule update --init --recursive
+
   if [ -e glib.doap ] && [ -e .git ]
   then
     echo "Git submodule init for glib.doap"

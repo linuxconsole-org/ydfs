@@ -56,7 +56,6 @@ archlinux:libarchive
 archlinux:libgpg-error
 archlinux:libksba
 archlinux:libassuan
-#STOP
 archlinux:libgcrypt
 archlinux:gnupg
 archlinux:gpgme
@@ -64,7 +63,8 @@ archlinux:libseccomp
 archlinux:intltool
 archlinux:libzip
 archlinux:gettext
-archlinux:icu4c
+#STOP
+archlinux:icu
 archlinux:gobject-introspection
 archlinux:babl
 archlinux:json-glib
