@@ -9,6 +9,7 @@ ARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 DOCKER=docker run -ti --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/ydfs:/home/linuxconsole2025/ydfs \
 	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
+	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	-e HOME_DIBAB=/ydfs-src/core \
@@ -22,9 +23,11 @@ clean:
 mkdir:
 	@echo mkdir
 	install -d ${HOME}/ydfs
+	install -d ${HOME}/archpkg
 	install -d ${HOME}/${ARCH}
 	@echo $(YDFS) > ydfs
 	chmod 777 ${HOME}/ydfs
+	chmod 777 ${HOME}/archpkg
 	chmod 777 ${HOME}/${ARCH}
 
 docker-image-64: core/Dockerfile
@@ -42,6 +45,9 @@ uninstall:
 
 bash: mkdir
 	${DOCKER} ydfs64-${YDFS} bash
+
+root: mkdir
+	${DOCKER} -u root ydfs64-${YDFS} bash
 
 fast-64: mkdir
 	docker run -ti --rm --security-opt seccomp=unconfined \

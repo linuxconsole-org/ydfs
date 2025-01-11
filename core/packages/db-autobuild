@@ -154,6 +154,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
      sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/id3tag.pc
   fi
 
+  [ -e libcurl.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e src/cpio.h ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e libarchive ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e libelf ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
@@ -293,7 +294,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   fi
   [ -e libuv.pc.in ] && rm ./autogen.sh
 
-  [ -e "json-c.pc.in" ] && echo " json-c.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
+#  [ -e "json-c.pc.in" ] && echo " json-c.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   if [ -e "wx-config.in" ]
   then
     	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh || exit 1
@@ -326,6 +327,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
         touch buildok-$ARCH
         exit 0
   fi    
+  [ -e libpcap.pc.in ] && rm CMakeLists.txt
   [ -e src/libbluray.pc.in ] && ./bootstrap
   [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
@@ -1692,7 +1694,6 @@ fi
  && [ ! -e expat.pc.in ] \
  && [ ! -e wavpack.pc.in ] \
  && [ ! -e src/gd.h ] \
- && [ ! -e json-c.pc.in ] \
  && [ ! -e zlib.pc.in ] \
  && [ ! -e sdl2.pc.in ] \
  && [ ! -e include/AL/alut.h ] \
@@ -1919,7 +1920,6 @@ Cflags: -I${includedir}' > glm.pc
   exit 0
 
   fi
-
   if [ -e src/backend/utils/misc/postgresql.conf.sample ]
   then
     echo "cp src/backend/storage/lmgr/lwlocknames.h" && install -d $HOME/$ARCH/include/storage && cp src/backend/storage/lmgr/lwlocknames.h $HOME/$ARCH/include/storage && sleep 5

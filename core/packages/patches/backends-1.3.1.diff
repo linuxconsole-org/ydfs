@@ -1,0 +1,20 @@
+diff --git a/configure.ac b/configure.ac
+index ddb52b9..7b99d77 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -77,7 +77,6 @@ dnl ***********************************************************************
+ dnl set compiler/linker flags
+ dnl ***********************************************************************
+ SANE_SET_AM_CFLAGS([$is_release])
+-AX_CXX_COMPILE_STDCXX_11([noext], [optional])
+ SANE_SET_AM_LDFLAGS
+ 
+ dnl ***********************************************************************
+@@ -86,7 +85,6 @@ dnl ***********************************************************************
+ AC_SEARCH_LIBS([strerror],[cposix])
+ 
+ AC_NEED_BYTEORDER_H([include/byteorder.h])
+-AX_CREATE_STDINT_H([include/_stdint.h])
+ 
+ dnl ***********************************************************************
+ dnl Checks for libraries

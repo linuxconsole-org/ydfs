@@ -403,7 +403,7 @@ fi
   echo $ARCHIVE | grep lzo-2 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
 #  echo $ARCHIVE | grep net-snmp && export LDFLAGS="$LDFLAGS -lnl" 
   echo $ARCHIVE | grep fftw && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
-  echo $ARCHIVE | grep json-c && export CFLAGS="$CFLAGS -Wno-error"
+#  echo $ARCHIVE | grep json-c && export CFLAGS="$CFLAGS -Wno-error"
 #  echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
   echo $ARCHIVE | grep foomatic-db-engine && export LIBDIR=$DIBAB_PREFIX/$MODULE/share/foomatic 
   echo $ARCHIVE | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gtk+-2.24.9/gdk/.libs/"

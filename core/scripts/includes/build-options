@@ -1,4 +1,4 @@
-#echo -n " Looking for a build option for $ARCHIVE in $0 "
+echo -n " Looking for a build option for $ARCHIVE in $0 "
 echo $ARCHIVE | grep mozjs && . $HOME/ydfs/firstenv 
 # echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
@@ -24,6 +24,9 @@ echo $ARCHIVE | grep jasper &&  LC_CONFIGURE_OPTS=" -D CMAKE_INSTALL_PREFIX=/usr
       -D CMAKE_SKIP_INSTALL_RPATH=ON  \
       -D JAS_ENABLE_DOC=NO            \
       -D ALLOW_IN_SOURCE_BUILD=YES  "
+echo $ARCHIVE | grep sane-project/backends &&  LC_CONFIGURE_OPTS="    --disable-locking     --disable-rpath     --enable-pthread     --with-avahi     --with-libcurl     --with-pic     --with-poppler-glib     --with-systemd     --with-usb "
+echo $ARCHIVE | grep libpcap &&  LC_CONFIGURE_OPTS="      --enable-ipv6     --enable-bluetooth     --enable-usb  --with-libnl "
+echo $ARCHIVE | grep kmod &&  LC_CONFIGURE_OPTS="   --disable-manpages "
 echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
@@ -103,8 +106,7 @@ echo $ARCHIVE | grep NetworkManager-strongswan &&  LC_CONFIGURE_OPTS="--disable-
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep assimp/assimp &&  LC_CONFIGURE_OPTS="-DASSIMP_WARNINGS_AS_ERRORS=OFF"
 echo $ARCHIVE | grep warzone2100 &&  LC_CONFIGURE_OPTS="-DWARNINGS_AS_ERRORS=OFF -DWZ_ENABLE_WARNINGS_AS_ERRORS=OFF"
-echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS=" --disable-static \
-    --enable-threading"
+echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS="  -DBUILD_STATIC_LIBS=OFF     -DENABLE_THREADING=ON     -DENABLE_RDRAND=OFF"
 echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS='    --program-prefix="eu-"     --enable-deterministic-archives     --enable-maintainer-mode'
 echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
@@ -634,6 +636,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
 	# echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
+	echo $ARCHIVE | grep curl-8 && LC_CONFIGURE_OPTS=" --disable-ldap     --disable-ldaps     --disable-manual     --enable-ipv6     --enable-threaded-resolver     --enable-websockets     --with-gssapi     --with-libssh2  --disable-versioned-symbols  --with-gnutls  --without-openssl"
 	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="   -Dbuild-chfn-chsh=disabled -Dbuild-login=disabled -Dbuild-nologin=disabled -Dbuild-sulogin=disabled -Dbuild-su=disabled -Dbuild-runuser=disabled"
 	#echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
 	#echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
