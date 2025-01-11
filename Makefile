@@ -5,6 +5,15 @@ ARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
 				  -e s/sh[234].*/sh/ )
 
+
+DOCKER=docker run -ti --rm --security-opt seccomp=unconfined \
+	-v ${HOME}/ydfs:/home/linuxconsole2025/ydfs \
+	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
+	-v ${PWD}:/ydfs-src \
+	-w=/ydfs-src \
+	-e HOME_DIBAB=/ydfs-src/core \
+	-e SEND_BUILD_LOG=YES
+
 all: docker-64
 
 clean:
@@ -23,34 +32,19 @@ docker-image-64: core/Dockerfile
 	touch docker-image-64
 
 docker-64: docker-image-64 mkdir
-	docker run -ti --rm --security-opt seccomp=unconfined \
-	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
-	-v "${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH}" \
-	-v "${PWD}:/ydfs-src" \
-	-w="/ydfs-src" \
-	-e "HOME_DIBAB=/ydfs-src/core" \
-	-e "SEND_BUILD_LOG=YES" \
-	ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+
+buildme:
+	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 uninstall:
-	docker run -ti --rm --security-opt seccomp=unconfined \
-	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
-	-v "${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH}" \
-	-v "${PWD}:/ydfs-src" \
-	-w="/ydfs-src" \
-	-e "HOME_DIBAB=/ydfs-src/core" \
-	-e "SEND_BUILD_LOG=YES" \
-	ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package systemd'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package systemd'
 
 bash: mkdir
+	${DOCKER} ydfs64-${YDFS} bash
+
+fast-64: mkdir
 	docker run -ti --rm --security-opt seccomp=unconfined \
-	-v "${HOME}/ydfs:/home/linuxconsole2025/ydfs" \
-	-v "${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH}" \
-	-v "${PWD}:/ydfs-src" \
-	-w="/ydfs-src" \
-	-e "HOME_DIBAB=/ydfs-src/core" \
-	ydfs64-${YDFS} bash
+	${DOCKER} ydfs64-${YDFS} -e "BUILDYDFS=fast" /bin/sh -c 'cd core; make iso'
+
 #	--user $(shell id -u):$(shell id -g) \
-#fast-64: mkdir
-#	docker run -ti --rm --security-opt seccomp=unconfined \
-	-e "BUILDYDFS=fast" \
