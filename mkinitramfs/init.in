@@ -57,7 +57,7 @@ parse_cmdline() {
 mount_root() {
 	newroot=$1
 	if [ ! "$device" ]; then
-		echo "device not scpecified!"
+		echo "$device device not scpecified!"
 		shell
 	fi
 	if ! mount -n ${rootfstype:+-t $rootfstype} -o ${rwopt:-ro}${rootflags:+,$rootflags} "$device" "$newroot" ; then
