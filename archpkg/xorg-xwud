@@ -1,0 +1,29 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xwud
+pkgver=1.0.7
+pkgrel=1
+pkgdesc="X Window System image undumping utility"
+arch=('x86_64')
+url="https://xorg.freedesktop.org/"
+license=('MIT')
+depends=('libx11' 'glibc')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xwud-${pkgver}.tar.xz{,.sig})
+sha512sums=('3c910fc170f6f6373d426aa5532bd3ede6d83efab06a77c3a43a92aa9cfae9a5324d5a6ca1dfcc8941be6895b6769b3a7beee8081815000b57f93aa1b4e7c420'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+
+build() {
+  cd xwud-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xwud-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

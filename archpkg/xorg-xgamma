@@ -1,0 +1,29 @@
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xgamma
+pkgver=1.0.7
+pkgrel=2
+pkgdesc="Alter a monitor's gamma correction"
+arch=('x86_64')
+url="https://xorg.freedesktop.org/"
+license=('custom')
+depends=('libx11' 'libxxf86vm')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xgamma-${pkgver}.tar.xz{,.sig})
+sha512sums=('9eeee9b537dcae9e4d153774eb632a6a5e8dd32bebadc9bbd897a773e5b56f76848f32a1699b8c921d3094760c42b5083365d853b89ab31fd85c7a0d46feeceb'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd xgamma-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xgamma-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

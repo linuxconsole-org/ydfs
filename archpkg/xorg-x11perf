@@ -1,0 +1,30 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-x11perf
+pkgver=1.7.0
+pkgrel=1
+pkgdesc="Simple X server performance benchmarker"
+arch=(x86_64)
+url="https://gitlab.freedesktop.org/xorg/test/x11perf"
+license=('SMLNJ' 'HPND')
+depends=('libx11' 'libxmu' 'libxrender' 'libxft' 'libxext' 'fontconfig' 'sh' 'glibc')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/test/x11perf-${pkgver}.tar.xz{,.sig})
+sha512sums=('de8185bfbac15fb5eb15c18ba8450d8e383e1356675e0368c9a443d4c2d14245fab87ac0aa4ddcc5ebf731af0ad1173f53c6937104c1be824bfda5b58112fd5e'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd x11perf-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd x11perf-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

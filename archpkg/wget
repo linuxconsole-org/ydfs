@@ -1,0 +1,58 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgname=wget
+pkgver=1.25.0
+pkgrel=1
+pkgdesc='Network utility to retrieve files from the Web'
+url='https://www.gnu.org/software/wget/wget.html'
+arch=('x86_64')
+license=('GPL3')
+depends=('glibc' 'zlib' 'gnutls' 'libidn2' 'libidn2.so' 'util-linux-libs' 'libuuid.so'
+         'libpsl' 'libpsl.so' 'pcre2' 'nettle' 'libnettle.so')
+checkdepends=('perl-http-daemon' 'perl-io-socket-ssl' 'python')
+optdepends=('ca-certificates: HTTPS downloads')
+backup=('etc/wgetrc')
+source=(https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.lz{,.sig})
+sha256sums=('19225cc756b0a088fc81148dc6a40a0c8f329af7fd8483f1c7b2fe50f4e08a1f'
+            'SKIP')
+b2sums=('58edd7393b5109804d7a6ce77466d30e1fba3c5ae4b5b8634758c9ebd7fa95cf106d35ad0b4f9151833d88b0221fc488a1005ec0b98417766bf2092309744954'
+        'SKIP')
+validpgpkeys=(
+  'AC404C1C0BF735C63FF4D562263D6DF2E163E1EA' # Giuseppe Scrivano <gscrivano@gnu.org>
+  '7845120B07CBD8D6ECE5FF2B2A1743EDA91A35B6' # Darshit Shah <darnir@gnu.org>
+  '1CB27DBC98614B2D5841646D08302DB6A2670428' # Tim Rühsen <tim.ruehsen@gmx.de>
+)
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cat >> doc/sample.wgetrc <<EOF
+
+# default root certs location
+ca_certificate=/etc/ssl/certs/ca-certificates.crt
+EOF
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --disable-rpath \
+    --enable-nls \
+    --with-ssl=gnutls
+  make
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  make check < /dev/null
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install
+}
+
+# vim: ts=2 sw=2 et:

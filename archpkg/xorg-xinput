@@ -1,0 +1,30 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xinput
+pkgver=1.6.4
+pkgrel=2
+pkgdesc="Small commandline tool to configure devices"
+arch=(x86_64)
+url="https://xorg.freedesktop.org/"
+license=('custom')
+depends=('libx11' 'libxi>=1.5.99.2' 'xorg-xrandr' 'libxinerama')
+makedepends=('xorg-util-macros' 'xorgproto' 'libxfixes')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xinput-${pkgver}.tar.xz{,.sig})
+sha512sums=('6734860852715e5cb9d26259a173e42413fc037546ed7fa4173ffa802c2619ee0322bed228a28cd1911be759d860070867d9b89b115f37323cca1c9ef75354b9'
+            'SKIP')
+validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF') # "Peter Hutterer (Who-T) <office@who-t.net>"
+
+build() {
+  cd xinput-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xinput-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

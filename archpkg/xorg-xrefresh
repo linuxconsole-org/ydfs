@@ -1,0 +1,29 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xrefresh
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Refresh all or part of an X screen"
+arch=('x86_64')
+url="https://gitlab.freedesktop.org/xorg/app/xrefresh"
+license=('MIT')
+depends=('libx11' 'glibc')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xrefresh-${pkgver}.tar.xz{,.sig})
+sha512sums=('d46988c0423c3c6efb21a2eec0df427934d041afa6dcbbfd33f2dff19bf5e077baf10bd96780d98326d3a3e34cbf5824da822b6cb0091873cc1baade0aa05c26'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+
+build() {
+  cd xrefresh-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xrefresh-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

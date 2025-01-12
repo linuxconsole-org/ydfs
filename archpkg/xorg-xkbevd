@@ -1,0 +1,30 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xkbevd
+pkgver=1.1.6
+pkgrel=1
+pkgdesc="XKB event daemon"
+arch=('x86_64')
+url="https://xorg.freedesktop.org/"
+license=('LicenseRef-xkbevd')
+depends=('libxkbfile' 'libx11' 'glibc')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(${url}/releases/individual/app/xkbevd-${pkgver}.tar.xz{,.sig})
+sha512sums=('5120909376d11c1b153198ba887c1af8c0398f2a7ded8ec85402418f9837730cc4ca689773f326f4f74dc348942644ab0159bd2c973de0007d21a4f14731ac1a'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd xkbevd-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xkbevd-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

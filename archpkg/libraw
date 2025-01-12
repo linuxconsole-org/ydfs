@@ -1,0 +1,40 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Joeny Ang <ang(dot)joeny(at)gmail(dot)com>
+# Contributor: Brad Fanella <bradfanella@archlinux.us>
+
+pkgname=libraw
+pkgver=0.21.3
+pkgrel=1
+pkgdesc='A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)'
+arch=(x86_64)
+url='https://www.libraw.org/'
+license=(CDDL-1.0
+         LGPL-2.1-only)
+depends=(gcc-libs
+         glibc
+         jasper
+         lcms2
+         libjpeg-turbo
+         zlib)
+makedepends=(git)
+source=(git+https://github.com/LibRaw/LibRaw#tag=$pkgver)
+sha256sums=('e8f8177726d8444e15fede8e5c25514833ad191401d5396b0b5af64971b9c76f')
+
+prepare() {
+  cd LibRaw
+  autoreconf -vi
+}
+
+build() {
+  cd LibRaw
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd LibRaw
+  make DESTDIR="$pkgdir" install
+}

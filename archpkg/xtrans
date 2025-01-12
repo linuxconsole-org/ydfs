@@ -1,0 +1,32 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xtrans
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="X transport library"
+arch=('any')
+license=('HPND'
+         'HPND-sell-variant'
+         'MIT'
+         'MIT-open-group'
+         'X11')
+url="https://xorg.freedesktop.org/"
+options=(!emptydirs)
+source=(${url}/releases/individual/lib/${pkgname}-${pkgver}.tar.xz{,.sig})
+sha512sums=('4c4909402cb7df0d69bf2801722de822f7e376d585ff5aa8db8f88be77ed7fb7dfbdc410827069fc5041327e81afeb9d403c6c92e5c1e02d593c829ef6c37536'
+            'SKIP')
+#validpgpkeys=('C383B778255613DFDB409D91DB221A6900000011') #  "Keith Packard <keithp@keithp.com>"
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure --prefix=/usr 
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

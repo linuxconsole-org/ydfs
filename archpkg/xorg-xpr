@@ -1,0 +1,29 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xpr
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="Print an X window dump from xwd"
+arch=(x86_64)
+url="https://gitlab.freedesktop.org/xorg/app/xpr"
+license=('MIT')
+depends=('libx11' 'libxmu' 'glibc' 'sh')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xpr-${pkgver}.tar.xz{,.sig})
+sha512sums=('49538a757aa60e754ecd39273510a6e49ebb77b730be62e3fa60f00261c9c1e208d39e1ca3c61889a5ad7fc7c2255fa1f669fd19ecf98e18cb8aa9189cadc15d'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+
+build() {
+  cd xpr-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xpr-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

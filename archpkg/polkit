@@ -1,0 +1,67 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=polkit
+pkgver=125
+pkgrel=1
+pkgdesc="Application development toolkit for controlling system-wide privileges"
+url="https://github.com/polkit-org/polkit"
+arch=(x86_64)
+license=(LGPL-2.0-or-later)
+depends=(
+  duktape
+  expat
+  glib2
+  glibc
+  pam
+  systemd-libs
+)
+makedepends=(
+  dbus
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  meson
+  systemd
+)
+checkdepends=(python-dbusmock)
+provides=(libpolkit-{agent,gobject}-1.so)
+install=polkit.install
+source=(
+  "git+$url#tag=$pkgver"
+  0001-meson-Pass-polkitd_uid-to-meson_post_install.py.patch
+)
+b2sums=('3a3d10173937bd7d869e1125878bec0b6f6ac565ffea7bbf61a05634cfbe85471dc62386825a201915c03c48cbcda277704011ec760a283e5b9663ad49cf0237'
+        '14ba77b12255519008a045706d9c6a06b8f4a5a091b980030b3e216908ac7485c5c70b26a4008d15df7b2c374eaf9dde31c8ba480a6cb1601effbb4b6d6c023b')
+
+prepare() {
+  cd polkit
+  git apply -3 ../0001-meson-Pass-polkitd_uid-to-meson_post_install.py.patch
+}
+
+build() {
+  local meson_options=(
+    -D examples=true
+    -D gtk_doc=true
+    -D man=true
+    -D os_type=redhat
+    -D polkitd_uid=102
+    -D polkitd_user=polkitd
+    -D session_tracking=logind
+    -D tests=true
+  )
+
+  arch-meson polkit build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs -t 3
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

@@ -1,0 +1,30 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xev
+pkgver=1.2.6
+pkgrel=1
+pkgdesc="Print contents of X events"
+url="https://gitlab.freedesktop.org/xorg/app/xev"
+arch=('x86_64')
+license=('MIT')
+depends=('libx11' 'libxrandr' 'glibc')
+makedepends=('xorg-util-macros' 'xorgproto')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xev-${pkgver}.tar.xz{,.sig})
+sha512sums=('aaabb635622abfbf0b7ef2a1978070a918ea94480f375dd0798375274cf378ddb25007cc42426bb2292ed65c8af922f88e6a04c5a2f6cff3fadb0194b53eb7e7'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+#validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>" 
+
+build() {
+  cd xev-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xev-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

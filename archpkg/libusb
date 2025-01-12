@@ -1,0 +1,44 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Tobias Powalowski <tpowa@archlinux.org>
+
+pkgname=libusb
+pkgver=1.0.27
+pkgrel=1
+pkgdesc="Library that provides generic access to USB devices"
+arch=(x86_64)
+url="https://libusb.info/"
+_url="https://github.com/libusb/libusb"
+license=(LGPL-2.1-or-later)
+depends=(glibc)
+makedepends=(systemd)
+provides=(libusb-1.0.so)
+source=($_url/releases/download/v$pkgver/$pkgname-$pkgver.tar.bz2)
+sha512sums=('42abbbcf2564f86cc2f05826aeefa6beb03c9f89dc9fe05bdfa351caa3dbd07713ce193daadecf29557604dd3cbc770c8031a78e1ad0a8df3627c3f551d28ff0')
+b2sums=('bec2eb053159ffa719c794d234f8e99b895a4fae336b862a3197b88deb3d307a53ebb98d2aa993a2f390f14264f796b96ac47274c19f56db30440484ee336c8a')
+
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr
+  # prevent excessive overlinking due to libtool
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+check() {
+  make -k check -C $pkgname-$pkgver
+}
+
+package () {
+  depends+=(
+    systemd-libs libudev.so
+  )
+
+  make DESTDIR="$pkgdir" install -C $pkgname-$pkgver
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+}

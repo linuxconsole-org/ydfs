@@ -1,0 +1,29 @@
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=libxxf86vm
+pkgver=1.1.6
+pkgrel=1
+pkgdesc="X11 XFree86 video mode extension library"
+arch=('x86_64')
+license=('X11-distribute-modifications-variant')
+url="https://xorg.freedesktop.org/"
+depends=('libxext' 'libx11' 'glibc' 'xorgproto')
+source=(${url}/releases/individual/lib/libXxf86vm-${pkgver}.tar.xz{,.sig})
+sha512sums=('7fb3ac4302eea43b70d5106f6c7a113e28e2807da22d2bb7f040e0c4afd322cad4b7f258a5bd6da3940b6b6b39065e1acb218a6dc0ba06b9dd86ea3849231266'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd libXxf86vm-${pkgver}
+  ./configure --prefix=/usr --disable-static
+  make
+}
+
+package()
+{
+  cd libXxf86vm-${pkgver}
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

@@ -1,0 +1,76 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgbase=jasper
+pkgname=(jasper jasper-doc)
+pkgver=4.2.4
+pkgrel=2
+pkgdesc='Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard'
+url='https://www.ece.uvic.ca/~frodo/jasper/'
+arch=(x86_64)
+license=('LicenseRef-JasPer2.0')
+makedepends=(
+  cmake
+  doxygen
+  freeglut
+  glibc
+  glu
+  libjpeg-turbo
+  libxmu
+)
+source=(https://github.com/mdadams/jasper/archive/version-${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('4552e4823e08f7cb444d5835f30180ae1631b1784078769f0c1d51f40dd3bb6c8a1e960147d07312164dbb3b489561d06ee8f75112e76dbba8aacfd09c7d03e4')
+b2sums=('ff65214e4a18a9853e8c441ddc3b0908534db5d625aa4e4dd5d60536d150fcbd068cf0fdd4ca36d4c7047c91b02ac9721e85563c435b9f75db980c64b6d3629f')
+
+prepare() {
+  cd ${pkgbase}-version-${pkgver}
+  sed -r 's|(CMAKE_SKIP_BUILD_RPATH) FALSE|\1 TRUE|g' -i CMakeLists.txt
+}
+
+build() {
+  cmake \
+    -B buildx -S ${pkgbase}-version-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
+    -DJAS_ENABLE_OPENGL=ON \
+    -DJAS_ENABLE_LIBJPEG=ON \
+    -DJAS_ENABLE_AUTOMATIC_DEPENDENCIES=OFF \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DJAS_ENABLE_SHARED=ON
+  cmake --build buildx
+}
+
+check() {
+  export LD_LIBRARY_PATH="$(pwd)/buildx/src/libjasper/"
+  make -C buildx -j1 test
+}
+
+package_jasper() {
+  depends=(
+    freeglut
+    glibc
+    glu
+    libglvnd
+    libjpeg-turbo
+  )
+  optdepends=('jasper-doc: documentation')
+  provides=('libjasper.so')
+
+  make -C buildx DESTDIR="${pkgdir}" install
+  rm -r "${pkgdir}/usr/share/doc"
+
+  install -Dm 644 ${pkgbase}-version-${pkgver}/{NEWS.txt,README.md}  -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 ${pkgbase}-version-${pkgver}/LICENSE.txt  -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+package_jasper-doc() {
+  pkgdesc+=' (documentation)'
+  optdepends=('jasper')
+
+  make -C buildx DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}/usr/"{bin,include,lib,share/man}
+
+  install -Dm 644 ${pkgbase}-version-${pkgver}/LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

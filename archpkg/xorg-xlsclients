@@ -1,0 +1,29 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xlsclients
+pkgver=1.1.5
+pkgrel=2
+pkgdesc="List client applications running on a display"
+arch=('x86_64')
+url="https://xorg.freedesktop.org/"
+license=('custom')
+depends=('libxcb')
+makedepends=('xorg-util-macros' 'xorgproto')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xlsclients-${pkgver}.tar.xz{,.sig})
+sha512sums=('3896643378603876438772475e89ad5c066f98c16593245db5fa066418ff793798247f976d2bf7aa401d2590fc9807b80c9758bcbcc91566f02ceb856d9702bf'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+
+build() {
+  cd xlsclients-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xlsclients-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

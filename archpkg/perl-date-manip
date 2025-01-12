@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=perl-date-manip
+pkgver=6.96
+pkgrel=1
+pkgdesc="Date::Manip - date manipulation routines"
+arch=('any')
+license=('PerlArtistic')
+url="https://search.cpan.org/dist/Date-Manip/"
+depends=('perl')
+makedepends=('perl-file-find-rule' 'perl-test-inter' 'perl-test-pod' 'perl-test-pod-coverage')
+options=('!emptydirs')
+source=("https://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-$pkgver.tar.gz")
+sha512sums=('f5fb0030b117b1f4fe47ae3a245fd5834ac065ade2d79da918f99cfe64c5b84b59cf01464254e9fa1639fb29e7319e8f5a3d3dc5fcec98cab748f81224af7c05')
+
+build() {
+  cd Date-Manip-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+check() {
+  cd Date-Manip-$pkgver
+  make test
+}
+
+package() {
+  cd Date-Manip-$pkgver
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,29 @@
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-xvinfo
+pkgver=1.1.5
+pkgrel=2
+pkgdesc="Prints out the capabilities of any video adaptors associated with the display that are accessible through the X-Video extension"
+arch=('x86_64')
+url="https://xorg.freedesktop.org/"
+license=('custom')
+depends=('libx11' 'libxv')
+makedepends=('xorg-util-macros')
+groups=('xorg-apps' 'xorg')
+source=(https://xorg.freedesktop.org/archive/individual/app/xvinfo-${pkgver}.tar.xz{,.sig})
+sha512sums=('18467161b248c68f6bde15e1c1b4b8cf812daf46777602558aee5fb7cb4d2649218de88fa93842fea4f316d954440f03a37d71fa4fda92eda3c7d80970e19cbb'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') #Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd xvinfo-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd xvinfo-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

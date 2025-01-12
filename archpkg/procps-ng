@@ -1,0 +1,53 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Christian Hesse <eworm@archlinux.org>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgname=procps-ng
+pkgver=4.0.5
+pkgrel=1
+pkgdesc='Utilities for monitoring your system and its processes'
+url='https://gitlab.com/procps-ng/procps'
+license=(GPL LGPL)
+arch=(x86_64)
+depends=(glibc ncurses libncursesw.so systemd-libs)
+makedepends=(systemd)
+conflicts=(procps sysvinit-tools)
+provides=(procps sysvinit-tools libproc2.so)
+replaces=(procps sysvinit-tools)
+options=('!emptydirs')
+validpgpkeys=('5D2FB320B825D93904D205193938F96BDF50FEA5') # Craig Small <csmall@debian.org>
+source=("https://downloads.sourceforge.net/project/$pkgname/Production/${pkgname}-${pkgver}.tar.xz"{,.asc})
+sha256sums=('c2e6d193cc78f84cd6ddb72aaf6d5c6a9162f0470e5992092057f5ff518562fa'
+            'SKIP')
+b2sums=('4b273ac7737202147fbf392995da1c5ff385df2b53ad84180b6412dc45c2a671e81d7659c0a5824c0d8c19fa37cbf2e58b0545841c74399b3717a9f27fd26c23'
+        'SKIP')
+
+prepare() {
+  cd procps-ng-$pkgver
+  sed 's:<ncursesw/:<:g' -i src/watch.c
+  autoreconf -fi
+}
+
+build() {
+  cd procps-ng-$pkgver
+  ./configure \
+    --prefix=/usr \
+    --exec-prefix=/ \
+    --sysconfdir=/etc \
+    --libdir=/usr/lib \
+    --bindir=/usr/bin \
+    --sbindir=/usr/bin \
+    --enable-watch8bit \
+    --with-systemd \
+    --disable-modern-top \
+    --disable-kill
+
+  make
+}
+
+package() {
+  cd procps-ng-$pkgver
+  make DESTDIR="$pkgdir" install
+}

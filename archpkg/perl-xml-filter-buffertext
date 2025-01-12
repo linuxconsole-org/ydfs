@@ -1,0 +1,31 @@
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Ondrej Kucera <ondrej.kucera@centrum.cz>
+
+pkgname=perl-xml-filter-buffertext
+pkgver=1.01
+pkgrel=10
+pkgdesc="XML-Filter-BufferText perl module (filter to put all characters() in one event)"
+arch=("any")
+url="https://search.cpan.org/dist/XML-Filter-BufferText/"
+license=("GPL" "PerlArtistic")
+depends=('perl>=5.10.0' 'perl-xml-sax')
+options=(!emptydirs)
+source=(https://search.cpan.org/CPAN/authors/id/R/RB/RBERJON/XML-Filter-BufferText-$pkgver.tar.gz)
+sha256sums=('8fd2126d3beec554df852919f4739e689202cbba6a17506e9b66ea165841a75c')
+
+build() {
+  cd "$srcdir"/XML-Filter-BufferText-${pkgver}
+  # Install module into the vendor directories.
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+  make test
+}
+
+package() {
+  cd "$srcdir"/XML-Filter-BufferText-${pkgver}
+  make DESTDIR="$pkgdir" install
+
+  # Remove .packlist and perllocal.pod files.
+  find "$pkgdir" -name '.packlist' -delete
+  find "$pkgdir" -name 'perllocal.pod' -delete
+}

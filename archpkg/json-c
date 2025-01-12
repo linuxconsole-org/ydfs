@@ -1,0 +1,48 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
+# Contributor: congyiwu <congyiwu AT gmail DOT com>
+
+pkgname=json-c
+pkgver=0.18
+_tagdate=20240915
+pkgrel=1
+pkgdesc="JSON implementation in C"
+url="https://github.com/json-c/json-c/wiki"
+license=(MIT)
+arch=(x86_64)
+depends=(
+  glibc
+)
+makedepends=(
+  cmake
+  git
+  ninja
+)
+provides=(libjson-c.so)
+source=("git+https://github.com/json-c/json-c#tag=json-c-$pkgver-$_tagdate")
+b2sums=('4abc79ff71b8320022f4385221ff0c7183e2f150c94e3d837369226d26c118a2123823cb5c5123299b87068e998bca543ee20a74b9d6fbe39eb0cbd8600a8473')
+
+build() {
+  local cmake_options=(
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+    -DBUILD_STATIC_LIBS=OFF
+    -DENABLE_THREADING=ON
+    -DENABLE_RDRAND=OFF
+  )
+
+  cmake -S json-c -B build -G Ninja "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 json-c/COPYING
+}
+
+# vim:set sw=2 sts=-1 et:

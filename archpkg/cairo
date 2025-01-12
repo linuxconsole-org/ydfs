@@ -1,0 +1,82 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: Brice Carpentier <brice@daknet.org>
+
+pkgbase=cairo
+pkgname=(
+  cairo
+  cairo-docs
+)
+pkgver=1.18.2
+pkgrel=2
+pkgdesc="2D graphics library with support for multiple output devices"
+url="https://cairographics.org/"
+arch=(x86_64)
+license=('LGPL-2.1-only OR MPL-1.1')
+depends=(
+  bash
+  fontconfig
+  freetype2
+  glib2
+  glibc
+  libpng
+  libx11
+  libxcb
+  libxext
+  libxrender
+  lzo
+  pixman
+  zlib
+)
+makedepends=(
+  git
+  gtk-doc
+  meson
+  valgrind
+)
+source=("git+https://gitlab.freedesktop.org/cairo/cairo.git#tag=$pkgver")
+b2sums=('ff661ec100a24a457c91b928ad537e783e59ffc56812aa1d1da09bfe425390f8e6df0191a7993aeb56e9b064403a389d252e64f557f09ea6f773f821a021c9ca')
+
+prepare() {
+  cd cairo
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/cairo/-/issues/2
+  # https://gitlab.freedesktop.org/cairo/cairo/-/issues/870
+  git cherry-pick -n f19e2fe080ddcfce93c8234a919fd882f3d63362
+}
+
+build() {
+  local meson_options=(
+    -D dwrite=disabled
+    -D gtk_doc=true
+    -D spectre=disabled
+    -D symbol-lookup=disabled
+    -D tests=disabled
+  )
+
+  arch-meson cairo build "${meson_options[@]}"
+  meson compile -C build
+}
+
+package_cairo() {
+  provides=(
+    libcairo-gobject.so
+    libcairo-script-interpreter.so
+    libcairo.so
+  )
+  options+=(!emptydirs)
+
+  meson install -C build --destdir "$pkgdir"
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/gtk-doc
+}
+
+package_cairo-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

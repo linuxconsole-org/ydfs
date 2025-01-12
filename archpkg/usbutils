@@ -1,0 +1,57 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Tobias Powalowski <tpowa@archlinux.org>
+# Contributor: Tom Gundersen <teg@jklm.no>
+# Contributor: Judd Vinet <jvinet@zeroflux.org>
+# Contributor: Curtis Campbell <curtisjamescampbell@hotmail.com>
+
+pkgname=usbutils
+pkgver=018
+pkgrel=1
+pkgdesc="A collection of USB tools to query connected USB devices"
+arch=(x86_64)
+url="https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git/"
+license=(
+  GPL-2.0-only
+  GPL-2.0-or-later
+  GPL-3.0-only
+  LGPL-2.1-or-later
+  MIT
+)
+depends=(
+  glibc
+  hwdata
+)
+makedepends=(
+  libusb
+  meson
+  systemd
+)
+optdepends=(
+  'coreutils: for lsusb.py usage'
+  'python: for lsusb.py usage'
+  'sh: for usb-devices'
+)
+source=(https://www.kernel.org/pub/linux/utils/usb/usbutils/$pkgname-$pkgver.tar{.xz,.sign})
+sha512sums=('4f76c7a328746e17892c31d69cbd9a560c4384877e18d80076cef344a25b71b33387d803c98a9c6867b357a61e1a8a1a630884afe32128c3b6393dc186f216c8'
+            'SKIP')
+b2sums=('030f45afd5867ee38c8284a0741d1de63653a98746bfef42281390c5bdefbbb99c318d708e88ea2e28810d519d735da3103fe438befa889fc9b5ae9e21200992'
+        'SKIP')
+validpgpkeys=('647F28654894E3BD457199BE38DBBDC86092693E')  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+build() {
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
+}
+
+package() {
+  depends+=(
+    libusb libusb-1.0.so
+    systemd-libs libudev.so
+  )
+
+  meson install -C build --destdir "$pkgdir"
+
+  install -vDm 755 build/usbreset -t "$pkgdir/usr/bin"
+  install -vDm 644 $pkgname-$pkgver/{NEWS,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname-$pkgver/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
