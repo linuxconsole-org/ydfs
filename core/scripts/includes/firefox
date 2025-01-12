@@ -6,7 +6,7 @@ export CC="clang $CFLAGS -L$HOME/$ARCH/lib" CXX=clang++
 install -d $PREFIX/bin
 for tool in ar nm ranlib profdata
 do
-  ln -sf /usr/bin/llvm-$tool-13 $PREFIX/bin/llvm-$tool
+  ln -sf /usr/bin/llvm-$tool-18 $PREFIX/bin/llvm-$tool
 done
 
 

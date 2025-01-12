@@ -1,0 +1,33 @@
+# Maintainer: Laurent Carlier <lordheavym@gmail.com>
+
+pkgname=vulkan-headers
+_pkgname=Vulkan-Headers
+pkgver=1.4.303
+pkgrel=1
+epoch=1
+pkgdesc="Vulkan header files"
+arch=(any)
+url="https://www.khronos.org/vulkan/"
+license=('Apache-2.0' 'MIT')
+makedepends=(cmake ninja git)
+provides=("vulkan-hpp=${pkgver}")
+groups=(vulkan-devel)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v${pkgver}.tar.gz")
+sha256sums=('fdf0e2e05356b455137ff97f837c9689ba253ec7d20f87ad81575b9bdbe7fdd4')
+
+build() {
+  cd Vulkan-Headers*
+
+  cmake . -Bbuild \
+    -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release
+  ninja -C build
+}
+
+package() {
+  cd Vulkan-Headers*
+
+  DESTDIR="$pkgdir" ninja -C build install
+  install -Dm644 "${srcdir}"/Vulkan-Headers*/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname"
+}

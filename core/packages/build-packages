@@ -98,13 +98,11 @@ export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/AL"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/irrlicht"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/freetype2"
-[ -e /usr/lib/llvm-13/include ] && export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-13/include"
-[ ! -e /usr/lib/llvm-13/include ] && export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-11/include"
+export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-18/include"
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib "
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib64 "
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib/x86_64-linux-gnu "
-[ -e /usr/lib/llvm-13/lib/ ] && export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-13/lib/ "
-[ ! -e /usr/lib/llvm-13/lib/ ] && export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-11/lib/ "
+[ -e /usr/lib/llvm-18/lib/ ] && export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-18/lib/ "
 export GTKMM_BASEPATH=$HOME/$ARCH
 # autres initialisations selon les architectures(processeurs)
 [ "$ARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$ARCH/lib -Wl,-rpath-link,/home/raspi/ydfs/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME
@@ -139,9 +137,9 @@ test -n "$1" && MODULE="$1"
 	
 install -d $HOME/$ARCH/bin/
 
-[ -e /usr/bin/clang++-13 ] && [ ! -e $HOME/$ARCH/bin/clang++ ] && ln -s /usr/bin/clang++-13 $HOME/$ARCH/bin/clang++
-[ -e /usr/bin/clang-13 ] && [ ! -e $HOME/$ARCH/bin/clang ] && ln -s /usr/bin/clang-13 $HOME/$ARCH/bin/clang
-[ -e /usr/bin/llvm-nm-13 ] && [ ! -e $HOME/$ARCH/bin/llvm-nm ] && ln -s /usr/bin/llvm-nm-13 $HOME/$ARCH/bin/llvm-nm
+[ -e /usr/bin/clang++-18 ] && [ ! -e $HOME/$ARCH/bin/clang++ ] && ln -s /usr/bin/clang++-18 $HOME/$ARCH/bin/clang++
+[ -e /usr/bin/clang-18 ] && [ ! -e $HOME/$ARCH/bin/clang ] && ln -s /usr/bin/clang-18 $HOME/$ARCH/bin/clang
+[ -e /usr/bin/llvm-nm-18 ] && [ ! -e $HOME/$ARCH/bin/llvm-nm ] && ln -s /usr/bin/llvm-nm-18 $HOME/$ARCH/bin/llvm-nm
 
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
