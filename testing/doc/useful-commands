@@ -1,1 +1,0 @@
-sed -i "s/ARCH/CARCH/g" scripts/make_config_ini

@@ -1,1 +1,0 @@
- ./configure --prefix=$PREFIX --enable-elf-shlibs --with-crond-dir=$PREFIX/etc/cron.d

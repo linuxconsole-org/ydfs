@@ -1,2 +1,0 @@
-cd js/src/obj
-make && cd ../../..

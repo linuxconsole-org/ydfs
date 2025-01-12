@@ -1,2 +1,0 @@
-echo INSTALL
-make install install-libs
