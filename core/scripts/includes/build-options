@@ -25,6 +25,8 @@ echo $ARCHIVE | grep jasper &&  LC_CONFIGURE_OPTS=" -D CMAKE_INSTALL_PREFIX=/usr
       -D JAS_ENABLE_DOC=NO            \
       -D ALLOW_IN_SOURCE_BUILD=YES  "
 echo $ARCHIVE | grep sane-project/backends &&  LC_CONFIGURE_OPTS="    --disable-locking     --disable-rpath     --enable-pthread     --with-avahi     --with-libcurl     --with-pic     --with-poppler-glib     --with-systemd     --with-usb "
+echo $ARCHIVE | grep shadow &&  LC_CONFIGURE_OPTS=" --disable-account-tools-setuid  --enable-man   --with-audit     --with-fcaps  --with-group-name-max-length=32     --with-libpam  --with-yescrypt     --without-bcrypt     --without-libbsd  --without-nscd  --without-selinux  --without-su  "
+echo $ARCHIVE | grep audit-userspace &&  LC_CONFIGURE_OPTS=" --disable-zos-remote "
 echo $ARCHIVE | grep libpcap &&  LC_CONFIGURE_OPTS="      --enable-ipv6     --enable-bluetooth     --enable-usb  --with-libnl "
 echo $ARCHIVE | grep kmod &&  LC_CONFIGURE_OPTS="   --disable-manpages "
 echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
@@ -401,7 +403,6 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
 	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/$MODULE/share/dbus-1/system.d \
     -D nmtui=false \
-    -D libaudit=no \
     -D session_tracking_consolekit=false \
     -D modify_system=true \
     -D selinux=false \

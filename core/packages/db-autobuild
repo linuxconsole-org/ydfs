@@ -329,7 +329,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   fi    
   [ -e libpcap.pc.in ] && rm CMakeLists.txt
   [ -e test-groff.in ] && ./bootstrap
-  # [ -e test-groff.in ] && git submodule update --init --recursive
+  [ -e src/coreutils.c ] && ./bootstrap
   [ -e src/libbluray.pc.in ] && ./bootstrap
   [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
@@ -1253,6 +1253,7 @@ pwd && sleep 5
   fi
 
   [ -e backend/saned.conf.in ] && gettextize -f
+  [ -e lib/shadow.c ] && gettextize -f
 
   [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Run cherry-pick" && sleep 3 && git cherry-pick -n eea4f1be91
   # [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Fix configure" && sleep 2  && sed -i "s@config --ldflags@config --ldflags --embed@" configure
