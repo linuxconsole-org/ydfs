@@ -159,12 +159,14 @@ archlinux:libxss
 archlinux:argyllcms
 archlinux:duktape
 archlinux:polkit
-#STOP
 archlinux:graphviz
 pip::pygments
 archlinux:colord
 archlinux:libpaper
 archlinux:cups
+#STOP
+archlinux:libical
+pip::docutils
 archlinux:bluez
 archlinux:libpcap
 archlinux:ppp
