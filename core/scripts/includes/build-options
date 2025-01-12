@@ -794,7 +794,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
       -DSPIRV_WERROR=Off \
       -DBUILD_SHARED_LIBS=ON \
       -DSPIRV_TOOLS_BUILD_STATIC=OFF \
-      -DSPIRV-Headers_SOURCE_DIR="${PWD}"/../SPIRV-Headers
+      -DSPIRV-Headers_SOURCE_DIR=$HOME/ydfs/src/$(ls $HOME/ydfs/src/|grep SPIRV-Headers)
 "
         echo $ARCHIVE | grep SPIRV-LLVM-Translator && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON \
         -DCMAKE_BUILD_TYPE=Release \

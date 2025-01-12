@@ -1,0 +1,31 @@
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Bastien Dejean <nihilhill@gmail.com>
+
+pkgname=xcb-util-cursor
+pkgver=0.1.5
+pkgrel=1
+pkgdesc='XCB cursor library'
+arch=('x86_64')
+url='https://cgit.freedesktop.org/xcb/util-cursor'
+license=('custom:MIT')
+depends=('libxcb' 'xcb-util-renderutil' 'xcb-util-image' 'glibc')
+makedepends=('xorgproto')
+#makedepends=('doxygen' 'xorg-util-macros' 'graphviz') # no docs yet to build
+source=(https://xorg.freedesktop.org/archive/individual/lib/xcb-util-cursor-$pkgver.tar.xz{,.sig})
+sha512sums=('e2d14c3f0ab117524ba90d1a992b61717ccee04bc9e66c587a6a0f10571f15e89fc5db3413882ca7ce14ebc07b6b7b0a4ddecd59ba910e6ca654ea9b1c705ed5'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+

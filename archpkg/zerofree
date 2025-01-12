@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="html-devise-layout gl-light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>Sign in · GitLab</title>
+<script>
+//<![CDATA[
+window.gon={};
+//]]>
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/application-aa586a408b36caf8f82aa8829dc3131d2d751ff91ed2d4fff6e436e378038209.css" />
+<link rel="stylesheet" href="/assets/page_bundles/login-c86aaeb732c7cd4528094f168b9ad4a0408b971bd952f45a9a4dd714d1c9ecb1.css" /><link rel="stylesheet" href="/assets/page_bundles/commit_description-1e2cba4dda3c7b30dd84924809020c569f1308dea51520fe1dd5d4ce31403195.css" /><link rel="stylesheet" href="/assets/page_bundles/work_items-22a76cdd1fe2ae5431b7ff603f86212acaf81b49c4a932f19e3b3222dc1881ee.css" /><link rel="stylesheet" href="/assets/page_bundles/notes_shared-7e727ab1e91b421915feadeb04a1b9d57213cb1b2f8f56f4d894b34d6b42e9b3.css" />
+<link rel="stylesheet" href="/assets/application_utilities-73b9a1c83703ccfccd0e1e418c7d8dc606fcac533fa38b9fa86792f098db0f9a.css" />
+<link rel="stylesheet" href="/assets/tailwind-be3107cfbec85cfbffa87bac8b13390b4a24760fed829b92b113b45f524f0b25.css" />
+
+
+<link rel="stylesheet" href="/assets/fonts-fae5d3f79948bd85f18b6513a025f863b19636e85b09a1492907eb4b1bb0557b.css" />
+<link rel="stylesheet" href="/assets/highlight/themes/white-e31d355458ead69f8798dbb62f54c60c4ccc7db35289cbbd2353ddfdf5109aac.css" />
+
+
+<link rel="preload" href="/assets/application_utilities-73b9a1c83703ccfccd0e1e418c7d8dc606fcac533fa38b9fa86792f098db0f9a.css" as="style" type="text/css">
+<link rel="preload" href="/assets/application-aa586a408b36caf8f82aa8829dc3131d2d751ff91ed2d4fff6e436e378038209.css" as="style" type="text/css">
+<link rel="preload" href="/assets/highlight/themes/white-e31d355458ead69f8798dbb62f54c60c4ccc7db35289cbbd2353ddfdf5109aac.css" as="style" type="text/css">
+
+
+
+
+<script src="/assets/webpack/runtime.2e2a25c1.bundle.js" defer="defer"></script>
+<script src="/assets/webpack/main.b3f89077.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/10.9bfa7097.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/12.5677706e.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/14.31275e08.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.groups.analytics.dashboards-pages.groups.harbor.repositories-pages.groups.iteration_ca-b07ae190.1dbad6a2.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.groups.new-pages.import.gitlab_projects.new-pages.import.manifest.new-pages.projects.n-44c6c18e.7dccff10.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.search.show-super_sidebar.87a7f31c.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/super_sidebar.9a6dc25a.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.groups.sso-pages.registrations.new-pages.sessions.new-pages.trial_registrations.new.628ff005.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons-pages.admin.sessions-pages.sessions-pages.sessions.new-pages.trial_registrations.new.abc2d56b.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/pages.sessions.new.75435bf7.chunk.js" defer="defer"></script>
+
+
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="pSkIcyJBhQq5TGt5L0M4XTMRijClD50XM4gIiHZ0yO76jK88NP9Aj0ksmGOO55blz7gP73m7YQ8eyPEUu27orQ" />
+<meta name="csp-nonce" />
+<meta name="action-cable-url" content="/-/cable" />
+<link href="/-/manifest.json" rel="manifest">
+<link rel="icon" type="image/png" href="/uploads/-/system/appearance/favicon/1/lol3.png" id="favicon" data-original-href="/uploads/-/system/appearance/favicon/1/lol3.png" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/uploads/-/system/appearance/pwa_icon/1/apple-touch-icon-144x144.png?width=192" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/uploads/-/system/appearance/pwa_icon/1/apple-touch-icon-144x144.png?width=192" sizes="192x192" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/uploads/-/system/appearance/pwa_icon/1/apple-touch-icon-144x144.png?width=512" sizes="512x512" />
+<link href="/search/opensearch.xml" rel="search" title="Search GitLab" type="application/opensearchdescription+xml">
+
+
+
+
+<meta content="GitLab Enterprise Edition" name="description">
+<meta content="#28272d" name="theme-color">
+</head>
+
+<body class="gl-h-full login-page gl-browser-generic gl-platform-other" data-page="sessions:new" data-testid="login-page">
+
+<script>
+//<![CDATA[
+gl = window.gl || {};
+gl.client = {"isGeneric":true,"isOther":true};
+
+
+//]]>
+</script>
+<div class="gl-broadcast-message banner js-broadcast-notification-1 light-red" data-broadcast-banner data-testid="banner-broadcast-message" role="alert">
+<div class="gl-broadcast-message-content">
+<div class="gl-broadcast-message-icon">
+<svg class="s16" data-testid="bullhorn-icon"><use href="/assets/icons-8791a66659d025e0a4c801978c79a1fbd82db1d27d85f044a35728ea7cf0ae80.svg#bullhorn"></use></svg>
+</div>
+<div class="gl-broadcast-message-text">
+<h2 class="gl-sr-only">Admin message</h2>
+<p>Due to an influx of spam, we have had to temporarily disable account registrations. Please write an email to <a href="mailto:accountsupport@archlinux.org">accountsupport@archlinux.org</a>, with your desired username, if you want to get access. Sorry for the inconvenience.</p>
+</div>
+</div>
+<button class="gl-button btn btn-icon btn-sm btn-default btn-default-tertiary gl-broadcast-message-dismiss js-dismiss-current-broadcast-notification" aria-label="Close" data-id="1" data-expire-date="2025-08-28T17:11:54Z" data-cookie-key="hide_broadcast_message_1" type="button"><svg class="s16 gl-icon gl-button-icon " data-testid="close-icon"><use href="/assets/icons-8791a66659d025e0a4c801978c79a1fbd82db1d27d85f044a35728ea7cf0ae80.svg#close"></use></svg>
+
+</button>
+</div>
+
+
+
+
+
+
+<div class="gl-h-full gl-flex gl-flex-wrap">
+<div class="container gl-self-center">
+<div class="content">
+<div class="flash-container flash-container-page sticky" data-testid="flash-container">
+<div class="gl-alert flash-alert gl-alert-danger" data-testid="alert-danger" role="alert">
+<div class="gl-alert-icon-container">
+<svg class="s16 gl-alert-icon gl-alert-icon-no-title" data-testid="error-icon"><use href="/assets/icons-8791a66659d025e0a4c801978c79a1fbd82db1d27d85f044a35728ea7cf0ae80.svg#error"></use></svg>
+</div>
+<button class="gl-button btn btn-icon btn-sm btn-default btn-default-tertiary js-close gl-dismiss-btn " aria-label="Dismiss" type="button"><svg class="s16 gl-icon gl-button-icon " data-testid="close-icon"><use href="/assets/icons-8791a66659d025e0a4c801978c79a1fbd82db1d27d85f044a35728ea7cf0ae80.svg#close"></use></svg>
+
+</button>
+<div class="gl-alert-content" role="alert">
+<div class="gl-alert-body">
+You need to sign in or sign up before continuing.
+</div>
+</div>
+</div>
+<div id="js-global-alerts"></div>
+</div>
+
+<div class="row gl-mt-5 gl-gap-y-5">
+<div class="col-md order-12 sm-bg-gray">
+<div class="col-sm-12">
+<h1 class="gl-mb-5 gl-text-size-h2">
+GitLab Enterprise Edition
+</h1>
+<div id="js-custom-sign-in-description"><p data-sourcepos="1:1-1:222" dir="auto">Due to an influx of spam, we have had to temporarily disable account registrations. Please write an email to <a href="mailto:accountsupport@archlinux.org">accountsupport@archlinux.org</a>, with your desired username, if you want to get access. Sorry for the inconvenience.</p></div>
+</div>
+</div>
+<div class="col-md order-md-12">
+<div class="col-sm-12 bar">
+<div class="gl-text-center gl-mb-5">
+<img alt="GitLab Enterprise Edition" class="gl-invisible gl-h-10 js-portrait-logo-detection lazy" data-src="/assets/logo-911de323fa0def29aaf817fca33916653fc92f3ff31647ac41d2c39bbe243edb.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</div>
+
+<div class="js-non-oauth-login">
+</div>
+<div class="gl-mt-5 gl-text-center gl-flex gl-flex-col gl-gap-3 js-oauth-login">
+<form class="js-omniauth-form" method="post" action="/users/auth/saml"><button class="gl-button btn btn-block btn-md btn-default " data-testid="saml-login-button" type="submit"><span class="gl-button-text">
+<span class="gl-button-text">
+Arch Linux SSO
+</span>
+
+</span>
+
+</button><input type="hidden" name="authenticity_token" value="ecWDyu83kMyQ5dpcUo49HV_eLtSs3vyc-rhvrYvt3AMmYCSF-YlVSWCFKUbzKpOlo3erC3BqAITX-JYxRvf8QA" autocomplete="off" /></form>
+<div class="gl-form-checkbox custom-control custom-checkbox">
+<input type="checkbox" name="js-remember-me-omniauth" id="js-remember-me-omniauth" class="custom-control-input" />
+<label class="custom-control-label" for="js-remember-me-omniauth"><span>Remember me
+</span></label>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer-container gl-w-full gl-self-end">
+<hr class="gl-m-0">
+<div class="container gl-py-5 gl-flex gl-justify-between gl-items-start">
+<div class="gl-hidden md:gl-flex gl-gap-5 gl-flex-wrap">
+<a href="/explore">Explore</a>
+<a href="/help">Help</a>
+<a href="https://about.gitlab.com">About GitLab</a>
+<a target="_blank" class="text-nowrap" rel="noopener noreferrer" href="https://forum.gitlab.com">Community forum</a>
+</div>
+<div class="js-language-switcher" data-locales="[{&quot;value&quot;:&quot;en&quot;,&quot;percentage&quot;:100,&quot;text&quot;:&quot;English&quot;},{&quot;value&quot;:&quot;fr&quot;,&quot;percentage&quot;:98,&quot;text&quot;:&quot;français&quot;},{&quot;value&quot;:&quot;de&quot;,&quot;percentage&quot;:98,&quot;text&quot;:&quot;Deutsch&quot;},{&quot;value&quot;:&quot;pt_BR&quot;,&quot;percentage&quot;:92,&quot;text&quot;:&quot;português (Brasil)&quot;},{&quot;value&quot;:&quot;zh_CN&quot;,&quot;percentage&quot;:91,&quot;text&quot;:&quot;简体中文&quot;},{&quot;value&quot;:&quot;ja&quot;,&quot;percentage&quot;:91,&quot;text&quot;:&quot;日本語&quot;}]"></div>
+
+</div>
+</div>
+
+
+</div>
+</body>
+</html>

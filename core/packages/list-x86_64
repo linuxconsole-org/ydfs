@@ -277,46 +277,49 @@ http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
 #dbus-second-build-with-x11-deps
 archlinux2:dbus
-##STOP
 archlinux:atk
-FAIL
-https://download-fallback.gnome.org/sources/at-spi2-core/2.38/at-spi2-core-2.38.0.tar.xz
-https://download-fallback.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
-libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz
-http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz 
-https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.5.tar.xz
-https://xorg.freedesktop.org//archive/individual/lib/libxshmfence-1.3.2.tar.xz
-http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2
-http://downloads.sourceforge.net/project/omxil/omxil/Bellagio%200.9.3/libomxil-bellagio-0.9.3.tar.gz
-http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
-https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
-http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
-https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
-https://xcb.freedesktop.org/dist/xcb-util-cursor-0.1.3.tar.bz2
-http://wayland.freedesktop.org/releases/wayland-1.20.0.tar.xz
-http://wayland.freedesktop.org/releases/wayland-protocols-1.25.tar.xz
+archlinux:at-spi2-core
+archlinux:at-spi2-atk
+archlinux:libical
+archlinux:libsndfile
+archlinux:sbc
+archlinux:libxshmfence
+archlinux:libvdpau
+archlinux:libomxil-bellagio
+archlinux:xcb-util-image
+archlinux:xcb-util-renderutil
+archlinux:xcb-util-keysyms
+archlinux:xcb-util-wm
+archlinux:xcb-util-cursor
+archlinux:wayland
+archlinux:wayland-protocols
 pip::six
 pip::appdirs
 pip::packaging
-#Pyparsing 2 needed
-https://github.com/pyparsing/pyparsing/archive/pyparsing_2.4.7.tar.gz
+archlinux:pyparsing2
 pip::setuptools
 pip::Mako
 pip::scons
-https://github.com/intel/libva/archive/refs/tags/2.14.0.tar.gz
-https://github.com/intel/intel-vaapi-driver/archive/refs/tags/2.4.1.tar.gz
-https://freedesktop.org/software/vaapi/releases/libva-vdpau-driver/libva-vdpau-driver-0.7.4.tar.bz2
-http://prdownloads.sourceforge.net/log4c/log4c-1.2.4.tar.gz
-https://github.com/libcheck/check/archive/0.13.0.tar.gz
-https://downloads.xiph.org/releases/flac/flac-1.3.3.tar.xz
-https://downloads.sourceforge.net/sourceforge/mad/libmad-0.15.1b.tar.gz
-https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/v1.4.0/libglvnd-v1.4.0.tar.gz #SKIP-x86#
-https://github.com/lm-sensors/lm-sensors/archive/V3-6-0.tar.gz
-glslang-8.13.3743.tar.gz::https://github.com/KhronosGroup/glslang/archive/8.13.3743.tar.gz
+archlinux:libva
+archlinux:libva-intel-driver
+archlinux:libva-vdpau-driver
+archlinux:log4c
+archlinux:check
+archlinux:libogg
+archlinux:libvorbis
+archlinux:flac
+archlinux:libmad
+archlinux:libglvnd
+archlinux:lm_sensors
+archlinux:spirv-headers
+##STOP
+archlinux:spirv-tools
+archlinux:glslang
+archlinux:vulkan-header
+archlinux:vulkan-loader
+FAIL
 Vulkan-Headers-1.2.202.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.2.202.tar.gz 
 vulkan-icd-loader-1.2.203.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.201.tar.gz 
-git://github.com/KhronosGroup/SPIRV-Headers.git#commit=e71feddb3f17c5586ff7f4cfb5ed1258b800574b #SKIP-x86#
-git://github.com/KhronosGroup/SPIRV-Tools.git#tag=v2021.3 #SKIP-x86#
 https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v14.0.0/spirv-llvm-translator-14.0.0.tar.gz #SKIP-x86#
 https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/libclc-14.0.0.src.tar.xz #SKIP-x86#
 https://mesa.freedesktop.org/archive/mesa-21.3.9.tar.xz 
@@ -370,8 +373,6 @@ https://ftp.gnome.org/pub/gnome/sources/zenity/3.14/zenity-3.14.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/libnotify/0.7/libnotify-0.7.6.tar.xz
 https://github.com/pygobject/pycairo/releases/download/v1.19.1/pycairo-1.19.1.tar.gz
 http://downloads.xiph.org/releases/ao/libao-1.1.0.tar.gz 
-https://ftp.osuosl.org/pub/xiph/releases/ogg/libogg-1.3.3.tar.xz
-https://github.com/xiph/vorbis/releases/download/v1.3.7/libvorbis-1.3.7.tar.xz
 http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz 
 https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.11.tar.gz
 pip::PyOgg
@@ -971,6 +972,7 @@ https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
 git://github.com/falkTX/Carla.git#tag=v2.5.0 #SKIP-x86#
+archlinux2:systemd
 #Warning, unset LDFLAGS for building grub
-ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
+ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz
 #END-linuxconsole
