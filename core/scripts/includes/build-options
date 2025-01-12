@@ -25,6 +25,7 @@ echo $ARCHIVE | grep jasper &&  LC_CONFIGURE_OPTS=" -D CMAKE_INSTALL_PREFIX=/usr
       -D JAS_ENABLE_DOC=NO            \
       -D ALLOW_IN_SOURCE_BUILD=YES  "
 echo $ARCHIVE | grep sane-project/backends &&  LC_CONFIGURE_OPTS="    --disable-locking     --disable-rpath     --enable-pthread     --with-avahi     --with-libcurl     --with-pic     --with-poppler-glib     --with-systemd     --with-usb "
+echo $ARCHIVE | grep json-glib &&  LC_CONFIGURE_OPTS="-Ddocumentation=disabled "
 echo $ARCHIVE | grep shadow &&  LC_CONFIGURE_OPTS=" --disable-account-tools-setuid  --enable-man   --with-audit     --with-fcaps  --with-group-name-max-length=32     --with-libpam  --with-yescrypt     --without-bcrypt     --without-libbsd  --without-nscd  --without-selinux  --without-su  "
 echo $ARCHIVE | grep audit-userspace &&  LC_CONFIGURE_OPTS=" --disable-zos-remote "
 echo $ARCHIVE | grep libpcap &&  LC_CONFIGURE_OPTS="      --enable-ipv6     --enable-bluetooth     --enable-usb  --with-libnl "
@@ -175,8 +176,6 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
         -Wno-dev "
 echo $ARCHIVE | grep gegl-0 &&  LC_CONFIGURE_OPTS="-Ddocs=false "
 echo $ARCHIVE | grep gegl-0 && [ -e $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir ] && [ ! -e $HOME/$ARCH/share/gir-1.0/babl-0.1.gir ] && cp $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir $HOME/$ARCH/share/gir-1.0/babl-0.1.gir
-echo $ARCHIVE | grep gobject-introspection && cp gir/* $HOME/$ARCH/share/gir-1.0
-echo $ARCHIVE | grep gobject-introspection && [ ! -e $HOME/$ARCH/share/gir-1.0/GObject-2.0.gir ] && echo "Missing $HOME/$ARCH/share/gir-1.0/GObject-2.0.gir" && exit 2
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Ddocs=false -Dman=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"

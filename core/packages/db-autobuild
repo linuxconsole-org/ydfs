@@ -2883,6 +2883,9 @@ Cflags: -I${includedir}' > lua.pc
     fi
   fi
 
+  pwd | grep gobject-introspection && ls build/gir && install -d $HOME/$ARCH/share/gir-1.0 && cp build/gir/* $HOME/$ARCH/share/gir-1.0
+  pwd | grep gobject-introspection && [ ! -e $HOME/$ARCH/share/gir-1.0/GObject-2.0.gir ] && echo "Missing $HOME/$ARCH/share/gir-1.0/GObject-2.0.gir" && exit 2
+
   pwd |grep wine-installer && cp -r usr/* $PREFIX/ && cp -r etc/* $PREFIX/etc && exit 0
   [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
 . $(dirname $0)/../scripts/includes/games
