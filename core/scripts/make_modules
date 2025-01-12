@@ -1,6 +1,6 @@
 # $ARCH : the core module
 
-. ./config.ini
+. $HOME/ydfs/config.ini
 
 if [ "$BUILDYDFS" = "fast" ]
 then

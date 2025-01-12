@@ -1,7 +1,7 @@
 #!/bin/sh
 MEM=32
 MEM=128
-. ./config.ini
+. $HOME/ydfs/config.ini
 export PATH=/home/linuxconsole2025/vm/bin/:$PATH
 export LD_LIBRARY_PATH=/home/linuxconsole2025/x86_64/lib/:$LD_LIBRARY_PATH
 which qemu-system-x86_64 && EMULATOR="QEMU"

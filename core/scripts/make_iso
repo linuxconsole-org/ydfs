@@ -236,7 +236,7 @@ print_isolinux_cfg()
 
 # NOMD5=OK
 # NOLCM=OK
-. ./config.ini
+. $HOME/ydfs/config.ini
 
 if [ -n "$1" ]
 then

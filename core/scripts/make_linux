@@ -1,5 +1,5 @@
 #!/bin/sh
-. ./config.ini
+. $HOME/ydfs/config.ini
 
 if [ "$BUILDYDFS" = "fast" ]
 then

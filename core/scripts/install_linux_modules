@@ -1,5 +1,5 @@
 #!/bin/sh
-. ./config.ini
+. $HOME/ydfs/config.ini
 BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
 cd /$HOME/ydfs
 cd src/linux-"$KERNEL3"
