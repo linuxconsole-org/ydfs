@@ -128,7 +128,7 @@ BOOT=NAND
 	      else
                 echo "KERNEL3=6.12.9" >> $CONFIGINI
 	      fi
-	      echo "BUSYBOX=1.31.1" >> $CONFIGINI
+	      echo "BUSYBOX=1.36.1" >> $CONFIGINI
 	    fi
         # autres cas non prévus
         echo "ARCH=$arch" >> $CONFIGINI

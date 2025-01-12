@@ -1,4 +1,4 @@
-. ./config.ini
+. $HOME/ydfs/config.ini
 
 if [ "$ARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
 then
