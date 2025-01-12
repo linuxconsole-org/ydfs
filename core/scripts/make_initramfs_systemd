@@ -1,0 +1,120 @@
+. $HOME/ydfs/config.ini
+
+if [ "$ARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
+then
+  [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2
+  [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs https://ftp.osuosl.org/pub/lfs/lfs-packages/6.8/lfs-bootscripts-20100627.tar.bz2
+  [ ! -e /$HOME/ydfs/src/lfs-bootscripts-20100627  ] && tar xjvf /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2  --directory=/$HOME/ydfs/src/
+  DESTDIR=/$HOME/ydfs/build/lfs-bootscripts make -C /$HOME/ydfs/src/lfs-bootscripts-20100627
+  [ ! -e /$HOME/ydfs/build/lfs-bootscripts ] && exit 2
+fi
+
+INITRAMFS=/$HOME/ydfs/tmp/initramfs-$ARCH
+[ ! -e init-$ARCH ] && exit 0
+
+if [ -e $INITRAMFS ]
+then
+  rm -fR $INITRAMFS/*
+else
+  install -d $INITRAMFS
+fi
+
+cp -fR init-$ARCH/* $INITRAMFS
+echo "$DISTRONAME" > $INITRAMFS/ydfs-name
+basename $HOME > $INITRAMFS/ydfs-home
+basename $PWD > $INITRAMFS/ydfs-release
+
+# mknod needs root
+if [ ! -e $HOME_DIBAB/dev-initramfs-systemd.cpio ]
+then
+  install -d $INITRAMFS/dev
+  sh /$HOME/ydfs/src/busybox-$BUSYBOX/examples/bootfloppy/mkdevs.sh $INITRAMFS/dev || exit $?
+  sh $HOME_DIBAB/scripts/make_devs $INITRAMFS/dev
+  ls -l $INITRAMFS/dev
+  MYPWD=$PWD
+  cd $INITRAMFS 
+  #find dev -print | grep -v '/[.svn]' |  cpio -o -H newc -F $HOME_DIBAB/dev-initramfs-systemd.cpio 
+  find dev -print |  cpio -o -H newc -F $HOME_DIBAB/dev-initramfs-systemd.cpio
+  cd $MYPWD
+fi
+
+
+ [ "$ARCH" = "x86" ] && cp -fR /$HOME/ydfs/build/lfs-bootscripts/* $INITRAMFS
+
+KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"     
+KERNEL=$KERNEL3
+
+[ -n "$1" ] && KERNEL=$1 
+  KERNEL_MODULES_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL
+  # cp -a /$HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/_install $INITRAMFS/busybox || exit 2
+  cp -a $HOME/ydfs/packages-x86_64/systemd/* $INITRAMFS/ || exit 3
+  install -d $INITRAMFS/share
+  if [ ! -n "$1" ] 
+  then
+    INITRD="`echo $KERNEL | tr -d '.'`"
+  else
+    INITRD="`echo $1 | tr -d '.'`"
+  fi 
+# [ "$CUSTOMINIT" = "OK" ] && INITRD="custom"-"$INITRD"
+  install -d $INITRAMFS/lib/modules/$KERNEL/
+#  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
+  DEPS=""
+  du -sh $INITRAMFS
+  date "+%Y-%m-%d-%H-%M" > $INITRAMFS/initramfs-build-date
+  date "+%Y-%m-%d" > $INITRAMFS/ydfs-date
+  install -d $HOME/ydfs/build-$ARCH
+  cp $HOME_DIBAB/dev-initramfs-systemd.cpio $HOME/ydfs/build-$ARCH/$INITRD
+#  [ -e $HOME/uclib/ ] && cp -fR $HOME/uclib/* $INITRAMFS/
+install -d $INITRAMFS/lib
+cd $INITRAMFS
+
+ echo "Custom init2"
+ echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ # echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
+ chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init2
+
+ echo "Custom init3"
+ echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init3
+ echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init3
+ echo "echo INIT OK, running /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init3
+ echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init3
+ chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init3
+
+ ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
+
+ROOTFS=/$HOME/ydfs/tmp/initramfs-$ARCH/
+install -d $ROOTFS/$HOME
+install -d $ROOTFS/proc
+install -d $ROOTFS/sys
+install -d $ROOTFS/etc
+
+
+echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
+sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/media
+sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
+sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
+
+sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
+cd /$HOME/ydfs/tmp/initramfs-$ARCH
+if [ -e /rootfs ] # nfs access
+then
+ # sudo cpio --quiet -i -d < $HOME_DIBAB/dev-initramfs.cpio
+ sudo rm -fR /rootfs/* 
+ sudo cp -fR /$HOME/ydfs/tmp/initramfs-$ARCH/* /rootfs
+fi
+
+
+# [ -e $HOME/$ARCH/bin/ntfs-3g ] && cp $HOME/$ARCH/bin/ntfs-3g /$HOME/ydfs/tmp/initramfs-$ARCH
+
+[ -e $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs ] && rm $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+
+cd /$HOME/ydfs/tmp/initramfs-$ARCH
+find . -print |  grep -v '.svn' | cpio -A -o -H newc -F $HOME/ydfs/build-$ARCH/$INITRD
+ls -lh  $HOME/ydfs/build-$ARCH/$INITRD
+
+[ -e /media/sf_iso/ ] && cp $HOME/ydfs/build-$ARCH/$INITRD /media/sf_iso
+
+echo

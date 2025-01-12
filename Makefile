@@ -59,4 +59,7 @@ root: mkdir
 fast-64: mkdir
 	${DOCKER} ydfs64-${YDFS} -e "BUILDYDFS=fast" /bin/sh -c 'cd core; make iso'
 
+initramfs:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
+
 #	--user $(shell id -u):$(shell id -g) \
