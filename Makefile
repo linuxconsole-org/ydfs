@@ -35,13 +35,13 @@ docker-image-64: core/Dockerfile
 	touch docker-image-64
 
 docker-64: docker-image-64 mkdir
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+	${DOCKER} -ti ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 buildme:
 	${DOCKER} -ti -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package gettext-0.23.1'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package dbus-1.16.0'
 
 bash: mkdir
 	${DOCKER} -ti ydfs64-${YDFS} bash

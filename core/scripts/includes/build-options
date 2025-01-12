@@ -398,7 +398,6 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
     --enable-python-library --disable-python2 --disable-gtk2 \
     --with-python=python3 --with-emoji-annotation-dir=$HOME/$ARCH/share/unicode/cldr/common/annotations --with-ucd-dir=$HOME/$ARCH/share/unicode"
 	echo $ARCHIVE | grep gdb- && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls --with-python=$HOME/$ARCH/bin/python3"
-	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
 	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/$MODULE/share/dbus-1/system.d \
