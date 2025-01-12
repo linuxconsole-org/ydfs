@@ -133,7 +133,6 @@ RUN apt-get install -y libgmock-dev
 RUN apt-get install -y googletest
 RUN apt-get install -y valac
 RUN apt-get install -y gi-docgen
-#RUN apt-get install -y autoconf-archive
 
 USER linuxconsole2025
 #CMD /build-lc2025

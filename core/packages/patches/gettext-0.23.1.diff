@@ -1,0 +1,15 @@
+diff --git a/gettext-tools/misc/gettextize.in b/gettext-tools/misc/gettextize.in
+index e3e9440..657210a 100644
+--- a/gettext-tools/misc/gettextize.in
++++ b/gettext-tools/misc/gettextize.in
+@@ -1304,10 +1304,6 @@ if $doit; then
+     5) count="five paragraphs";;
+     *) count="$count paragraphs";;
+   esac
+-  echo "Press Return to acknowledge the previous $count."
+-  # Read from /dev/tty, not stdin, so that gettextize cannot be abused by
+-  # non-interactive tools.
+-  read dummy < /dev/tty
+ fi
+ 
+ exit 0

@@ -41,7 +41,7 @@ buildme:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package gobject-introspection'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package gettext-0.23.1'
 
 bash: mkdir
 	${DOCKER} ydfs64-${YDFS} bash
