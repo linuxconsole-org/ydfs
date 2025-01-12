@@ -2895,18 +2895,6 @@ Cflags: -I${includedir}' > lua.pc
     echo "Run ydfs-install-package"
     ydfs-install-package
   fi
-  if [ "$BUILD_TWICE" = "yes" ]
-  then
-    rm buildok-$ARCH
-    if [ -e  build-twice ]
-    then
-      unset BUILD_TWICE
-      rm build-twice
-    else
-      echo "Building $MYDIR again"
-      touch build-twice 
-    fi 
-  fi
   [ -e fluid/fluid.cxx ] && make -C fluid install install-linux 
   echo "Try make clean"
   make clean # Save some space

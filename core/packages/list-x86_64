@@ -1,5 +1,5 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
-#JUMP
+##JUMP
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
@@ -193,7 +193,6 @@ ftp://ftp.gnu.org/gnu/groff/groff-1.23.0.tar.gz
 archlinux:coreutils
 archlinux:swig
 archlinux:audit
-#STOP
 archlinux:shadow
 archlinux:libpciaccess
 archlinux:libdrm
@@ -228,7 +227,6 @@ archlinux:xorg-iceauth
 archlinux:luit
 archlinux:xorg-mkfontdir
 archlinux:xorg-mkfontscale
-##STOP
 archlinux:xorg-sessreg
 archlinux:xorg-setxkbmap
 archlinux:xorg-smproxy
@@ -277,12 +275,11 @@ http://xorg.freedesktop.org/releases/individual/font/font-cronyx-cyrillic-1.0.3.
 http://xorg.freedesktop.org/releases/individual/font/font-misc-cyrillic-1.0.3.tar.bz2
 http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.tar.bz2
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
-#END-linuxconsole
 #dbus-second-build-with-x11-deps
+archlinux2:dbus
 ##STOP
+archlinux:atk
 FAIL
-https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
-http://ftp.acc.umu.se/pub/gnome/sources/atk/2.36/atk-2.36.0.tar.xz
 https://download-fallback.gnome.org/sources/at-spi2-core/2.38/at-spi2-core-2.38.0.tar.xz
 https://download-fallback.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
 libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz

@@ -212,10 +212,18 @@ then
   ARCHIVE=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $ARCHIVE_URL"
 fi
-  if [  -n "`echo $ARCHIVE | grep 'archlinux:'`" ] 
+  if [  -n "`echo $ARCHIVE | grep 'archlinux:'`" ] || [  -n "`echo $ARCHIVE | grep 'archlinux2:'`" ] 
 then
   PKG=`echo $ARCHIVE | cut -d':' -f2`
-	$HOME_DIBAB/scripts/echo-archpkg $PKG || exit $?
+  if [  -n "`echo $ARCHIVE | grep 'archlinux2:'`" ] && [ ! -e $HOME/ydfs/build2-"$PKG" ]
+  then
+	  URL=`$HOME_DIBAB/scripts/echo-archpkg $PKG | sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+	  FOLDER=`basename $URL`
+	  echo "Uninstalling $FOLDER... " && sleep 2
+	  $HOME_DIBAB/scripts/uninstall-package $FOLDER
+	  touch $HOME/ydfs/build2-"$PKG"
+  fi
+  $HOME_DIBAB/scripts/echo-archpkg $PKG || exit $?
   ARCHIVE=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $ARCHIVE_URL"
 fi
@@ -443,16 +451,7 @@ fi
 	   echo "Exit db-lcarchive $ARCHIVE, because $HOME/ydfs-error exists " 
    	   exit 1	
 	fi
-	# Build twice
 
-	if [ "$BUILD_TWICE" = "yes" ] 
-	then
-	  echo "Building twice" # && read key
-	  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS" LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
-	  unset BUILD_TWICE
-	fi
-        
 	# Unser variables
 
 	unset PREFIX
