@@ -32,7 +32,6 @@ https://github.com/linux-pam/linux-pam/releases/download/v1.7.0/Linux-PAM-1.7.0.
 archlinux:libxcrypt
 archlinux:apr
 archlinux:e2fsprogs
-archlinux:zerofree
 archlinux:nasm
 archlinux:zlib
 archlinux:openexr
@@ -277,6 +276,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-cronyx-cyrillic-1.0.3.
 http://xorg.freedesktop.org/releases/individual/font/font-misc-cyrillic-1.0.3.tar.bz2
 http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.tar.bz2
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
+#END-linuxconsole
 #dbus-second-build-with-x11-deps
 ##STOP
 FAIL

@@ -31,7 +31,6 @@ https://github.com/linux-pam/linux-pam/releases/download/v1.7.0/Linux-PAM-1.7.0.
 archlinux:libxcrypt
 archlinux:apr
 archlinux:e2fsprogs
-archlinux:zerofree
 archlinux:nasm
 archlinux:zlib
 archlinux:openexr
