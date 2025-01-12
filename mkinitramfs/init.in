@@ -1,0 +1,116 @@
+#!/bin/sh
+
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+shell() {
+	setsid sh -c 'exec sh </dev/tty1 >/dev/tty1 2>&1'
+}
+
+problem() {
+	echo "problem occurs, here's a shell."
+	shell
+}
+
+msg() {
+	[ "$verbose" = y  ] || return
+	echo ":: $*"
+}
+
+mount_setup() {
+	mount -t proc proc /proc -o nosuid,noexec,nodev
+	mount -t sysfs sys /sys -o nosuid,noexec,nodev
+	mount -t devtmpfs dev /dev -o mode=0755,nosuid
+	mount -t tmpfs run /run -o nosuid,nodev,mode=0755
+}
+
+move_mount_setup() {
+	mount --move /proc /newroot/proc
+	mount --move /sys /newroot/sys
+	mount --move /dev /newroot/dev
+	mount --move /run /newroot/run	
+}
+
+parse_cmdline() {
+	read -r cmdline < /proc/cmdline
+
+	for param in $cmdline ; do
+		case $param in
+			*=*) key=${param%%=*}; value=${param#*=} ;;
+			'#'*) break ;;
+			*) key=$param
+		esac
+		case $key in
+			ro|rw) rwopt=$key ;;
+			[![:alpha:]_]*|[[:alpha:]_]*[![:alnum:]_]*) ;;
+			*) eval "$key"=${value:-y} ;;
+		esac
+		unset key value
+	done
+
+	case "$root" in
+		/dev/* ) device=$root ;;
+		UUID=* ) eval $root; device="/dev/disk/by-uuid/$UUID"  ;;
+		LABEL=*) eval $root; device="/dev/disk/by-label/$LABEL" ;;
+	esac
+}
+	
+mount_root() {
+	newroot=$1
+	if [ ! "$device" ]; then
+		echo "device not scpecified!"
+		shell
+	fi
+	if ! mount -n ${rootfstype:+-t $rootfstype} -o ${rwopt:-ro}${rootflags:+,$rootflags} "$device" "$newroot" ; then
+		echo "cant mount: $device"
+		shell
+	fi
+}
+
+run_hook() {
+	stage=$1
+	if [ -f /hook/hook.order ]; then
+		case $stage in
+			cleanup) sed '1!G;h;$!d' /hook/hook.order > /hook/hook.orderreverse
+					 mv /hook/hook.orderreverse /hook/hook.order ;;
+		esac
+		while read -r line; do
+			. /hook/$line
+			if [ "$(command -v run_${stage}hook)" ]; then
+				msg "running ${stage}hook: $line"
+				run_${stage}hook
+			fi
+			unset -f run_earlyhook run_latehook run_cleanuphook build_hook
+		done < /hook/hook.order
+	fi
+	unset stage line
+}
+
+mount_handler=mount_root
+init=/sbin/init
+rootfstype=auto
+
+mount_setup
+parse_cmdline
+run_hook early
+
+if [ "$break" = "premount" ] || [ "$break" = "y" ]; then
+	echo "break on pre-mount requested"
+	echo "exit this shell to continue booting"
+	shell
+fi
+
+$mount_handler /newroot
+run_hook late
+run_hook cleanup
+
+if [ "$break" = "postmount" ]; then
+	echo "break on post-mount requested"
+	echo "exit this shell to continue booting"
+	shell
+fi
+
+move_mount_setup
+
+exec switch_root /newroot "$init" "$@"
+
+problem

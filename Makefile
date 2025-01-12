@@ -46,6 +46,9 @@ docker-64: docker-image-64 mkdir
 
 buildme:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+live-test:
+	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
+
 
 uninstall:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package dbus-1.16.0'
