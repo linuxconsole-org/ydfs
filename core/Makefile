@@ -132,7 +132,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: ${HOME}/ydfs/config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
+isodep: ${HOME}/ydfs/config.ini packages/list-x86_64 toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}
@@ -457,3 +457,13 @@ ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
 archive:
 	cd ..
 	tar czvf linuxconsole-2.4.tar.gz --exclude ydfs/config.ini --exclude .git 2.4
+
+packages/list-x86_64: packages/list-core-x86_64 packages/list-perl-x86_64 packages/list-xorg-x86_64 packages/list-mate-x86_64 packages/list-wine-x86_64 packages/list-libreoffice-x86_64 packages/list-kde-x86_64 packages/list-misc-x86_64
+	cat packages/list-core-x86_64 > packages/list-x86_64
+	cat packages/list-perl-x86_64 >> packages/list-x86_64
+	cat packages/list-xorg-x86_64 >> packages/list-x86_64
+	cat packages/list-mate-x86_64 >> packages/list-x86_64
+	cat packages/list-wine-x86_64 >> packages/list-x86_64
+	cat packages/list-libreoffice-x86_64 >> packages/list-x86_64
+	cat packages/list-kde-x86_64 >> packages/list-x86_64
+	cat packages/list-misc-x86_64 >> packages/list-x86_64

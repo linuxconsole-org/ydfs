@@ -1,0 +1,40 @@
+#Gtkmm For Ardour
+https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
+https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz #SKIP-x86_64#
+https://github.com/mltframework/mlt/releases/download/v7.8.0/mlt-7.8.0.tar.gz #SKIP-x86#
+git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
+https://download.kde.org/stable/frameworks/5.96/attica-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kdbusaddons-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kconfig-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kcoreaddons-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kwindowsystem-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kcrash-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kglobalaccel-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kwidgetsaddons-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kjobwidgets-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/solid-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kcompletion-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kservice-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/karchive-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kauth-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kcodecs-5.96.0.tar.xz 
+https://download.kde.org/stable/plasma-wayland-protocols/plasma-wayland-protocols-1.7.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kguiaddons-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/ki18n-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kconfigwidgets-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kitemviews-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kiconthemes-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/sonnet-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/ktextwidgets-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kxmlgui-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kbookmarks-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kio-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kpackage-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/knewstuff-5.96.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.96/kdoctools-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kcompletion-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/knotifications-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kdeclarative-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kitemmodels-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kidletime-5.96.0.tar.xz
+https://download.kde.org/stable/frameworks/5.96/kwayland-5.96.0.tar.xz
