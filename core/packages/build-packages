@@ -22,6 +22,7 @@ git config --global url."https://gitlab.gnome.org".insteadOf git+https://gitlab.
 git config --global url."https://git.savannah.gnu.org".insteadOf git+https://git.savannah.gnu.org
 git config --global url."https://sourceware.org".insteadOf git+https://sourceware.org
 git config --global url."https://gitlab.freedesktop.org".insteadOf  git+https://gitlab.freedesktop.org
+git config --global url."https://git.savannah.gnu.org".insteadOf  https://git.sv.gnu.org
 # git config --global url."https://github.com".insteadOf ncurses::git+https://github.com
 
 echo $SRC_PATH/list-$1

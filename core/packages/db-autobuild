@@ -328,6 +328,8 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
         exit 0
   fi    
   [ -e libpcap.pc.in ] && rm CMakeLists.txt
+  [ -e test-groff.in ] && ./bootstrap
+  # [ -e test-groff.in ] && git submodule update --init --recursive
   [ -e src/libbluray.pc.in ] && ./bootstrap
   [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
