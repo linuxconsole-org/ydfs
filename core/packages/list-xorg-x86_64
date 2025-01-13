@@ -132,6 +132,7 @@ https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/libclc-18.
 #archlinux:mesa
 pip::PyYAML
 #STOP
+pip::ply
 https://archive.mesa3d.org/mesa-24.2.8.tar.xz
 FAIL
 https://github.com/anholt/libepoxy/releases/download/1.5.4/libepoxy-1.5.4.tar.xz

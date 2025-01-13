@@ -248,6 +248,8 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	
 	echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc " && ln -sf /usr/bin/llvm-config-18 $HOME/$ARCH/bin/llvm-config && ln -s /usr/bin/clang-cpp-18 $HOME/$ARCH/bin/clang-cpp && ln -s /usr/bin/clang-cxx-18 $HOME/$ARCH/bin/clang-cxx && ls -l $HOME/$ARCH/bin/clang-cpp && sleep 10
 
+	echo $ARCHIVE | grep mesa-2 && cp -a /etc/ssl/certs/* $HOME/$ARCH/etc/ssl/certs
+
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-12 && LC_CONFIGURE_OPTS=" \
       -D session_tracking=ConsoleKit "

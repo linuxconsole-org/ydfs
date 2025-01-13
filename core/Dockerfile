@@ -133,6 +133,10 @@ RUN apt-get install -y libgmock-dev
 RUN apt-get install -y googletest
 RUN apt-get install -y valac
 RUN apt-get install -y gi-docgen
+RUN apt-get install -y libclang-cpp-dev
+RUN apt-get install -y libclang-18-dev
+RUN apt-get install -y bindgen
+RUN apt-get install -y strace
 
 USER linuxconsole2025
 #CMD /build-lc2025
