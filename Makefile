@@ -74,4 +74,6 @@ core/packages/list-x86_64: core/packages/list-core-x86_64 core/packages/list-per
 	cat core/packages/list-xorg-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-mate-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-wine-x86_64 >> core/packages/list-x86_64
-
+	cat core/packages/list-libreoffice-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-kde-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-misc-x86_64 >> core/packages/list-x86_64
