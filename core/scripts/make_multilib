@@ -20,11 +20,10 @@ install -d $HOME/multilib/include
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
 
-  
 # libFS-1 libdmx- \
 
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-1 curl elfutils expat dbus-1.12.20 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
-xtrans libXau libpthread-stubs xcb-proto libxcb \
+PKGMULTILIB="zlib-1 libunwind libunistring libtasn1 libidn gmp nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-1 curl elfutils dbus-1 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+xtrans libXau xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
 libICE-1 \
@@ -40,7 +39,6 @@ libXrender-0 \
 libXcursor-1 \
 libXdamage-1 \
 libfontenc-1 \
-libXfont-1 \
 libXft-2 \
 libXi-1 \
 libXinerama-1 \
@@ -53,7 +51,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman cairo-1 libdrm libxml libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 
 for PKG in $PKGMULTILIB
@@ -295,13 +293,7 @@ unset MAKE
 	cd source
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
-    util-linux* )
-  	./configure --without-systemd --prefix=$HOME/multilib || exit $?
-	# cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
-	# autoreconf
-  	#./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
-    ;;
-    dbus-1.12.20 )
+    dbus-1 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
     freetype-2* )
@@ -479,7 +471,7 @@ unset MAKE
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dintrospection=false --libdir=$HOME/multilib/lib32 || exit 1
 	;;
-     glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
+     util-linux | glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -551,7 +543,7 @@ unset MAKE
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
   echo "Run Ninja" 
         PYTHONPATH="" ninja || exit 1
 	;;
@@ -577,7 +569,7 @@ unset MAKE
 	;;
    llvm )
 	;;
-   json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
@@ -609,7 +601,7 @@ unset MAKE
 
 	cd ..
 	;;
-    json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
   	echo "Run ninja install "
         PYTHONPATH="" ninja install || exit 1
 	cd ..

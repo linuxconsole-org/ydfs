@@ -7,6 +7,7 @@ archlinux:jsoncpp
 archlinux:abseil-cpp
 archlinux:re2
 archlinux:snappy
+https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz
 #archlinux:gmp
 archlinux:pkg-config
 archlinux:gzip

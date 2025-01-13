@@ -125,7 +125,8 @@ archlinux:spirv-headers
 archlinux:spirv-tools
 archlinux:glslang
 archlinux:vulkan-headers
-archlinux:vulkan-icd-loader
+#archlinux:vulkan-icd-loader
+https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.4.304.tar.gz
 #archlinux:spirv-llvm-translator
 https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v18.1.8/spirv-llvm-translator-18.1.8.tar.gz
 https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/libclc-18.1.8.src.tar.xz

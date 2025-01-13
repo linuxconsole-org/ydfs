@@ -1,34 +1,7 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
-https://github.com/mate-desktop/mate-polkit/releases/download/v1.28.0/mate-polkit-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v1.28.1.tar.gz
-https://github.com/mate-desktop/caja/releases/download/v1.28.0/caja-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-icon-theme/releases/download/v1.28.0/mate-icon-theme-1.28.0.tar.xz
-https://github.com/mate-desktop/libmatekbd/releases/download/v1.28.0/libmatekbd-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-menus/releases/download/v1.28.0/mate-menus-1.28.0.tar.xz
-https://github.com/mate-desktop/marco/releases/download/v1.28.1/marco-1.28.1.tar.xz
-https://github.com/mate-desktop/mate-settings-daemon/releases/download/v1.28.0/mate-settings-daemon-1.28.0.tar.xz
-git://github.com/mate-desktop/mate-control-center#d7f3c6235a8caba9e372c51bb3e0306be1fa240b
-https://github.com/mate-desktop/libmatemixer/releases/download/v1.28.0/libmatemixer-1.28.0.tar.xz
-https://github.com/mate-desktop/libmateweather/releases/download/v1.28.0/libmateweather-1.28.0.tar.xz
-https://github.com/mate-desktop/caja-extensions/releases/download/v1.28.0/caja-extensions-1.28.0.tar.xz
-https://pub.mate-desktop.org/releases/1.26/mate-panel-1.26.4.tar.xz
-https://github.com/mate-desktop/mate-notification-daemon/releases/download/v1.28.0/mate-notification-daemon-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-session-manager/releases/download/v1.28.0/mate-session-manager-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-media/releases/download/v1.28.0/mate-media-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-backgrounds/releases/download/v1.28.0/mate-backgrounds-1.28.0.tar.xz
-https://pub.mate-desktop.org/releases/1.27/mate-terminal-1.27.1.tar.xz  #SKIP-x86_64#
-https://github.com/mate-desktop/mate-terminal/releases/download/v1.28.0/mate-terminal-1.28.0.tar.xz  #SKIP-x86#
-https://github.com/mate-desktop/eom/releases/download/v1.28.0/eom-1.28.0.tar.xz 
-https://github.com/mate-desktop/pluma/releases/download/v1.28.0/pluma-1.28.0.tar.xz
-https://github.com/mate-desktop/pluma-plugins/releases/download/v1.28.0/pluma-plugins-1.28.0.tar.xz
-https://github.com/mate-desktop/engrampa/releases/download/v1.28.0/engrampa-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-utils/releases/download/v1.28.0/mate-utils-1.28.0.tar.xz
-https://github.com/mate-desktop/mozo/releases/download/v1.28.0/mozo-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-themes/releases/download/v3.22.24/mate-themes-3.22.24.tar.xz
-https://github.com/mate-desktop/mate-sensors-applet/releases/download/v1.28.0/mate-sensors-applet-1.28.0.tar.xz
-https://github.com/mate-desktop/python-caja/releases/download/v1.28.0/python-caja-1.28.0.tar.xz
+https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz
 FAIL
-#JUMP
+##JUMP
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
@@ -345,7 +318,8 @@ archlinux:spirv-headers
 archlinux:spirv-tools
 archlinux:glslang
 archlinux:vulkan-headers
-archlinux:vulkan-icd-loader
+#archlinux:vulkan-icd-loader
+https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.4.304.tar.gz
 #archlinux:spirv-llvm-translator
 https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v18.1.8/spirv-llvm-translator-18.1.8.tar.gz
 https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/libclc-18.1.8.src.tar.xz
@@ -818,6 +792,34 @@ https://download.gnome.org/sources/libwnck/40/libwnck-40.1.tar.xz
 https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 https://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
+https://github.com/mate-desktop/mate-polkit/releases/download/v1.28.0/mate-polkit-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v1.28.1.tar.gz
+https://github.com/mate-desktop/caja/releases/download/v1.28.0/caja-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-icon-theme/releases/download/v1.28.0/mate-icon-theme-1.28.0.tar.xz
+https://github.com/mate-desktop/libmatekbd/releases/download/v1.28.0/libmatekbd-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-menus/releases/download/v1.28.0/mate-menus-1.28.0.tar.xz
+https://github.com/mate-desktop/marco/releases/download/v1.28.1/marco-1.28.1.tar.xz
+https://github.com/mate-desktop/mate-settings-daemon/releases/download/v1.28.0/mate-settings-daemon-1.28.0.tar.xz
+git://github.com/mate-desktop/mate-control-center#d7f3c6235a8caba9e372c51bb3e0306be1fa240b
+https://github.com/mate-desktop/libmatemixer/releases/download/v1.28.0/libmatemixer-1.28.0.tar.xz
+https://github.com/mate-desktop/libmateweather/releases/download/v1.28.0/libmateweather-1.28.0.tar.xz
+https://github.com/mate-desktop/caja-extensions/releases/download/v1.28.0/caja-extensions-1.28.0.tar.xz
+https://pub.mate-desktop.org/releases/1.26/mate-panel-1.26.4.tar.xz
+https://github.com/mate-desktop/mate-notification-daemon/releases/download/v1.28.0/mate-notification-daemon-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-session-manager/releases/download/v1.28.0/mate-session-manager-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-media/releases/download/v1.28.0/mate-media-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-backgrounds/releases/download/v1.28.0/mate-backgrounds-1.28.0.tar.xz
+https://pub.mate-desktop.org/releases/1.27/mate-terminal-1.27.1.tar.xz  #SKIP-x86_64#
+https://github.com/mate-desktop/mate-terminal/releases/download/v1.28.0/mate-terminal-1.28.0.tar.xz  #SKIP-x86#
+https://github.com/mate-desktop/eom/releases/download/v1.28.0/eom-1.28.0.tar.xz 
+https://github.com/mate-desktop/pluma/releases/download/v1.28.0/pluma-1.28.0.tar.xz
+https://github.com/mate-desktop/pluma-plugins/releases/download/v1.28.0/pluma-plugins-1.28.0.tar.xz
+https://github.com/mate-desktop/engrampa/releases/download/v1.28.0/engrampa-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-utils/releases/download/v1.28.0/mate-utils-1.28.0.tar.xz
+https://github.com/mate-desktop/mozo/releases/download/v1.28.0/mozo-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-themes/releases/download/v3.22.24/mate-themes-3.22.24.tar.xz
+https://github.com/mate-desktop/mate-sensors-applet/releases/download/v1.28.0/mate-sensors-applet-1.28.0.tar.xz
+https://github.com/mate-desktop/python-caja/releases/download/v1.28.0/python-caja-1.28.0.tar.xz
 #LibreOffice
 hunspell-1.7.0.tar.gz::https://github.com/hunspell/hunspell/archive/v1.7.0.tar.gz
 https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
