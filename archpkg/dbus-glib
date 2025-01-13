@@ -1,0 +1,64 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=dbus-glib
+pkgver=0.112
+pkgrel=4
+pkgdesc='GLib bindings for D-Bus (deprecated)'
+arch=(x86_64)
+url='https://www.freedesktop.org/wiki/Software/dbus/'
+license=('AFL-2.1 OR GPL-2.0-or-later')
+depends=(
+  dbus
+  expat
+  glib2
+  glibc
+)
+makedepends=(
+  git
+  glib2-devel
+  gtk-doc
+)
+source=(
+  "git+https://gitlab.freedesktop.org/dbus/dbus-glib.git?signed#tag=$pkgname-$pkgver"
+  dbus-glib-bash-completion.patch
+)
+sha256sums=(
+  00d56564489516f1cb4a9d0cbaff88e38321fae6c08ecc8858cefe012e312d41
+  edbdd4fb5fce358b427da1a1c68347ce09ca444da6ac67ff1fcd6cc67fc92f99
+)
+validpgpkeys=(DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90) # Simon McVittie
+
+prepare() {
+  cd $pkgname
+
+  # Fix bash completion
+  # https://gitlab.freedesktop.org/dbus/dbus-glib/-/merge_requests/5
+  git apply -3 ../dbus-glib-bash-completion.patch
+
+  autoreconf -fi
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib \
+    --enable-gtk-doc \
+    --enable-tests
+  make
+}
+
+check() {
+  cd $pkgname
+  make check
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install completiondir='$(datadir)/bash-completion/completions'
+  mv "$pkgdir/usr/share/bash-completion/completions/"{dbus-bash-completion.sh,dbus-send}
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYING
+}

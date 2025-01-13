@@ -1,0 +1,33 @@
+# Maintainer: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: Alexander Baldeck <Alexander@archlinux.org
+
+pkgname=xf86-input-evdev
+pkgver=2.11.0
+pkgrel=1
+pkgdesc="X.org evdev input driver"
+arch=(x86_64)
+url="https://xorg.freedesktop.org/"
+license=('HPND-sell-variant AND MIT')
+depends=('systemd-libs' 'mtdev' 'libevdev' 'glibc')
+makedepends=('xorg-server-devel' 'X-ABI-XINPUT_VERSION=24.4' 'xorgproto')
+conflicts=('xorg-server<21.1.1' 'X-ABI-XINPUT_VERSION<24' 'X-ABI-XINPUT_VERSION>=25')
+# options=('!makeflags')
+groups=('xorg-drivers')
+source=(${url}/releases/individual/driver/${pkgname}-${pkgver}.tar.xz{,.sig})
+sha512sums=('ccd3727d9726565259a81db1c238aba7e414292c3f91e182c048845ac3caf1705c2b16ff1775f3b35ecb3b7088903257085bc90a20265641ccde05b2fc6966df'
+            'SKIP')
+validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF') # Peter Hutterer (Who-T) <office@who-t.net>
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

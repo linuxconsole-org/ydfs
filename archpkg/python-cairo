@@ -1,0 +1,46 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Angel Velasquez <angvp@archlinux.org>  
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgbase=python-cairo
+pkgname=(python-cairo python-cairo-docs)
+pkgver=1.27.0
+pkgrel=2
+pkgdesc="Python bindings for the cairo graphics library"
+url="https://pycairo.readthedocs.io/en/latest/"
+arch=(x86_64)
+license=(LGPL2.1 MPL)
+depends=(cairo python)
+makedepends=(meson python-sphinx python-sphinx_rtd_theme)
+checkdepends=(python-pytest)
+source=(https://github.com/pygobject/pycairo/releases/download/v$pkgver/pycairo-$pkgver.tar.gz{,.sig})
+sha256sums=('5cb21e7a00a2afcafea7f14390235be33497a2cce53a98a19389492a60628430'
+            'SKIP')
+validpgpkeys=(0EBF782C5D53F7E5FB02A66746BD761F7A49B0EC) # Christoph Reiter <reiter.christoph@gmail.com>
+
+build() {
+  arch-meson pycairo-$pkgver build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package_python-cairo() {
+  meson install -C build --destdir="$pkgdir"
+
+  # compile Python bytecode
+  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
+}
+
+package_python-cairo-docs() {
+  pkgdesc="Developer documentation for Pycairo"
+  depends=()
+
+  python -m sphinx -b html pycairo-$pkgver/docs "$pkgdir/usr/share/doc/pycairo/html"
+  rm -r "$pkgdir/usr/share/doc/pycairo/html/.doctrees"
+}
+
+# vim:set sw=2 sts=-1 et:

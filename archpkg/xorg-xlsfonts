@@ -1,0 +1,27 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+
+pkgname=xorg-xlsfonts
+pkgver=1.0.8
+pkgrel=1
+pkgdesc='List available X fonts'
+url='https://gitlab.freedesktop.org/xorg/app/xlsfonts'
+license=('MIT')
+arch=('x86_64')
+depends=('libx11' 'glibc')
+makedepends=('xorg-util-macros')
+source=(https://xorg.freedesktop.org/archive/individual/app/xlsfonts-${pkgver}.tar.xz{,.sig})
+sha512sums=('401c86d902f173c440c08a22067a51e7238949c8d3c71eba7a8df11955edfec27525c8cbbcf2e96ed444fa20b15f98cf65a01343215d1ed9ba84fce849d02927'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+build() {
+	cd xlsfonts-${pkgver}
+	./configure --prefix=/usr
+	make
+}
+
+package() {
+	cd xlsfonts-${pkgver}
+	make DESTDIR="${pkgdir}" install
+	install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

@@ -1,0 +1,41 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: dorphell <dorphell@archlinux.org>
+
+pkgname=startup-notification
+pkgver=0.12
+pkgrel=8
+pkgdesc='Libary to monitor and display application startup'
+arch=(x86_64)
+url='https://www.freedesktop.org/wiki/Software/startup-notification/'
+license=(LGPL-2.0-or-later)
+depends=(
+  glibc
+  libx11
+  libxcb
+  xcb-util
+)
+makedepends=(git)
+source=("git+https://gitlab.freedesktop.org/xdg/$pkgname.git?signed#tag=STARTUP_NOTIFICATION_${pkgver//./_}")
+b2sums=(669d5d2eec7879a6b8385449c01fdaa66f76c06e7f07df429e8c0f1d5dba2fe6822995fa8798e0f6dc4ccea7645603d706fad701b9222e1e027cebbbc143ead8)
+validpgpkeys=(5361BD40015B74382739101A611BA9508B78A5C2) # Julien Danjou <julien@danjou.info>
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}

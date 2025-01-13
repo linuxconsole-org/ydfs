@@ -1,0 +1,25 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=iso-codes
+pkgver=4.17.0
+pkgrel=1
+pkgdesc='Lists of the country, language, and currency names'
+url='https://salsa.debian.org/iso-codes-team/iso-codes'
+arch=(any)
+license=(LGPL-2.1-only)
+makedepends=(git
+             python)
+source=(git+https://salsa.debian.org/iso-codes-team/iso-codes#tag=v$pkgver)
+sha256sums=('b09b6f2793be9c3e6bc3a2e9df048aa15b8e0b79c70df1b677531a0d18ffb30b')
+
+build() {
+  cd $pkgname
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}

@@ -1,0 +1,52 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=zenity
+pkgver=4.0.3
+pkgrel=1
+pkgdesc="Display graphical dialog boxes from shell scripts"
+url="https://gitlab.gnome.org/GNOME/zenity"
+arch=(x86_64)
+license=(LGPL-2.1-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  pango
+)
+makedepends=(
+  git
+  glib2-devel
+  help2man
+  meson
+  util-linux
+  yelp-tools
+)
+source=("git+$url.git?signed#tag=$pkgver")
+b2sums=('6a8770c60d5a8ec8e9afb01dd7456bbffb6f2bdb80b34ea48c62189e8035556f47169e9387b026be86b4c895ef4c94bd5c11c806cb5300ed13afbc766a99a508')
+validpgpkeys=(
+  98FF7532A4639119B8FB4F15E520923A38618D6C # Logan Rathbone (GNOME) <larathbone@gnome.org>
+)
+
+prepare() {
+  cd zenity
+}
+
+build() {
+  arch-meson zenity build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  hardlink -c "$pkgdir/usr/share/help"
+}
+
+# vim:set sw=2 sts=-1 et:

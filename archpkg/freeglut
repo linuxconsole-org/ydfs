@@ -1,0 +1,61 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Eric Belanger <eric@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+
+pkgname=freeglut
+pkgver=3.6.0
+pkgrel=1
+pkgdesc="Free OpenGL Utility Toolkit"
+url="https://freeglut.sourceforge.net/"
+arch=(x86_64)
+license=(X11)
+depends=(
+  glibc
+  libgl
+  libx11
+  libxi
+  libxrandr
+  libxxf86vm
+)
+makedepends=(
+  cmake
+  git
+  glu
+  mesa
+  ninja
+)
+provides=(glut)
+conflicts=(glut)
+source=("git+https://github.com/FreeGLUTProject/freeglut#tag=v$pkgver")
+b2sums=('2ce2bc7ff759405be701f1c43e4fe2154fce6a4ffe3801ba1f51ff362698b248b9a3d42929c44825a6f3f67029852a284cad49acbdc14908ac6c651c6c56e571')
+
+prepare() {
+  cd freeglut
+}
+
+build() {
+  local cmake_options=(
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_LIBDIR=lib
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D FREEGLUT_BUILD_STATIC_LIBS=OFF
+  )
+
+  cmake -S freeglut -B build -G Ninja "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  cd build
+  ctest --output-on-failure --stop-on-failure -j$(nproc)
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  ln -s glut.pc "$pkgdir/usr/lib/pkgconfig/freeglut.pc"
+
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" freeglut/COPYING
+}
+
+# vim:set sw=2 sts=-1 et:

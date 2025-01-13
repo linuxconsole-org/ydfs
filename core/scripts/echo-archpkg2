@@ -1,0 +1,35 @@
+#!/bin/bash
+PKG=$1
+SHORT=${PKG:0:2}
+install -d $HOME/archpkg2
+rm $HOME/archpkg2/*
+cd $HOME/archpkg2
+#URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
+URL1=https://gitlab.archlinux.org/archlinux/packaging/packages/$1/-/raw/main/PKGBUILD?ref_type=heads
+#URL6=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
+URL3=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
+
+OPTION=" --no-check-certificate" 
+OPTION=" -q --no-check-certificate" 
+if [ ! -e $HOME/archpkg2/$PKG ]
+then
+wget $OPTION "$URL1" -O $HOME/archpkg2/$PKG 
+grep 'You need to sign in or sign up before ' $HOME/archpkg2/$PKG >/dev/null && wget $OPTION "$URL3" -O $HOME/archpkg2/$PKG 
+[ ! -e $HOME/archpkg2/$PKG ] && exit 1
+fi
+
+test -s $HOME/archpkg2/$PKG
+if [ $? = 1 ]
+then
+ echo "Error, delete $HOME/archpkg2/$PKG which is empty"
+ rm $HOME/archpkg2/$PKG
+ exit 1
+fi
+
+source $HOME/archpkg2/$PKG
+
+for i in ${!source[*]}
+do 
+ echo ${source[i]}
+ break
+done

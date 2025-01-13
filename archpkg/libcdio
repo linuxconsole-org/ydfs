@@ -1,0 +1,61 @@
+# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Contributor: damir <damir@archlinux.org>
+
+pkgname=libcdio
+pkgver=2.2.0
+pkgrel=1
+pkgdesc="GNU Compact Disc Input and Control Library"
+url="https://www.gnu.org/software/libcdio/"
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+  ncurses
+)
+makedepends=(
+  git
+  help2man
+)
+source=(
+  "git+https://github.com/libcdio/libcdio#tag=$pkgver"
+)
+b2sums=('f7a71168f5957f073bf95d0fe68a69a6129f0c11410a1fa4927b41ccfc3f3828f2801e5e91597b6bab33523be4995b9a548d04a1c42463ed96367fb9c56780f5')
+validpgpkeys=(
+  DAA63BC2582034A02B923D521A8DE5008275EC21 # R. Bernstein <rocky@panix.com>
+)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fvi
+}
+
+build() {
+  local configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --localstatedir=/var
+    --disable-cddb
+    --enable-cpp-progs
+    --enable-maintainer-mode
+    --disable-static
+    --disable-vcd-info
+  )
+
+  cd $pkgname
+  ./configure "${configure_options[@]}"
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+check() {
+  cd $pkgname
+  make -C test check
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set sw=2 sts=-1 et:

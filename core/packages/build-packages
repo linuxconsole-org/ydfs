@@ -216,8 +216,8 @@ then
   if [  -n "`echo $ARCHIVE | grep 'archlinux2:'`" ] && [ ! -e $HOME/ydfs/build2-"$PKG" ]
   then
 	  URL=`$HOME_DIBAB/scripts/echo-archpkg $PKG | sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
-	  FOLDER=`basename $URL`
-	  echo "Uninstalling $FOLDER... " && sleep 2
+	  FOLDER=`basename $URL| sed "s/.git//"|  cut -d'#' -f1`
+	  echo "Uninstalling $FOLDER... " && sleep 20
 	  $HOME_DIBAB/scripts/uninstall-package $FOLDER
 	  touch $HOME/ydfs/build2-"$PKG"
   fi
@@ -290,8 +290,14 @@ fi
 	  || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ] 
   then
     ARCHIVE=$(echo $ARCHIVE | sed "s/?signed//")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/xorg-server::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/directx-headers::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/libdc1394::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/kde-qtbase::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/ncurses::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/xterm::https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/expat::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/hicolor-icon-theme::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/git+https/https/")
     #echo "$ARCHIVE"
     #exit 1

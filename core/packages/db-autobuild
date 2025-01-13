@@ -154,6 +154,24 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
      sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/id3tag.pc
   fi
 
+ if [ -e libmikmod ] && [ -e mikmod ]
+ then
+	set -e
+
+mkdir -p ./libmikmod/build ./mikmod/build
+cmake -S ./libmikmod -B libmikmod/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX
+cmake --build ./libmikmod/build/ --config Release
+CMAKE_PREFIX_PATH=./libmikmod:./libmikmod/build cmake -S mikmod -B mikmod/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX
+cmake --build mikmod/build/ --config Release
+   
+ cd  libmikmod/build  && make install && cd ../..
+ cd  mikmod/build  && make install && cd ../..
+     touch buildok-$ARCH && exit 0
+
+ fi
+ [ -e theora.pc.in ] && git cherry-pick -n 7288b539c52e99168488dc3a343845c9365617c8
+# [ -e theora.pc.in ] && autoreconf -fi
+
   [ -e libcurl.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e src/cpio.h ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e libarchive ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
@@ -334,9 +352,13 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e src/libbluray.pc.in ] && ./bootstrap
   [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
+  [ -e xorg-server.pc.in ] && rm configure
+  [ -e xorg-server.pc.in ] && rm autogen.sh
   [ -e fontconfig.pc.in ] && rm autogen.sh
   pwd | grep mesa-demos && rm configure
 
+  
+  pwd | grep libaio &&  sed -i "s@/usr@$PREFIX@g" Makefile
   pwd | grep jxrlib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   pwd | grep giflib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   pwd | grep lua-5.4 &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
@@ -404,7 +426,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
-  pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
+  # pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
   [ -e $HOME/$ARCH/include/fmt-disabled ] && mv $HOME/$ARCH/include/fmt-disabled $HOME/$ARCH/include/fmt
   [ -e $HOME/$ARCH/include/ode-disabled ] && mv $HOME/$ARCH/include/ode-disabled $HOME/$ARCH/include/ode
   [ -e $HOME/$ARCH/include/rapidjson-disabled ] && mv $HOME/$ARCH/include/rapidjson-disabled $HOME/$ARCH/include/rapidjson
@@ -961,6 +983,7 @@ fi
   [ -e libindicator ] && sed -i 's/-Werror//' {libindicator,tools}/Makefile.am
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
+  [ -e ftgl.pc.in ] && rm CMakeLists.txt
   pwd | grep itstool-2.0.7 &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e docs/filezilla.man ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e contrib/libsass.spec ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
@@ -1287,6 +1310,7 @@ pwd && sleep 5
 
   [ -e backend/saned.conf.in ] && gettextize -f
   [ -e lib/shadow.c ] && gettextize -f
+  [ -e libpwquality.spec.in ] && gettextize -f
 
   [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Run cherry-pick" && sleep 3 && git cherry-pick -n eea4f1be91
   # [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Fix configure" && sleep 2  && sed -i "s@config --ldflags@config --ldflags --embed@" configure

@@ -459,11 +459,13 @@ archive:
 	cd ..
 	tar czvf linuxconsole-2.4.tar.gz --exclude ydfs/config.ini --exclude .git 2.4
 
-packages/list-x86_64: packages/list-core-x86_64 packages/list-perl-x86_64 packages/list-xorg-x86_64 packages/list-mate-x86_64 packages/list-wine-x86_64 packages/list-libreoffice-x86_64 packages/list-kde-x86_64 packages/list-misc-x86_64
+packages/list-x86_64: packages/list-guilibs-x86_64 packages/list-xorg2-x86_64 packages/list-core-x86_64 packages/list-perl-x86_64 packages/list-xorg-x86_64 packages/list-mate-x86_64 packages/list-wine-x86_64 packages/list-libreoffice-x86_64 packages/list-kde-x86_64 packages/list-misc-x86_64
 	echo "#DO NOT WRITE HERE, GERNERATED FROM MAKEFILE" > packages/list-x86_64
 	cat packages/list-core-x86_64 >> packages/list-x86_64
 	cat packages/list-perl-x86_64 >> packages/list-x86_64
 	cat packages/list-xorg-x86_64 >> packages/list-x86_64
+	cat packages/list-xorg2-x86_64 >> packages/list-x86_64
+	cat packages/list-guilibs-x86_64 >> packages/list-x86_64
 	cat packages/list-mate-x86_64 >> packages/list-x86_64
 	cat packages/list-wine-x86_64 >> packages/list-x86_64
 	cat packages/list-libreoffice-x86_64 >> packages/list-x86_64
