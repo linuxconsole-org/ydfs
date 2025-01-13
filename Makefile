@@ -20,7 +20,9 @@ DOCKER=docker run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	-e HOME_DIBAB=/ydfs-src/core \
+#	--user $(shell id -u):$(shell id -g) \
 	-e SEND_BUILD_LOG=YES
+
 
 all: docker-64
 
@@ -65,4 +67,11 @@ fast-64: mkdir
 initramfs:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
 
-#	--user $(shell id -u):$(shell id -g) \
+core/packages/list-x86_64: core/packages/list-core-x86_64 core/packages/list-perl-x86_64 core/packages/list-xorg-x86_64 core/packages/list-mate-x86_64 core/packages/list-wine-x86_64 core/packages/list-libreoffice-x86_64 core/packages/list-kde-x86_64 core/packages/list-misc-x86_64
+	echo "#DO NOT WRITE HERE, GERNERATED FROM MAKEFILE" > core/packages/list-x86_64
+	cat core/packages/list-core-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-perl-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-xorg-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-mate-x86_64 >> core/packages/list-x86_64
+	cat core/packages/list-wine-x86_64 >> core/packages/list-x86_64
+
