@@ -1,0 +1,70 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=upower
+pkgver=1.90.7
+pkgrel=1
+pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
+url="https://upower.freedesktop.org"
+arch=(x86_64)
+license=(GPL-2.0-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  libgudev
+  libimobiledevice
+  libplist
+  polkit
+)
+optdepends=(
+  'usbmuxd: Read charge status of iOS devices'
+)
+makedepends=(
+  docbook-xsl
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  meson
+  python
+  systemd
+  usbmuxd
+)
+checkdepends=(
+  python-dbus
+  python-dbusmock
+  python-gobject
+  python-packaging
+  umockdev
+)
+backup=(etc/UPower/UPower.conf)
+source=(
+  "git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver"
+)
+b2sums=('9d973b3d6ae9546a798464499f0dfe6aec769c51e00725956f1df5fc06a6fd7370b8dbe2bf020df18962f10cc2be6fdddb833ab1a679cb70298ad60a5fbc225b')
+
+prepare() {
+  cd upower
+}
+
+build() {
+  arch-meson upower build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  depends+=(libg{lib,object,io}-2.0.so)
+  provides+=(libupower-glib.so)
+
+  meson install -C build --destdir "$pkgdir"
+
+  # Remove installed-tests
+  rm -rv "$pkgdir"/usr/{lib/upower,share/installed-tests}
+}
+
+# vim:set sw=2 sts=-1 et:

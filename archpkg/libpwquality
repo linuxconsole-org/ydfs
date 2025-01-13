@@ -1,0 +1,50 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=libpwquality
+pkgver=1.4.5
+pkgrel=6
+pkgdesc='Library for password quality checking and generating random passwords'
+arch=(x86_64)
+url='https://github.com/libpwquality/libpwquality'
+license=('BSD-3-Clause OR GPL-2.0-or-later')
+depends=(
+  cracklib
+  glibc
+  pam
+)
+optdepends=('python: Python bindings')
+makedepends=(
+  git
+  python-setuptools
+)
+backup=(etc/security/pwquality.conf)
+source=("git+https://github.com/libpwquality/libpwquality.git#tag=$pkgname-$pkgver")
+b2sums=(640d13a93fd577ddd1396e3839f8fef85dbdcfb8f77af1f9817109ae03849e273c97b578de5c210491eb7e2292367e6bc64615315d09bb70c2bc848041f3c9a7)
+
+prepare() {
+  cd $pkgname
+
+  # Use setuptools instead of distutils
+  # https://github.com/libpwquality/libpwquality/pull/74
+  git cherry-pick -n 7b5e0f0097faebdcc6a8b783237bbba7a983147a
+
+  autoreconf -fi
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+  install -dm755 "$pkgdir"/etc/security/pwquality.conf.d
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYING
+}
