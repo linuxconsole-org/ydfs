@@ -1,5 +1,5 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
-##JUMP
+#JUMP
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
@@ -312,7 +312,7 @@ archlinux:libmad
 archlinux:libglvnd
 archlinux:lm_sensors
 archlinux:spirv-headers
-##STOP
+#STOP
 archlinux:spirv-tools
 archlinux:glslang
 archlinux:vulkan-headers
@@ -320,7 +320,9 @@ archlinux:vulkan-icd-loader
 #archlinux:spirv-llvm-translator
 https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v18.1.8/spirv-llvm-translator-18.1.8.tar.gz
 https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/libclc-18.1.8.src.tar.xz
-archlinux:mesa
+#archlinux:mesa
+pip::PyYAML
+https://archive.mesa3d.org/mesa-24.2.8.tar.xz
 FAIL
 https://github.com/anholt/libepoxy/releases/download/1.5.4/libepoxy-1.5.4.tar.xz
 https://gitlab.freedesktop.org/virgl/virglrenderer.git#tag=0.10.4
