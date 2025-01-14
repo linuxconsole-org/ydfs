@@ -6,6 +6,7 @@ ARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/sh[234].*/sh/ )
 
 ISTTY = $(shell tty -s || echo NOTTY)
+DOCKERIMAGE64 = $(shell docker image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
 
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
@@ -46,8 +47,9 @@ mkdir:
 	chmod 777 ${HOME}/${ARCH}
 
 docker-image-64: core/Dockerfile
+ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
 	cd core && docker build -f Dockerfile -t ydfs64-${YDFS} .
-	touch docker-image-64
+endif
 
 docker-64: docker-image-64 mkdir
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
