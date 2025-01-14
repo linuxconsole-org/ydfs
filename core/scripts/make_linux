@@ -1,7 +1,8 @@
 #!/bin/sh
 . $HOME/ydfs/config.ini
 
-if [ "$BUILDYDFS" = "fast" ]
+echo BUILDYDFS $BUILDYDFS
+if [ "$BUILDYDFS" = "fast" ] || [ "$BUILDYDFS" = "fast_kernel" ]
 then
 	cd $HOME
         if [ ! -d $HOME/iso/ ]

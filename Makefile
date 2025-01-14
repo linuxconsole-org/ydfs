@@ -58,7 +58,8 @@ live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
 fast-kernel:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
-
+busybox:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
 
 uninstall:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package dbus-1.16.0'
@@ -69,8 +70,12 @@ bash: mkdir
 root: mkdir
 	${DOCKER} -u root ydfs64-${YDFS} bash
 
+fast-kernel64: mkdir
+	#${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/bash
+	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make linux'
+
 fast-64: mkdir
-	${DOCKER} ydfs64-${YDFS} -e "BUILDYDFS=fast" /bin/sh -c 'cd core; make iso'
+	${DOCKER} -e BUILDYDFS=fast ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 initramfs:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
