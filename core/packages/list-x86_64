@@ -1,7 +1,7 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
-https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz
-FAIL
 ##JUMP
+archlinux:wine
+FAIL
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
@@ -10,6 +10,7 @@ archlinux:jsoncpp
 archlinux:abseil-cpp
 archlinux:re2
 archlinux:snappy
+https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz
 #archlinux:gmp
 archlinux:pkg-config
 archlinux:gzip

@@ -17,6 +17,7 @@ DOCKER=docker run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/ydfs:/home/linuxconsole2025/ydfs \
 	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
 	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
+	-v ${HOME}/multilib:/home/linuxconsole2025/multilib \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	-e HOME_DIBAB=/ydfs-src/core \
@@ -32,10 +33,12 @@ clean:
 mkdir:
 	@echo mkdir
 	install -d ${HOME}/ydfs
+	install -d ${HOME}/multilib
 	install -d ${HOME}/archpkg
 	install -d ${HOME}/${ARCH}
 	@echo $(YDFS) > ydfs
 	chmod 777 ${HOME}/ydfs
+	chmod 777 ${HOME}/multilib
 	chmod 777 ${HOME}/archpkg
 	chmod 777 ${HOME}/${ARCH}
 
