@@ -1,3 +1,5 @@
-git remote set-url origin https://github.com/yledoare/ydfs.git
-git tag -a v2.9.4 -m "Version 2.9.4"
-git push origin v2.9.4
+# git pull --rebase --autostash
+
+git remote set-url origin git://github.com/linuxconsole-org/ydfs.git
+git tag -a v2.11.0 -m "Version 2.11.0"
+git push origin v2.11.0

@@ -192,7 +192,9 @@ wineprogs:
 	./scripts/get_wine_progs
 test:
 	./scripts/make_test
-fast_files:
+fast-kernel:
+	./scripts/make_fast_kernel
+fast-files:
 	./scripts/make_fast_files
 test-liveusb:
 	./scripts/make_test bootusb

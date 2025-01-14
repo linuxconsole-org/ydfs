@@ -31,7 +31,7 @@ DOC_FILES=" share/doc "
 LOCALE_FILES="share/locale"
 DEV_FILES=" "
 
-SKIP_FILES=" bin/mount bin/umount bin/df bin/ls var/cache/fontconfig share/help share/gir-1.0 "
+SKIP_FILES=" bin/mount bin/umount bin/df bin/ls var/cache/fontconfig share/gir-1.0 "
 [ "$DISTRONAME" = "hackerOS" ] && SKIP_FILES=""
 
 link_module()
@@ -72,7 +72,7 @@ echo "Make module .. log in  $HOME/ydfs/modules/$ARCH.log"
 LIST=$HOME/ydfs/modules/gui-skip-all MOD=$ARCH FIND_FILES="/" link_module # > $HOME/ydfs/modules/$ARCH.log 2> $HOME/ydfs/modules/$ARCH.log.err
 LDLINUX="ld-linux.so.2 libunwind-x86.so.8 libz3.so.4 libffi.so.7 libomp.so.5"
 [ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8 libcrypto.so.3"
-LIBLLVM=14
+LIBLLVM=18
 [ "$ARCH" = "x86" ] && LIBLLVM=11
 LIBBOOST=83
 #[ "$ARCH" = "x86" ] && LIBBOOST=67
@@ -99,7 +99,7 @@ else
 	  install -d $HOME/ydfs/modules/$ARCH/lib
   for file in $GLIBC_LIBS
   do
-    for directory in /lib64 /libx32/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/9/ /usr/lib/gcc/x86_64-linux-gnu/9/ /usr/lib/llvm-$LIBLLVM/lib/ /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/8/
+    for directory in /usr/lib/x86_64-linux-gnu/ /lib64 /libx32/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/9/ /usr/lib/gcc/x86_64-linux-gnu/9/ /usr/lib/llvm-$LIBLLVM/lib/ /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/8/
     do
 	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
     done

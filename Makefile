@@ -18,6 +18,7 @@ DOCKER=docker run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
 	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
 	-v ${HOME}/multilib:/home/linuxconsole2025/multilib \
+	-v ${HOME}/iso:/home/linuxconsole2025/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	-e HOME_DIBAB=/ydfs-src/core \
@@ -35,11 +36,13 @@ mkdir:
 	install -d ${HOME}/ydfs
 	install -d ${HOME}/multilib
 	install -d ${HOME}/archpkg
+	install -d ${HOME}/iso
 	install -d ${HOME}/${ARCH}
 	@echo $(YDFS) > ydfs
 	chmod 777 ${HOME}/ydfs
 	chmod 777 ${HOME}/multilib
 	chmod 777 ${HOME}/archpkg
+	chmod 777 ${HOME}/iso
 	chmod 777 ${HOME}/${ARCH}
 
 docker-image-64: core/Dockerfile
@@ -53,6 +56,8 @@ buildme:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
+fast-kernel:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
 
 
 uninstall:
