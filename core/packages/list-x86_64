@@ -1,7 +1,5 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
 ##JUMP
-archlinux:wine
-FAIL
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
