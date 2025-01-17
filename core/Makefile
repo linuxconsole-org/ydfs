@@ -132,7 +132,8 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: ${HOME}/ydfs/config.ini packages/list-x86_64 toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
+#isodep: ${HOME}/ydfs/config.ini packages/list-x86_64 toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate lxde xfce firmware drivers $(DISTRONAME)
+isodep: ${HOME}/ydfs/config.ini packages/list-x86_64 toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}
