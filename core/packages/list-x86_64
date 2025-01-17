@@ -1,5 +1,8 @@
 #DO NOT WRITE HERE, GERNERATED FROM MAKEFILE
 ##JUMP
+archlinux:util-linux
+ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz
+#END-linuxconsole
 archlinux:nghttp2
 archlinux:x265
 #archlinux:gdbm
@@ -171,7 +174,6 @@ archlinux:bluez
 archlinux:libpcap
 archlinux:ppp
 archlinux:wget
-#END-linuxconsole
 archlinux:perl-module-build
 archlinux:perl-yaml
 archlinux:perl-net-http
@@ -193,6 +195,7 @@ archlinux:perl-extutils-pkgconfig
 #archlinux:groff
 ftp://ftp.gnu.org/gnu/groff/groff-1.23.0.tar.gz
 archlinux:coreutils
+#END-linuxconsole
 archlinux:swig
 archlinux:audit
 archlinux:shadow

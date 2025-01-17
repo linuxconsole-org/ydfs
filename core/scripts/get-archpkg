@@ -1,17 +1,13 @@
 #!/bin/bash
 install -d $HOME/archpkg
 cd $HOME/archpkg
-URL=https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages
-URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages
+URL=https://gitlab.archlinux.org/archlinux/packaging/packages
 PKG=$1
 SHORT=${PKG:0:2}
-URL3=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
-URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
 #[ -e $PKG ] && rm $PKG
 if [ ! -e $HOME/archpkg/$PKG ]
 then
-#wget --no-check-certificate -q "$URL""/""$1" -O $HOME/archpkg/$PKG || 
-	wget --no-check-certificate -q "$URL2""/""$1""/trunk/PKGBUILD" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL3" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
+	wget --no-check-certificate -q "$URL""/""$1""/-/raw/main/PKGBUILD" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL3" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
 fi
 
 . $HOME/archpkg/$PKG
@@ -21,7 +17,7 @@ do
  if [ $i -gt 0 ]
  then
 #	echo ${source[i]}
-	echo https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$PKG/trunk/${source[i]} >> $HOME/.archpatches
+	echo $URL/$pkg//-/raw/main/${source[i]} >> $HOME/.archpatches
  fi
  #break
 done

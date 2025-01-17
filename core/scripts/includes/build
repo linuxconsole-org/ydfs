@@ -46,7 +46,7 @@ build_ydfs_package()
   if [ "$SEND_BUILD_LOG" = "YES" ]
   then
 	NEWSIZE=$(df -k -t ext4 --output=used | tac | head -1)
-	DIFF=$(expt $NEWSIZE - $OLDSIZE)
+	DIFF=$(expr $NEWSIZE - $OLDSIZE)
 	echo "SIZE : $NEWSIZE - $OLDSIZE = $DIFF""k"
 	echo "Send log"
 	cp ydfs-log $PKGNAME.log.txt

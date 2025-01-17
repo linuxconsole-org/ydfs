@@ -45,6 +45,7 @@ mkdir:
 	chmod 777 ${HOME}/archpkg
 	chmod 777 ${HOME}/iso
 	chmod 777 ${HOME}/${ARCH}
+	cp archpkg/* ${HOME}/archpkg
 
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
@@ -64,7 +65,7 @@ busybox:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package dbus-1.16.0'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package util-linux'
 
 bash: mkdir
 	${DOCKER} ydfs64-${YDFS} bash

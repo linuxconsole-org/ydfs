@@ -1,8 +1,2 @@
 #https://ftp.postgresql.org/pub/source/v16.6/postgresql-16.6.tar.bz2
-pip::psycopg2
-#pip::gevent==24.11.1
-pip::gevent==21.12.0
-https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-2.1.28/cyrus-sasl-2.1.28.tar.gz
-pip::python-ldap
 pip::https://raw.githubusercontent.com/odoo/odoo/refs/heads/18.0/requirements.txt
-ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz

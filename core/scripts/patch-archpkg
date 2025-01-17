@@ -1,10 +1,11 @@
 #!/bin/bash
 install -d $HOME/archpkg
 cd $HOME/archpkg
-URL=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/
+#https://gitlab.archlinux.org/archlinux/packaging/packages/util-linux/-/raw/main/$file?ref_type=heads
+URL=https://gitlab.archlinux.org/archlinux/packaging/packages/
 PKG=$1
 [ -e $PKG ] && rm $PKG
-wget -q "$URL""/""$1""/trunk/PKGBUILD" -O $HOME/archpkg/$PKG || exit 1
+wget -q "$URL""/""$1""/-/raw/main/$file?ref_type=heads" -O $HOME/archpkg/$PKG || exit 1
 
 source $HOME/archpkg/$PKG
 

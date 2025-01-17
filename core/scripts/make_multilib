@@ -506,30 +506,6 @@ unset MAKE
     ..
 	;;
 
-    krb5 )
-	[ -e krb5-1.18.5/src/clients/kinit/kinit ] && continue
-	#then
-	wget https://web.mit.edu/kerberos/dist/krb5/1.18/krb5-1.18.5.tar.gz
-	tar xzvf krb5-1.18.5.tar.gz
-	cd krb5-1.18.5
-	wget https://raw.githubusercontent.com/archlinux/svntogit-community/packages/lib32-krb5/trunk/krb5-config_LDFLAGS.patch
-	patch -p1 < krb5-config_LDFLAGS.patch
-	sed -i "/KRB5ROOT=/s/\/local//" src/util/ac_check_krb5.m4
-	cd src
-	#mkdir build32
-	#cd build32
-	LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 " CFLAGS="$CFLAGS -fPIC -fno-strict-aliasing -fstack-protector-all" ./configure --prefix=$HOME/multilib  --enable-shared \
-               --with-system-et \
-               --with-system-ss \
-               --disable-rpath \
-               --without-tcl \
-               --enable-dns-for-realm \
-               --without-ldap \
-               --without-system-verto  --with-crypto-impl=openssl || exit $?
-	#else
-	#  cd krb5-1.18.5/src
-	#fi
-    ;;
     * )
 	pwd
   	./configure --prefix=$HOME/multilib || exit $?
