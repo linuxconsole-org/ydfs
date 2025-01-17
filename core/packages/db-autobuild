@@ -352,6 +352,7 @@ cmake --build mikmod/build/ --config Release
   [ -e src/libbluray.pc.in ] &&  git submodule update --init --recursive
   [ -e lirc.pc.in ] && rm configure
   [ -e util-linux.doap ] && rm autogen.sh
+  [ -e util-linux.doap ] && sed -i "s@/usr/lib/tmpfiles.d@$PREFIX/lib/tmpfiles.d@g" misc-utils/meson.build
   [ -e xorg-server.pc.in ] && rm configure
   [ -e xorg-server.pc.in ] && rm autogen.sh
   [ -e fontconfig.pc.in ] && rm autogen.sh
@@ -614,6 +615,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
     git submodule init
     git -c protocol.file.allow=always submodule update
   fi
+
 
   if [ -e plugins/ZamPiano ] 
   then
