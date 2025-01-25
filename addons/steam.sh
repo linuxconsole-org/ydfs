@@ -5,7 +5,7 @@ then
 
 install -d src/steam
 cd src/steam
-[ ! -e steam-launcher ] && wget http://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.78.tar.gz && tar xzvf steam_1.0.0.78.tar.gz
+[ ! -e steam-launcher ] && wget http://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.82.tar.gz && tar xzvf steam_1.0.0.82.tar.gz
 cd steam-launcher && ./steam 
 
 fi

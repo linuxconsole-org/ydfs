@@ -137,6 +137,7 @@ RUN apt-get install -y libclang-cpp-dev
 RUN apt-get install -y libclang-18-dev
 RUN apt-get install -y bindgen
 RUN apt-get install -y strace
+RUN apt-get install -y help2man
 
 USER linuxconsole2025
 #CMD /build-lc2025

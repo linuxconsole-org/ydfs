@@ -103,15 +103,13 @@ install -d $ROOTFS/etc
 
 if [ "$ARCH" = "x86" ] || [ "$ARCH" = "x86_64" ]
 then
-  echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
+  #echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/media
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
 else
   if [ "$TOOLCHAIN" = "FriendlyARM" ]
   then
-    # cp -a $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/* $INITRAMFS/
-    # cp -a $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/lib/*so* $INITRAMFS/lib
     for LIB in ld-linux.so.3 libc.so.6 libdl.so.2 libpthread.so.0 libm.so.6 libgcc_s.so.1
     do
       cp $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/lib/$LIB $INITRAMFS/lib
@@ -119,7 +117,6 @@ else
   fi
   if [ "$TOOLCHAIN" = "crosstool-ng" ]
   then
-    # for LIB in ld-uClibc.so.0 libdl.so.0 libc.so.0 libpthread.so.0 libm.so.0 libgcc_s.so.1
     for LIB in ld-linux.so.3 libc.so.6 libdl.so.2 libpthread.so.0 libm.so.6 libgcc_s.so.1
     do
      cp $HOME/ydfs/x-tools/arm-unknown-linux-"$GNU"/arm-unknown-linux-"$GNU"/sysroot/lib/$LIB $INITRAMFS/lib || sleep 5

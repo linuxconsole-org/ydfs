@@ -295,6 +295,7 @@ fi
     ARCHIVE=$(echo $ARCHIVE | sed "s/libdc1394::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/kde-qtbase::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/ncurses::git+https/https/")
+    ARCHIVE=$(echo $ARCHIVE | sed "s/cyrus-sasl::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/xterm::https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/expat::git+https/https/")
     ARCHIVE=$(echo $ARCHIVE | sed "s/hicolor-icon-theme::git+https/https/")

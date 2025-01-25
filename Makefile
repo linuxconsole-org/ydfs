@@ -63,6 +63,9 @@ live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
 fast-kernel:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
+updates:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
+
 busybox:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
 

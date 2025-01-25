@@ -1,0 +1,11 @@
+if [ ! -e $HOME/.local/bin/node ]
+then
+  install -d $HOME/.local
+  cd $HOME/.local
+  wget https://nodejs.org/dist/v22.13.1/node-v22.13.1-linux-x64.tar.xz
+  tar xJvf node-v22.13.1-linux-x64.tar.xz
+  ln -s $HOME/.local/node-v22.13.1-linux-x64/bin/node $HOME/.local/bin/
+  ln -s $HOME/.local/node-v22.13.1-linux-x64/bin/npm $HOME/.local/bin/
+  ln -s $HOME/.local/node-v22.13.1-linux-x64/bin/npx $HOME/.local/bin/
+  rm node-v22.13.1-linux-x64.tar.xz
+fi

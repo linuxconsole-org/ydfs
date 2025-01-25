@@ -6,7 +6,7 @@ CONFIGINI=$HOME/ydfs/config.ini
 
 echo '
 KERNEL_PREFIX=k
-CROSSTOOL=1.15.3
+CROSSTOOL=1.26.0
 LCBUILD=`date +"%Y-%m-%d"`
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
 LCMBUILD=${HOME}/ydfs/build/modules/
@@ -39,6 +39,9 @@ echo "BUILDMODULES=$BUILDMODULES" >> $CONFIGINI
 
 [ "$BUILDOPKG" = "YES" ] && BUILDOPKG=YES
 echo "BUILDOPKG=$BUILDOPKG" >> $CONFIGINI
+
+[ "BUILD_TOOLCHAIN" = "OK" ] && BUILD_TOOLCHAIN=YES
+echo "BUILD_TOOLCHAIN=$BUILD_TOOLCHAIN" >> $CONFIGINI
 
 [ "$YDFS_MODULES" = "" ] && YDFS_MODULES="fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps"
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
@@ -80,12 +83,9 @@ then
   read key
 echo '
 # Only for mini2440 ARM
-TOOLCHAIN=FriendlyARM
-# TOOLCHAIN=buildroot
+# TOOLCHAIN=FriendlyARM
+TOOLCHAIN=buildroot
 # TOOLCHAIN=crosstool-ng
-
-# enable this to build crosstoolng toolchain
-# BUILD_TOOLCHAIN=OK
 
 # enable this to check mtd capacities of target 
 # BUILD-MTD-UTILS=OK 
@@ -104,7 +104,7 @@ BOOT=NAND
       echo "SUBARCH=raspi" >> $CONFIGINI
       echo "KERNEL3=rpi-3.12.y" >> $CONFIGINI
       echo "#TOOLCHAIN=crosstool-ng" >> $CONFIGINI
-      echo "#CROSSTOOL=1.15.3" >> $CONFIGINI
+      echo "#CROSSTOOL=1.26.0" >> $CONFIGINI
     else
       if [ "$arch" = "raspi-qemu" ]
       then
@@ -112,7 +112,7 @@ BOOT=NAND
         echo "SUBARCH=raspi-qemu" >> $CONFIGINI
         echo "KERNEL3=3.6.11" >> $CONFIGINI
         echo "#TOOLCHAIN=crosstool-ng" >> $CONFIGINI
-        echo "#CROSSTOOL=1.15.3" >> $CONFIGINI
+        echo "#CROSSTOOL=1.26.0" >> $CONFIGINI
       else
         if [ "$arch" = "x86" ]
 	    then
