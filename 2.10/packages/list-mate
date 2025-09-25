@@ -1,3 +1,4 @@
+pip::setuptools==65.0.2
 lp:libappindicator
 https://github.com/mate-desktop/mate-polkit/releases/download/v1.28.0/mate-polkit-1.28.0.tar.xz
 https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v1.28.1.tar.gz
@@ -7,8 +8,7 @@ https://github.com/mate-desktop/libmatekbd/releases/download/v1.28.0/libmatekbd-
 https://github.com/mate-desktop/mate-menus/releases/download/v1.28.0/mate-menus-1.28.0.tar.xz
 https://github.com/mate-desktop/marco/releases/download/v1.28.1/marco-1.28.1.tar.xz
 https://github.com/mate-desktop/mate-settings-daemon/releases/download/v1.28.0/mate-settings-daemon-1.28.0.tar.xz
-#https://pub.mate-desktop.org/releases/1.26/mate-control-center-1.26.1.tar.xz
-git://github.com/mate-desktop/mate-control-center#d7f3c6235a8caba9e372c51bb3e0306be1fa240b
+https://github.com/mate-desktop/mate-control-center/archive/refs/tags/v1.28.1.tar.gz
 https://github.com/mate-desktop/libmatemixer/releases/download/v1.28.0/libmatemixer-1.28.0.tar.xz
 https://github.com/mate-desktop/libmateweather/releases/download/v1.28.0/libmateweather-1.28.0.tar.xz
 https://github.com/mate-desktop/caja-extensions/releases/download/v1.28.0/caja-extensions-1.28.0.tar.xz
@@ -28,3 +28,4 @@ https://github.com/mate-desktop/mozo/releases/download/v1.28.0/mozo-1.28.0.tar.x
 https://github.com/mate-desktop/mate-themes/releases/download/v3.22.24/mate-themes-3.22.24.tar.xz
 https://github.com/mate-desktop/mate-sensors-applet/releases/download/v1.28.0/mate-sensors-applet-1.28.0.tar.xz
 https://github.com/mate-desktop/python-caja/releases/download/v1.28.0/python-caja-1.28.0.tar.xz
+#pip::setuptools==80.9.0
