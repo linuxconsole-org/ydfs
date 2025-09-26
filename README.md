@@ -2,18 +2,29 @@
 
 (Your Distro From Scratch) is a tool to build your own linux distribution 
 
+# Warning
+
+This 2.10 banch is using an archived realease : https://github.com/yledoare/ydfs
+This static script is used : https://github.com/linuxconsole-org/ydfs/blob/2.10/2.10/build-lc2024
+
+# About 32 bits build
+
 To build 32 bits ISO, you must switch to 2.10-32bits branch :
 
 * git checkout 2.10-32bits
 
+# Build with Docker
+
+* install -d $HOME/iso
+* chmod 777 $HOME/iso
+* cd 2.10
+
 # Full Build (32 & 64 bits)
 
-* cd 2.10
 * docker-compose up -d
 
 # Fast Build (32 & 64 bits)
 
-* cd 2.10
 * BUILDYDFS="fast" docker-compose up -d
 
 # Manual build
@@ -23,7 +34,6 @@ To build 32 bits ISO, you must switch to 2.10-32bits branch :
 * cd 2.10
 
 # For fast option
-
 * export BUILDYDFS=fast
-* make iso
 
+* make iso
