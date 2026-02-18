@@ -84,7 +84,7 @@ echo "Extra is $DBEXTRA, name is $NAME"
 
 OPKGARCH=x86_64
 [ "$ARCH" = "x86" ] && OPKGARCH=i686
-[ "$PKGSRC" = "" ] && PKGSRC="http://linuxconsole.org"
+[ "$PKGSRC" = "" ] && PKGSRC="https://linuxconsole.org"
 
 echo "
 Package: $NAME

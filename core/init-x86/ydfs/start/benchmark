@@ -4,5 +4,5 @@ DBNAME=$(/busybox/bin/cat /ydfs-name)
 DBREL=$(/busybox/bin/cat /ydfs-release)
 FILE=benchmark-$DBREL
 [ -e $FILE ] && rm $FILE
-wget http://jukebox.linuxconsole.org/ydfs/$FILE || exit 1 
+wget https://jukebox.linuxconsole.org/ydfs/$FILE || exit 1 
 sh $FILE

@@ -15,7 +15,7 @@ else
   DBREL=$(/busybox/bin/cat /ydfs-release)
   FILE=installsoft-$DBREL
   [ -e $FILE ] && rm $FILE
-  wget http://jukebox.linuxconsole.org/ydfs/$FILE 
+  wget https://jukebox.linuxconsole.org/ydfs/$FILE 
   if [ $? = 0 ]
   then
     sh $FILE $1
@@ -53,6 +53,6 @@ then
   0ad
   exit 0
 fi
-    zenity --info --text="Error when downloading http://jukebox.linuxconsole.org/ydfs/$FILE"
+    zenity --info --text="Error when downloading https://jukebox.linuxconsole.org/ydfs/$FILE"
   fi
 fi

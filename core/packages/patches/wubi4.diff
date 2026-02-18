@@ -185,8 +185,8 @@
 +arch=i386
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -195,8 +195,8 @@
 +arch=amd64
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
  
@@ -308,7 +308,7 @@
  
  #Compiled modules
 -pycrypto_url="http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=pycrypto-2.0.1.win32-py2.3.zip"
-+pycrypto_url="http://jukebox.linuxconsole.org/ydfs/wubi/pycrypto-2.0.1.win32-py2.3.zip"
++pycrypto_url="https://jukebox.linuxconsole.org/ydfs/wubi/pycrypto-2.0.1.win32-py2.3.zip"
  pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
  
  #2.3 modules (not needed in python 2.4+)

@@ -2,9 +2,9 @@
 #ce script est lancé par ?
 # commande echo pour créer le fichier
 
-CONFIGINI=$HOME/ydfs/config.ini
+CONFIGINI=$HOME/x86_64/config.ini
 
-echo '
+[ ! -e $CONFIGINI ] && echo '
 KERNEL_PREFIX=k
 CROSSTOOL=1.26.0
 LCBUILD=`date +"%Y-%m-%d"`

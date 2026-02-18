@@ -150,8 +150,8 @@ Binary files data/images/Ydfs.ico	1970-01-01 00:00:00 +0000 and data/images/Ydfs
 +arch=i386
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -160,8 +160,8 @@ Binary files data/images/Ydfs.ico	1970-01-01 00:00:00 +0000 and data/images/Ydfs
 +arch=amd64
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -210,7 +210,7 @@ Binary files data/images/Ydfs.ico	1970-01-01 00:00:00 +0000 and data/images/Ydfs
 +    <files>
 +      <file name=\"test.iso\">
 +      <resources>
-+        <url type=\"http\">http://jukebox.linuxconsole.org/ydfs/test.iso</url> 
++        <url type=\"http\">https://jukebox.linuxconsole.org/ydfs/test.iso</url> 
 +      </resources>
 +      </file>
 +    </files>

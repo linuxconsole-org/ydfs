@@ -1,6 +1,11 @@
 export YDFS = $(shell git rev-parse --abbrev-ref HEAD)
 export YDFS_GIT_ID = $(shell git log -n1 --format="%h")
 
+
+THEUSER=$(shell whoami) 
+THEUSERID=$(shell id -u|tr -d '[:space:]') 
+THEGROUPID=$(shell id -g|tr -d '[:space:]') 
+
 UNAME  = $(shell uname)
 
 DOCKER_BUILDX  = $(shell docker --help |grep buildx)
@@ -18,7 +23,9 @@ else
 endif
 
 DOCKER_CLI = docker
-HOME_DOCKER = /ydfs${YDFS}/linuxconsole3
+HOME_DOCKER = /home/linuxconsole3
+
+#HOME_DOCKER = /ydfs${YDFS}/linuxconsole3
 
 ifeq ($(UNAME),Darwin)
 ARCH=x86_64
@@ -43,12 +50,12 @@ else
 endif
 
 DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
-	-v ${HOME}/ydfs-build/ydfs:${HOME_DOCKER}/ydfs \
-	-v ${HOME}/ydfs-build/${ARCH}:${HOME_DOCKER}/${ARCH} \
-	-v ${HOME}/ydfs-build/archpkg:${HOME_DOCKER}/archpkg \
-	-v ${HOME}/ydfs-build/multilib:${HOME_DOCKER}/multilib \
-	-v ${HOME}/ydfs-build/linuxconsole:${HOME_DOCKER}/linuxconsole \
-	-v ${HOME}/ydfs-build/iso:${HOME_DOCKER}/iso \
+	-v ${HOME}/ydfs3/ydfs:${HOME_DOCKER}/ydfs \
+	-v ${HOME}/ydfs3/${ARCH}:${HOME_DOCKER}/${ARCH} \
+	-v ${HOME}/ydfs3/archpkg:${HOME_DOCKER}/archpkg \
+	-v ${HOME}/ydfs3/multilib:${HOME_DOCKER}/multilib \
+	-v ${HOME}/ydfs3/linuxconsole:${HOME_DOCKER}/linuxconsole \
+	-v ${HOME}/ydfs3/iso:${HOME_DOCKER}/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	--platform=linux/amd64 \
@@ -56,35 +63,46 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-e SEND_BUILD_LOG=YES #\
 #	--user $(shell id -u):$(shell id -g)
 
-all: linuxconsole
+all: Dockerfile-user iso
 
-linuxconsole: iso
+Dockerfile-user:
+	echo "FROM yledoare/ydfs-2.11" > Dockerfile-user
+	echo "USER root" >> Dockerfile-user
+#	echo "RUN grep ${THEUSERID} /etc/group || groupadd -g ${THEUSERID} ${THEUSER}" >> Dockerfile-user
+#	echo "RUN useradd linuxconsole3 -u ${THEUSERID} -g ${THEGROUPID} -m -s /bin/bash" >> Dockerfile-user
+	echo "RUN sed -i -e s/ubuntu/linuxconsole3/g /etc/passwd" >> Dockerfile-user
+	echo "RUN mv /home/ubuntu /home/linuxconsole3" >> Dockerfile-user
+	echo "USER linuxconsole3" >> Dockerfile-user
+	docker build -f Dockerfile-user -t ydfs3-userid .
 
 #iso: docker-image-64 prepare core/packages/list-x86_64
 iso: prepare core/packages/list-x86_64
-	${DOCKER} yledoare/ydfs-${YDFS} /bin/sh -c 'cd core; make iso'
+	# ${DOCKER} yledoare/ydfs-${YDFS} /bin/sh -c 'cd core; make iso'
+	# ${DOCKER} ydfs3-userid /bin/sh -c 'cd core; make iso'
+	${DOCKER} ydfs3-userid /bin/sh -c 'cd core; make iso'
+	# ${DOCKER} ydfs3-userid /bin/sh 
 
 clean:
-	rm -fR ${HOME}/ydfs-build
+	rm -fR ${HOME}/ydfs3
 
 prepare:
 	@echo "DOCKER_BUILD_CLI is $(DOCKER_BUILD_CLI) ${DOCKER_BUILD_CLI_OPTION}"
 	@echo "Arch is ${ARCH}"
 	@echo -n prepare ..
-	@install -d ${HOME}/ydfs-build/ydfs
-	@install -d ${HOME}/ydfs-build/multilib
-	@install -d ${HOME}/ydfs-build/linuxconsole
-	@install -d ${HOME}/ydfs-build/archpkg
-	@install -d ${HOME}/ydfs-build/iso
-	@install -d ${HOME}/ydfs-build/${ARCH}
+	@install -d ${HOME}/ydfs3/ydfs
+	@install -d ${HOME}/ydfs3/multilib
+	@install -d ${HOME}/ydfs3/linuxconsole
+	@install -d ${HOME}/ydfs3/archpkg
+	@install -d ${HOME}/ydfs3/iso
+	@install -d ${HOME}/ydfs3/${ARCH}
 	@echo $(YDFS) > ydfs
 	@echo $(YDFS_GIT_ID) > ydfs-git-id
-	@chmod 777 ${HOME}/ydfs-build/ydfs
-	@chmod 777 ${HOME}/ydfs-build/multilib
-	@chmod 777 ${HOME}/ydfs-build/archpkg
-	@test -f ${HOME}/ydfs-dbuild/archpkg/tcl || cp archpkg/* ${HOME}/ydfs-build/archpkg
-	@chmod 777 ${HOME}/ydfs-build/iso
-	@chmod 777 ${HOME}/ydfs-build/${ARCH}
+	@chmod 777 ${HOME}/ydfs3/ydfs
+	@chmod 777 ${HOME}/ydfs3/multilib
+	@chmod 777 ${HOME}/ydfs3/archpkg
+	@test -f ${HOME}/ydfs-dbuild/archpkg/tcl || cp archpkg/* ${HOME}/ydfs3/archpkg
+	@chmod 777 ${HOME}/ydfs3/iso
+	@chmod 777 ${HOME}/ydfs3/${ARCH}
 	@echo done 
 
 force-docker-image-64: core/Dockerfile

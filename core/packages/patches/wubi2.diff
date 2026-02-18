@@ -172,8 +172,8 @@
 +arch=i386
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -182,8 +182,8 @@
 +arch=amd64
 +name=Ydfs
 +packages=ydfs-standard
-+metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink2=https://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
  

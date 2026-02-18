@@ -14,8 +14,8 @@ then
       mkdir $HOME/iso
       chmod 777 $HOME/iso
     fi
-    [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
-    [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
+    [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz https://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
+    [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz https://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
     cd $HOME
     [ ! -e $ARCH ] && echo "Untar $HOME/iso/$YDFS-$ARCH.tar.gz, please wait..."
     [ ! -e $ARCH ] && tar xzf $HOME/iso/$YDFS-$ARCH.tar.gz
