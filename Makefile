@@ -14,7 +14,7 @@ ifeq ($(DOCKER_BUILDX),)
   ifeq ($(DOCKER_BUILDX),)
     DOCKER_BUILD_CLI = docker
   else
-    #Used to build YDFS2.11 from LinuxConsole 2024
+    #Used to build YDFS3.0 from LinuxConsole 2024
     DOCKER_BUILD_CLI = buildx-v0.21.1.linux-amd64
   endif
 else
@@ -41,7 +41,7 @@ endif
 ISTTY = $(shell tty -s || echo NOTTY)
 
 DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
-#DOCKERIMAGE64="yledoare/ydfs-2.11"
+#DOCKERIMAGE64="yledoare/ydfs-3.0"
 
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
@@ -66,7 +66,7 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 all: Dockerfile-user iso
 
 Dockerfile-user:
-	echo "FROM yledoare/ydfs-2.11" > Dockerfile-user
+	echo "FROM yledoare/ydfs-3.0" > Dockerfile-user
 	echo "USER root" >> Dockerfile-user
 #	echo "RUN grep ${THEUSERID} /etc/group || groupadd -g ${THEUSERID} ${THEUSER}" >> Dockerfile-user
 #	echo "RUN useradd linuxconsole3 -u ${THEUSERID} -g ${THEGROUPID} -m -s /bin/bash" >> Dockerfile-user
