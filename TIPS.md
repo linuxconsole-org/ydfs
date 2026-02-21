@@ -25,3 +25,10 @@ OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES
 ```
 OPTION_BUILD=BUILDME=OK
 ```
+
+# Get latest arch release for a package
+
+```
+bash 2.12/scripts/echo-archpkg pipewire
+```
+

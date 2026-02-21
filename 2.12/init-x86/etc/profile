@@ -7,4 +7,5 @@ export PYTHONPATH=/ydfs/modules/module/lib/python3.10/site-packages/:$HOME/opkg/
 export HOME_DIBAB=$HOME
 #export JAVA_HOME=$HOME/opkg
 export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/plugins/platforms/
+export CFLAGS="-I$HOME/x86_64/include"
 echo "Profile loaded"

@@ -13,11 +13,10 @@ make
 ```
 > Wait some long hours !
 
-# Debug
+# Build manualy if last failed
 
 ```
-make bash
-BUILDME=OK make iso
+make buildme
 ```
 
 > Try building manualy, report issue on https://github.com/linuxconsole-org/ydfs/issues
