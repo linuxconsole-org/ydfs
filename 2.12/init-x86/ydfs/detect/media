@@ -13,6 +13,8 @@ do
 done
 echo
 
+modprobe usb-storage
+
 install -d /media/ydfs
 
 [ -e /ydfs/boot/options/liveusb  ] && echo "LiveUsb mode" && sleep 5
@@ -68,7 +70,7 @@ modprobe overlay
 #chmod +x modprobe
 
 rm /busybox/sbin/modprobe
-mv /modprobe-bookworm /busybox/sbin/modprobe
+cp /modprobe-bookworm /busybox/sbin/modprobe
 
 #sh 
 
