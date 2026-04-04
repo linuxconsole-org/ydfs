@@ -1,3 +1,5 @@
+exit 0
+
 . ./config.ini
 if [ "$BUILDYDFS" = "fast" ] && [ -e $HOME/iso/firmware-$ARCH.squashfs ]
 then

@@ -82,7 +82,7 @@ qemu-initramfs:
 		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
 
 qemu:
-	qemu-system-x86_64 -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
+	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
 nodocker:
 	sudo apt-get update 

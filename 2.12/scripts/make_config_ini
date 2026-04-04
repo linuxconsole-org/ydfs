@@ -40,7 +40,7 @@ echo "BUILDOPKG=$BUILDOPKG" >> config.ini
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
 echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> config.ini
 
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH}"' >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} mate-${ARCH}"' >> config.ini
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then

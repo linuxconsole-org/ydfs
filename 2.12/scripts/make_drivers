@@ -14,5 +14,10 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-$HOME/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules $LCMBUILD/drivers-$ARCH.squashfs
+if [ "$KERNEL3" = "SYSTEM" ]
+then
+  $HOME/$ARCH/bin/mksquashfs /lib/modules/ $LCMBUILD/drivers-$ARCH.squashfs
+else
+  $HOME/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules $LCMBUILD/drivers-$ARCH.squashfs
+fi
 echo

@@ -158,6 +158,7 @@ KERNEL=$KERNEL3
                 kernel/drivers/ata
                 kernel/drivers/usb/host
                 kernel/fs/overlayfs 
+                kernel/drivers/net/ethernet/intel/e1000
                 kernel/drivers/usb/storage"
 
 	for mod in $REQMODULES; do

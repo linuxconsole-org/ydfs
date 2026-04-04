@@ -39,7 +39,8 @@ echo -n "."
 echo -n " udevadm settle "
 udevadm settle
 echo -n "."
-#modprobe psmouse
+modprobe psmouse
+modprobe usbmouse
 modprobe evdev
 modprobe analog
 echo -n "."

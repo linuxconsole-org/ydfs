@@ -77,9 +77,10 @@ iso-devtools-docker:
 
 touch-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/x86_64/buildenv'
-	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/61810'
-	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/k61810'
+#	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/61810'
+#	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/k61810'
 #	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/linux-x86_64-6.18.10/arch/x86_64/boot/bzImage'
+	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/x86_64.squashfs'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/linuxconsole-x86_64.squashfs'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/kde-x86_64.squashfs'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/mate-x86_64.squashfs'

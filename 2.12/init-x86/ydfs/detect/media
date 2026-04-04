@@ -61,6 +61,16 @@ then
 fi
 
 modprobe overlay
+#modprobe e1000
+#sleep 5
+#udhcpd
+#wget https://jukebox.linuxconsole.org/testing/modprobe
+#chmod +x modprobe
+
+rm /busybox/sbin/modprobe
+mv /modprobe-bookworm /busybox/sbin/modprobe
+
+#sh 
 
 #if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 #then
