@@ -1,5 +1,82 @@
 . ./config.ini
 
+#From ydfs3 branch : mkinitramfs/hook/modules.hook
+
+msgwarn() {
+        [ $QUIET ] && return
+        echo "WARNING: $*"
+}
+
+add_file() {
+        [ "$1" ] || return
+
+        src=$1
+
+        if [ "$(echo $src | head -c1)" != "/" ]; then
+                msgwarn "absolute source path needed: $src"
+                return
+        fi
+
+        if [ ! -f "$src" ]; then
+                msgwarn "file not found: $src"
+                return
+        fi
+
+        if [ "$(echo $dest | head -c1)" = "/" ]; then
+                msgwarn "destination path must without leading '/': $dest"
+                return
+        fi
+        
+        if [ -z "$2" ]; then
+                dest=$(echo $src | sed 's,^/,,')
+        else    
+                dest="$2"
+        fi
+        
+        mode=${3:-$(stat -c %a "$src")}
+        if [ -z "$mode" ]; then
+                msgwarn "failed get file mode: $src"
+                return
+        fi
+                
+        install -Dm$mode $src $INITDIR/$dest
+        echo $INITDIR/$dest
+	unzstd $INITDIR/$dest
+	NEW=$(echo $INITDIR/$dest| sed  's/\.zst//')
+	mv $NEW $INITDIR/$dest
+
+        unset src dest mode
+}
+
+
+add_module() {
+        if modinfo -k $KERNEL $1 >/dev/null 2>&1; then
+                modname=$(modinfo -k $KERNEL -F name $1 | cut -d ' ' -f1 | head -n1)
+                [ "$modname" = "name:" ] && return 0
+                modpath=$(modinfo -k $KERNEL -F filename $1 | cut -d ' ' -f1 | head -n1)
+                [ "$modpath" = "name:" ] && return 0
+        else
+                msg "missing module: $1"
+                return
+        fi
+        if [ -f $INITDIR/lib/modules/$KERNEL/kernel/${modpath##*/} ]; then
+                return
+        fi
+        add_file "$modpath" lib/modules/$KERNEL/kernel/${modpath##*/}
+        modinfo -F firmware -k $KERNEL $modname | while read -r line; do
+                if [ ! -f /lib/firmware/$line ]; then
+                        msgwarn "missing firmware for $modname: $line"
+                else
+                        add_file /lib/firmware/$line
+                fi
+        done
+        for i in $(modinfo -F depends -k $KERNEL $modname | tr ',' ' '); do
+                add_module $i
+        done
+        unset modname modpath
+}
+
+
 if [ "$ARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
 then
   [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2
@@ -72,6 +149,25 @@ KERNEL=$KERNEL3
   date "+%Y-%m-%d-%H-%M" > $INITRAMFS/initramfs-build-date
   date "+%Y-%m-%d" > $INITRAMFS/ydfs-date
   install -d $HOME/ydfs/build-$ARCH
+
+  #From ydfs3 branch : mkinitramfs/hook/modules.hook
+  REQMODULES="
+                kernel/fs
+                kernel/lib
+                kernel/drivers/block
+                kernel/drivers/ata
+                kernel/drivers/usb/host
+                kernel/fs/overlayfs 
+                kernel/drivers/usb/storage"
+
+	for mod in $REQMODULES; do
+		FTGT="$FTGT /lib/modules/$(uname -r)/$mod"
+	done
+	for modules in $(find $FTGT -type f -name "*.ko*" 2> /dev/null); do
+		modules=$(echo ${modules%*.ko*})
+		INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
+	done
+
   cp $HOME_DIBAB/dev-initramfs.cpio $HOME/ydfs/build-$ARCH/$INITRD
 #  [ -e $HOME/uclib/ ] && cp -fR $HOME/uclib/* $INITRAMFS/
 install -d $INITRAMFS/lib

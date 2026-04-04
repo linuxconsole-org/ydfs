@@ -6,13 +6,13 @@ COMPOSE=docker-compose
 endif
 
 
-DOCKER_OPTIONS=run ydfs2.12 bash
+DOCKER_OPTIONS=run -v /boot:/boot -v /lib/modules/:/lib/modules ydfs2.12 bash
 BUILD_COMMAND=install -d /tmp/ydfs;cp -a 2.12/* /tmp/ydfs;cp /tmp/ydfs/init-x86/etc/profile /home/linuxconsole2026/.bashrc;cd /tmp/ydfs;
 
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES BUILDME=OK
 OPTION_BUILD=MENUCONFIG=YES
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES
-OPTION_BUILD=
+OPTION_BUILD=KERNEL3=SYSTEM
 
 initramfs-docker: busybox-docker
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make initramfs'
@@ -79,7 +79,7 @@ touch-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/x86_64/buildenv'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/61810'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build-x86_64/k61810'
-	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/linux-x86_64-6.18.10/arch/x86_64/boot/bzImage'
+#	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/linux-x86_64-6.18.10/arch/x86_64/boot/bzImage'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/linuxconsole-x86_64.squashfs'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/kde-x86_64.squashfs'
 	${COMPOSE} ${DOCKER_OPTIONS} -c 'touch /home/linuxconsole2026/ydfs/build/modules/mate-x86_64.squashfs'

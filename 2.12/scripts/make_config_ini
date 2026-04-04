@@ -117,7 +117,12 @@ BOOT=NAND
 	        echo "Latest kernel is $LATEST"
                 echo "KERNEL3=$LATEST" >> config.ini
 	      else
-                echo "KERNEL3=6.18.10" >> config.ini
+	        if [ "$KERNEL3" = "SYSTEM" ]
+		then
+                  echo "KERNEL3=SYSTEM" >> config.ini
+		else
+                  echo "KERNEL3=6.18.10" >> config.ini
+		fi
 	      fi
 	      echo "BUSYBOX=1.36.1" >> config.ini
 	    fi

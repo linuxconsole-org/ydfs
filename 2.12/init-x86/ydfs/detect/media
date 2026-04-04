@@ -52,12 +52,15 @@ fi
 
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 then
+	modprobe isofs
 	echo -n "Search in CD drive .. "
 	for CDROM in sr0 sr1 sr2 sr3 sr4 sr5 sr6
 	do
 	  [ -e /dev/$CDROM ] && mount /dev/$CDROM /media/ydfs && echo "$CDROM" && install -d /var/ydfs/boot/media/cdrom/$CDROM && break
 	done
 fi
+
+modprobe overlay
 
 #if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 #then

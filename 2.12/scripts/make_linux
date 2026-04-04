@@ -1,6 +1,14 @@
 #!/bin/sh
 . ./config.ini
 
+if [ "$KERNEL3" = "SYSTEM" ]
+then
+	echo "System Kernel"
+	install -d /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/
+	cp /boot/vmlinuz-$(uname -r) /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage || exit 1
+	exit 0
+fi
+
 if [ "$BUILDYDFS" = "fast" ]
 then
 	cd $HOME
