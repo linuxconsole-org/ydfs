@@ -307,6 +307,9 @@ do
   fi
 done
 
+# rm /$ISOTMP/iso/modules/drivers-x86_64.squashfs
+# ln -s /home/linuxconsole2026/iso/drivers-x86_64.squashfs /$ISOTMP/iso/modules
+
 OUT=`basename $ISOPATH`
 
   if [ -e $ISOTMP/$OUT ] 
@@ -375,6 +378,7 @@ cp memtest86+-5.01.bin /$ISOTMP/iso/isolinux/memtest
 cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/initramfs
 # For EFI
 [ "$ARCH" = "x86_64" ] && cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/init
+# cp /home/linuxconsole2026/iso/k6649 /$ISOTMP/iso/isolinux/kernel
 cp /$ISOTMP/iso/isolinux/$KERNEL36 /$ISOTMP/iso/isolinux/kernel
 
 if [ "$ARCH" = "x86_64" ]

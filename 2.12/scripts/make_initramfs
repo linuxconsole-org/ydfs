@@ -242,6 +242,9 @@ fi
 
 fi
 
+#fix udevadm settle
+#cp -fR $HOME/$ARCH /$HOME/ydfs/tmp/initramfs-$ARCH
+
 [ -e $HOME/$ARCH/bin/ntfs-3g ] && cp $HOME/$ARCH/bin/ntfs-3g /$HOME/ydfs/tmp/initramfs-$ARCH
 
 [ -e $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs ] && rm $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs

@@ -115,6 +115,10 @@ fi
 if [ -e /media/ydfs/modules/$ARCH.squashfs ]
 then
   echo "/media/ydfs/modules/$ARCH.squashfs found "
-  rm /busybox/sbin/modprobe
-  cp /modprobe-bookworm /busybox/sbin/modprobe
+  #rm /busybox/sbin/modprobe
+  #rm /busybox/sbin/insmod
+  #rm /busybox/sbin/modinfo
+  #cp /modprobe-bookworm /busybox/sbin/modprobe
+  #cp /insmod-bookworm /busybox/sbin/insmod
+  #cp /modinfo-bookworm /busybox/sbin/modinfo
 fi

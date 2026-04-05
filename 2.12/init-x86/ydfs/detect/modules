@@ -61,6 +61,21 @@ fi
 
 [ -e /ydfs/modules/$MODULE/logo.png ] && cp /ydfs/modules/$MODULE/logo.png /etc/ydfs.png
 
+# Fix udevadm settle
+# echo cp -fR /x86_64/* /usr
+# cp -fR /x86_64/* /usr
+
+KMOD=$(which kmod)
+#KMOD=/modprobe-bookworm
+for KMODCMD in lsmod rmmod insmod modinfo modprobe depmod
+do
+  OLDBIN=$(which $KMODCMD)
+  echo rm $OLDBIN
+  rm $OLDBIN
+  echo ln -s $KMOD $OLDBIN
+  ln -s $KMOD $OLDBIN
+done
+
 if [ ! -e /usr/lib/opkg ]
 then
   install -d /etc/opkg
