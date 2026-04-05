@@ -13,7 +13,12 @@ do
 done
 echo
 
+modprobe nls_iso8859-1
 modprobe usb-storage
+modprobe xhci-pci
+modprobe exfat
+
+#modprobe acard-ahci
 
 install -d /media/ydfs
 
@@ -69,8 +74,6 @@ modprobe overlay
 #wget https://jukebox.linuxconsole.org/testing/modprobe
 #chmod +x modprobe
 
-rm /busybox/sbin/modprobe
-cp /modprobe-bookworm /busybox/sbin/modprobe
 
 #sh 
 
@@ -109,3 +112,9 @@ then
 	ash /ydfs/detect/media
 fi
 
+if [ -e /media/ydfs/modules/$ARCH.squashfs ]
+then
+  echo "/media/ydfs/modules/$ARCH.squashfs found "
+  rm /busybox/sbin/modprobe
+  cp /modprobe-bookworm /busybox/sbin/modprobe
+fi
