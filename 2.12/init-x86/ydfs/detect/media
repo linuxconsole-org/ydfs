@@ -22,6 +22,12 @@ modprobe exfat
 
 install -d /media/ydfs
 
+if [ -e /ventoy/hook/debian/linuxconsole-disk.sh ]
+then
+  # No more need modprobe dm-mod
+  ash /fix/linuxconsole-disk.sh 
+fi
+
 [ -e /ydfs/boot/options/liveusb  ] && echo "LiveUsb mode" && sleep 5
 
 if [ ! -e /ydfs/boot/options/livecd ] # look only on cdrom drive
