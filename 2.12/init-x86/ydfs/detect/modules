@@ -89,8 +89,7 @@ then
       echo "src linuxconsole file:///media/ydfs/pkg" > /etc/opkg/ydfs.conf
     else
       # Network
-      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
-      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+      echo "src linuxconsole https://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
     fi
   fi
 fi

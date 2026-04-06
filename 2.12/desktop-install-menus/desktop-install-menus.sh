@@ -7,6 +7,6 @@ do
   cd /
   install -d $dirname
   # https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.8/
-  wget -q http://opkg.linuxconsole.org/linuxconsole/2.10/$file
+  wget -q https://opkg.linuxconsole.org/linuxconsole/2.10/$file
   mv $basename $dirname
 done
