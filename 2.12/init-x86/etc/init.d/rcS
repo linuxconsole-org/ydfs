@@ -57,6 +57,7 @@ echo "Detect Network"
 . /ydfs/detect/mixer &
 . /ydfs/enable/swap &
 . /ydfs/detect/cups &
+. /ydfs/detect/wireless &
 
 [ -e /ydfs/boot/options/debug2  ] && sh
 

@@ -1,0 +1,17 @@
+if [ -e /disk/wifi.txt ]
+then
+  SSID=$(cat wifi.txt|cut -d':' -f1)
+  KEY=$(cat wifi.txt|cut -d':' -f2)
+
+  echo $SSID $KEY
+  ls /sys/class/net/ | while read network
+  do
+    [ -e /sys/class/net/$network/wireless ] || continue
+    echo Network $network  
+    echo nmcli dev wifi connect $SSID password "$KEY"
+    nmcli dev wifi connect $SSID password "$KEY"
+    # sleep 5
+    # udhcpd
+    # udhcpc -i $network -t 5 -q -S -s /etc/udhcpc/simple.script
+  done
+fi
