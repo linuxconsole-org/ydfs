@@ -1,6 +1,7 @@
 CMD=cd 2.12 && make -f Makefile-docker
 
 HASDOCKER := $(shell which docker)
+SYSTEM_KERNEL := $(shell uname -r)
 
 ifeq ($(HASDOCKER),/usr/bin/docker)
 BUILDING=prepare iso
@@ -74,6 +75,19 @@ openxr:
 iso-devtools:
 	$(CMD) iso-devtools-docker
 
+qemu-initrd-system:
+	qemu-system-x86_64 -m size=2000 \
+	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
+	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
+		-initrd /home/yann/src/ydfs/initrd/initrd \
+		-append "nopat nokaslr norandmaps printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
+
+qemu-initramfs-system:
+	qemu-system-x86_64 -m size=2000 \
+	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
+	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
+		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
 qemu-initramfs:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
