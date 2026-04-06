@@ -80,7 +80,7 @@ qemu-initrd-system:
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
 		-initrd /home/yann/src/ydfs/initrd/initrd \
-		-append "root=/dev/ram0"
+		-append "root=/dev/ram0 rootfstype=ramfs init=/init2 rdinit=/init2 console=ttyS0 "
 		#-append "nopat nokaslr norandmaps printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
 
 qemu-initramfs-system:
