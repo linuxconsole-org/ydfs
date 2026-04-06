@@ -23,7 +23,21 @@ TIMEOUT 200
 
 print_efi_options()
 {
-DISTRONAME="test"
+echo '
+menuentry "'$DISTRONAME'" {
+	set gfxpayload=keep
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path ---
+	initrd	/isolinux/initramfs
+}
+menuentry "'$DISTRONAME' DEBUG" {
+	set gfxpayload=keep
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/init2 ---
+	initrd	/isolinux/initramfs
+}'
+}
+
+print_efi_liveusb_options()
+{
 echo '
 menuentry "'$DISTRONAME' LiveUSB (loopback)" {
 	set gfxpayload=keep
@@ -384,7 +398,8 @@ cp /$ISOTMP/iso/isolinux/$KERNEL36 /$ISOTMP/iso/isolinux/kernel
 if [ "$ARCH" = "x86_64" ]
 then 
   cp -fR boot-efi/* /$ISOTMP/iso/ || exit $?
-  print_efi_options > $ISOTMP/iso/boot/grub/loopback.cfg
+  print_efi_liveusb_options > $ISOTMP/iso/boot/grub/loopback.cfg
+  print_efi_options > $ISOTMP/iso/boot/grub/grub.cfg
   EFIBOOT=" -e /EFI/boot/efiboot.img -e boot/grub/efi.img "
 fi
 

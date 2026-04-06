@@ -1,7 +1,7 @@
 if [ -e /disk/wifi.txt ]
 then
-  SSID=$(cat wifi.txt|cut -d':' -f1)
-  KEY=$(cat wifi.txt|cut -d':' -f2)
+  SSID=$(cat /disk/wifi.txt|cut -d':' -f1)
+  KEY=$(cat /disk/wifi.txt|cut -d':' -f2)
 
   echo $SSID $KEY
   ls /sys/class/net/ | while read network

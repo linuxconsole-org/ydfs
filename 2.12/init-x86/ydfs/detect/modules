@@ -8,6 +8,9 @@ install -d /ydfs/modules/$ARCH
 
 mount /media/ydfs/modules/$ARCH.squashfs /ydfs/modules/$ARCH || ash
 
+echo "Clear initramfs /lib/modules"
+rm -fR /lib/modules
+
 install -d /lib/modules
 KERNEL_VERSION=`uname -r`
 if [ -e /media/ydfs/modules/drivers-$ARCH-"$KERNEL_VERSION".squashfs ]
@@ -16,6 +19,7 @@ then
 else
   mount /media/ydfs/modules/drivers-$ARCH.squashfs /lib/modules
 fi
+
 install -d /lib/firmware
 mount /media/ydfs/modules/firmware-$ARCH.squashfs /lib/firmware
 
