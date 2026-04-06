@@ -76,11 +76,12 @@ iso-devtools:
 	$(CMD) iso-devtools-docker
 
 qemu-initrd-system:
-	qemu-system-x86_64 -m size=2000 \
+	qemu-system-x86_64 -m size=2000  -D ./qemu-debug-log -monitor pty \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
 		-initrd /home/yann/src/ydfs/initrd/initrd \
-		-append "nopat nokaslr norandmaps printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
+		-append "root=/dev/ram0"
+		#-append "nopat nokaslr norandmaps printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
 
 qemu-initramfs-system:
 	qemu-system-x86_64 -m size=2000 \
