@@ -88,7 +88,7 @@ qemu-initramfs-system:
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
-		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
+		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
 qemu-initramfs:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
@@ -96,6 +96,12 @@ qemu-initramfs:
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
 		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
 
+qemu2:
+	qemu-system-x86_64 -D ./qemu-debug-log -monitor pty -m size=2000 \
+	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
+	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.21/arch/x86_64/boot/bzImage \
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/61821 \
+		-append "rdinit=exec /busybox/bin/ash /init4"
 qemu:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
