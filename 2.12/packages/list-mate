@@ -28,4 +28,5 @@ https://github.com/mate-desktop/mozo/releases/download/v1.28.0/mozo-1.28.0.tar.x
 https://github.com/mate-desktop/mate-themes/releases/download/v3.22.24/mate-themes-3.22.24.tar.xz
 https://github.com/mate-desktop/mate-sensors-applet/releases/download/v1.28.0/mate-sensors-applet-1.28.0.tar.xz
 https://github.com/mate-desktop/python-caja/releases/download/v1.28.0/python-caja-1.28.0.tar.xz
+https://github.com/mate-desktop/mate-power-manager/releases/download/v1.28.1/mate-power-manager-1.28.1.tar.xz
 #pip::setuptools==80.9.0
