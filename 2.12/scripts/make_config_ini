@@ -121,7 +121,7 @@ BOOT=NAND
 		then
                   echo "KERNEL3=SYSTEM" >> config.ini
 		else
-                  echo "KERNEL3=6.18.10" >> config.ini
+                  echo "KERNEL3=6.18.21" >> config.ini
 		fi
 	      fi
 	      echo "BUSYBOX=1.36.1" >> config.ini
