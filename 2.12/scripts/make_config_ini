@@ -27,7 +27,7 @@ echo "DISTRONAME=$DISTRONAME" >> config.ini
 [ "$SLEEPTIME" = "" ] && SLEEPTIME=3600
 echo "SLEEPTIME=$SLEEPTIME" >> config.ini
 
-[ "$SEND_BUILD_LOG" = "" ] && SEND_BUILD_LOG=NO
+[ "$SEND_BUILD_LOG" = "" ] && SEND_BUILD_LOG=YES
 echo "SEND_BUILD_LOG=$SEND_BUILD_LOG" >> config.ini
 
 [ "$BUILDMODULES" = "YES" ] && BUILDMODULES=YES
