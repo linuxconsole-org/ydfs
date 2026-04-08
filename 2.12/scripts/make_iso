@@ -52,7 +52,7 @@ print_efi_liveusb_options()
 echo '
 menuentry "'$DISTRONAME' LiveUSB (loopback)" {
 	set gfxpayload=keep
-	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path ---
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init-newroot ---
 	initrd	/isolinux/initramfs
 }
 menuentry "'$DISTRONAME' LiveUSB DEBUG (loopback)" {
@@ -423,12 +423,11 @@ else
   MINIMAL="initrd=$INITRD26 "
 fi
 
-COMMON="$MINIMAL quiet $CONSOLE"
 COMMON="$MINIMAL $CONSOLE"
 COMMON2="$MINIMAL "
 
 [ -n "$SHORTKERNEL36" ] && KERNEL36=$SHORTKERNEL36
-COMMON="$COMMON "
+COMMON="$COMMON rdinit=/busybox/bin/ash /init-newroot"
 
 echo "HELP" > /$ISOTMP/iso/isolinux/help.txt
 export LIVECD=1
