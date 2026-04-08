@@ -1,6 +1,0 @@
-CXX="/usr/bin/g++"              \
-./configure --prefix=$PREFIX       \
-            --enable-shared     \
-            --with-system-expat \
-            --with-system-ffi   \
-            --with-ensurepip=yes

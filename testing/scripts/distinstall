@@ -1,3 +1,0 @@
-DESTDIR=$HOME/ydfs/packages/$DBPACKAGE make install
-
-echo "ok"

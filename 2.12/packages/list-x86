@@ -424,7 +424,7 @@ iniparser-4.1.tar.gz::https://github.com/ndevilla/iniparser/archive/v4.1.tar.gz
 https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/keyutils-1.6.3.tar.gz
 https://github.com/pmem/ndctl/archive/v72.1/ndctl-72.1.tar.gz
 https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-1.18.tar.gz
-https://www.libssh.org/files/0.9/libssh-0.9.6.tar.xz
+https://jukebox.linuxconsole.org/sources/libssh-0.9.6.tar.xz
 https://www.kernel.org/pub/linux/utils/cryptsetup/v2.4/cryptsetup-2.4.3.tar.xz
 https://github.com/thom311/libnl/releases/download/libnl3_5_0/libnl-3.5.0.tar.gz
 https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_58_RTM/src/nss-3.58.tar.gz

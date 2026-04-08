@@ -1,3 +1,0 @@
-cd build
-make DESTDIR="$pkgdir/" install
-make install

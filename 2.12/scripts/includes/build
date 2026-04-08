@@ -55,8 +55,8 @@ build_ydfs_package()
 	cpu-info >> $PKGNAME.log.txt
 	cat /sys/devices/virtual/dmi/id/board_name >> $PKGNAME.log.txt
 	cp ydfs-error $PKGNAME.error.txt
-	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.log.txt" http://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
-	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.error.txt" http://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
+	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.log.txt" https://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
+	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.error.txt" https://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
   fi
   if [ "$DURATION" != "0" ]
     then

@@ -1,7 +1,0 @@
-mkdir build-meson
-meson --prefix=$PREFIX build-meson \
-    -D libcolordcompat=true \
-    -D sane=true \
-    -D vapi=true \
-    -D print_profiles=true \
-    -D daemon_user=colord 

@@ -65,6 +65,7 @@ echo $ARCHIVE | grep kmod-33 &&  LC_CONFIGURE_OPTS="  --with-xz         \
             --with-zlib --disable-manpages " 
 echo $ARCHIVE | grep caja-extensions &&  LC_CONFIGURE_OPTS="--disable-gksu"
 echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep libssh-0 &&  LC_CONFIGURE_OPTS="-DWITH_GSSAPI=OFF"
 echo $ARCHIVE | grep mate-terminal &&  LC_CONFIGURE_OPTS="--enable-debug"
 echo $ARCHIVE | grep libtirpc &&  LC_CONFIGURE_OPTS="--disable-gssapi"
 echo $ARCHIVE | grep wavpack &&  LC_CONFIGURE_OPTS="--disable-asm"

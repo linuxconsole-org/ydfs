@@ -1,3 +1,0 @@
-cd ncursesw-build
-make
-cd ..

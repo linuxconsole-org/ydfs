@@ -1,2 +1,0 @@
-./configure --prefix=$PREFIX \
---program-suffix=-2.13
