@@ -106,8 +106,11 @@ qemu-azerty-system:
 #		-append "rdinit=exec /busybox/bin/ash /azerty" 
 #-append "rdinit=/busybox/bin/ash"
 #		-append "rdinit=exec /busybox/bin/ash /init4"
-qemu:
+qemu-efi:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
+
+qemu:
+	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -cdrom ${HOME}/iso/linuxconsole.iso
 
 qemu-usb:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
