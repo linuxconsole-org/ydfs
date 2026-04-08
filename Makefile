@@ -96,19 +96,16 @@ qemu-initramfs:
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
 		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
 
-qemu3:
+qemu-azerty-system:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-SYSTEM/arch/x86_64/boot/bzImage \
-		-initrd ${HOME}/2.12/ydfs/build-x86_64/61821 \
-		-append "rdinit=/busybox/bin/ash"
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/SYSTEM \
+		-append "rdinit=/busybox/bin/ash" \
+		-cdrom ${HOME}/iso/linuxconsole.iso 
+#		-append "rdinit=exec /busybox/bin/ash /azerty" 
+#-append "rdinit=/busybox/bin/ash"
 #		-append "rdinit=exec /busybox/bin/ash /init4"
-qemu2:
-	qemu-system-x86_64 -D ./qemu-debug-log -monitor pty -m size=2000 \
-	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
-	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.21/arch/x86_64/boot/bzImage \
-		-initrd ${HOME}/2.12/ydfs/build-x86_64/61821 \
-		-append "rdinit=exec /busybox/bin/ash /init4"
 qemu:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
