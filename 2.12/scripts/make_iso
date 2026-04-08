@@ -24,7 +24,12 @@ TIMEOUT 200
 print_efi_options()
 {
 echo '
-menuentry "'$DISTRONAME'" {
+menuentry "'$DISTRONAME' New Root" {
+	set gfxpayload=keep
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init-newroot ---
+	initrd	/isolinux/initramfs
+}
+menuentry "'$DISTRONAME Old Root'" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path ---
 	initrd	/isolinux/initramfs
@@ -37,11 +42,6 @@ menuentry "'$DISTRONAME' Aerty" {
 menuentry "'$DISTRONAME' DEBUG" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/init2 ---
-	initrd	/isolinux/initramfs
-}
-menuentry "'$DISTRONAME' Init4" {
-	set gfxpayload=keep
-	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init4 ---
 	initrd	/isolinux/initramfs
 }
 '
