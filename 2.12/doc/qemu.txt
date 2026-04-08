@@ -1,0 +1,2 @@
+# Initramfs for ubuntu
+qemu-system-x86_64  -m size=2000 -kernel vmlinuz -initrd initrd.lz  -append rdinit="/bin/busybox ash"

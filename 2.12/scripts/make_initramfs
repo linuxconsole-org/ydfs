@@ -190,14 +190,23 @@ cd $INITRAMFS
 
  echo "Custom init4"
  echo "PATH=/busybox/bin/:/busybox/sbin/" > $HOME/ydfs/tmp/initramfs-$ARCH/init4
- echo "mkdir /tmp && mkdir /tmp/tmproot" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
- echo "mount -t tmpfs none /tmp/tmproot " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
- echo "mount -t mount -t proc none /proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mkdir /rootfs" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -t proc none /proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
  echo "mount -t sysfs none /sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
- echo "mount -t devtmpfs none /dev" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
-# echo "exec switch_root /tmp/tmproot /tmp/tmproot/busybox/bin/ash " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
-# echo "exec switch_root /tmp/tmproot /busybox/bin/ash " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
- echo "exec switch_root /tmp/tmproot /busybox/sbin/init </dev/console >dev/console 2>&1 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -t devtmpfs none /rootfs -o rw,noatime,mode=755" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mkdir /rootfs/sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mkdir /rootfs/dev" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mkdir /rootfs/proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mkdir /rootfs/lib" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -n -o move /sys /rootfs/sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -n -o move /proc /rootfs/proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -n -o move /dev /rootfs/dev" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "mount -n -o move /lib /rootfs/lib" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "cp -a /busybox /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "echo TEST && sleep 2 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+# echo "echo exec switch_root /rootfs /busybox/bin/ash " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+# echo "exec /busybox/bin/ash " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
+ echo "exec /busybox/sbin/switch_root /rootfs /busybox/sbin/init </dev/console >dev/console 2>&1 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init4
  chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init4
 
  ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
