@@ -29,11 +29,22 @@ menuentry "'$DISTRONAME'" {
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path ---
 	initrd	/isolinux/initramfs
 }
+menuentry "'$DISTRONAME' Aerty" {
+	set gfxpayload=keep
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /azerty ---
+	initrd	/isolinux/initramfs
+}
 menuentry "'$DISTRONAME' DEBUG" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/init2 ---
 	initrd	/isolinux/initramfs
-}'
+}
+menuentry "'$DISTRONAME' Init4" {
+	set gfxpayload=keep
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init4 ---
+	initrd	/isolinux/initramfs
+}
+'
 }
 
 print_efi_liveusb_options()
