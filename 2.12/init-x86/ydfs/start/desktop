@@ -78,12 +78,12 @@ function start_XBMC
  then
    $HOME/ydfs/mysession
  else
-   count_session=$(ls /ydfs/modules/*/share/xsessions/*.desktop |grep -v openbox|wc|cut -d' ' -f7)
-   if [ $count_session = 1 ]
+   count_session=$(ls /ydfs/modules/*/share/xsessions/*.desktop |grep -v openbox|wc -l)
+   if [ "$count_session" = 1 ]
    then
      start_mate
    else
-     if [ $count_session = 0 ]
+     if [ "$count_session" = 0 ]
      then
 	xterm
      else
