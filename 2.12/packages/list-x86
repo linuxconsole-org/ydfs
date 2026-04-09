@@ -551,7 +551,7 @@ https://download.strongswan.org/strongswan-5.9.1.tar.bz2
 https://download.strongswan.org/NetworkManager/NetworkManager-strongswan-1.5.2.tar.bz2
 xl2tpd-1.3.16.tar.gz::https://github.com/xelerance/xl2tpd/archive/v1.3.16.tar.gz
 networkmanager-l2tp-1.8.6.tar.gz::https://github.com/nm-l2tp/NetworkManager-l2tp/archive/1.8.6.tar.gz
-https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.21.8/dpkg-1.21.8.tar.bz2
+git://git.dpkg.org/git/dpkg/dpkg.git#tag=1.23.7
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1.tar.bz2
 https://xftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
