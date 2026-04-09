@@ -79,57 +79,52 @@ then
   echo ONTIMEOUT Auto
 
   echo LABEL Auto
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON"
 
   echo LABEL LiveCD
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON livecd"
 
   echo LABEL LiveUSB
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON liveusb"
 else
   LIVE=liveusb
   echo ONTIMEOUT LiveUSB
 
   echo LABEL LiveUSB
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON liveusb"
 
   echo LABEL LiveCD
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON livecd"
 fi
 
   echo LABEL FixUSB mode : run scripts from fixusb directory on usb disk
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON fixusb $LIVE"
 
   echo LABEL Fixme mode : download and run fixme script 
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON fixme $LIVE"
 
   echo LABEL Text
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON text $LIVE"
   
   echo LABEL Xterm
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON xterm $LIVE"
 
   echo LABEL Debug init2
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON rdinit=/init2 quiet text"
   
   echo LABEL Debug init3
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON rdinit=/init3 quiet text"
-
-
-#  echo LABEL Custom initramfs
-#  echo KERNEL $KERNEL36
-#  echo "APPEND initrd=$INITRD26C quiet"
 
 echo '
 MENU SEPARATOR
@@ -215,16 +210,16 @@ echo  ONTIMEOUT LiveCD
 echo  TIMEOUT 20
 
   echo LABEL Report-bugs
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON benchmark $LIVE"
 
   
   echo LABEL Failsafe
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $COMMON noapic nocapic acpi=off noacpi "
   
   echo LABEL ash
-  echo KERNEL $KERNEL36
+  echo KERNEL $KERNEL
   echo "APPEND $MINIMAL debug01"
 
 
@@ -248,20 +243,20 @@ print_grub_options()
 {
   echo "timeout 5" 
   
-  echo "title Ydfs " 
+  echo "title $DISTRONAME " 
   echo "root (hd0,0)"                 
-  echo "kernel /boot/$KERNEL36 $COMMON"             
-  echo "initrd /boot/$INITRD26"     
+  echo "kernel /isolinux/kernel $COMMON"             
+  echo "initrd /isolinux/initramfs"     
   
-  echo "title Ydfs  Partition 2" 
+  echo "title $DISTRONAME  Partition 2" 
   echo "root (hd0,1)"                 
-  echo "kernel /boot/$KERNEL36 $COMMON"             
-  echo "initrd /boot/$INITRD26"     
+  echo "kernel /isolinux/kernel $COMMON"             
+  echo "initrd /isolinux/initramfs"     
   
-  echo "title Ydfs  failsafe" 
+  echo "title $DISTRONAME  failsafe" 
   echo "root (hd0,0)"                 
-  echo "kernel /boot/$KERNEL36 $COMMON acpi=off noacpi noapic nocapic"             
-  echo "initrd /boot/$INITRD26"     
+  echo "kernel /isolinux/kernel $COMMON acpi=off noacpi noapic nocapic"             
+  echo "initrd /isolinux/initramfs"     
 }
 
 print_isolinux_cfg()
@@ -297,9 +292,11 @@ fi
 install -d $LCMBUILD
 [ ! -e "$LCMBUILD" ] && echo "LCMBUILD not found, please check config.ini"
 
-KERNEL36="$KERNEL_PREFIX`echo $KERNEL3 | tr -d '.'`"
-INITRD26="`echo $KERNEL3 | tr -d '.'`"
-#INITRD26C="custom-`echo $KERNEL3 | tr -d '.'`"
+#KERNEL="`echo $KERNEL3 | tr -d '.'`"
+#INITRAMFS="`echo $KERNEL3 | tr -d '.'`"
+KERNEL=kernel
+INITRAMFS=initramfs
+#INITRAMFSC="custom-`echo $KERNEL3 | tr -d '.'`"
 
 
 install -d $ISOTMP/iso/isolinux
@@ -365,13 +362,12 @@ cp boot/menu.c32 /$ISOTMP/iso/isolinux
 cp boot/vesamenu.c32 /$ISOTMP/iso/isolinux
 #if [ "$ARCH" = "x86" ]
 #then
-#cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+#cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL || exit 1
 #else
-cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL || exit 1
 #fi
-cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/.config /$ISOTMP/iso/isolinux/config-kernel.txt # || exit 1
-cp /$HOME/ydfs/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
-#cp /$HOME/ydfs/build-$ARCH/$INITRD26C /$ISOTMP/iso/isolinux || exit 4
+#cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/.config /$ISOTMP/iso/isolinux/config-kernel.txt # || exit 1
+cp /$HOME/ydfs/build-$ARCH/$INITRAMFS /$ISOTMP/iso/isolinux || exit 4
 
 echo "
 [autorun]
@@ -399,13 +395,6 @@ cp memtest86+-5.01.bin /$ISOTMP/iso/isolinux/memtest
 
 [ "$NOLCM" != "OK" ] && [ -e $HOME/ydfs/wineprogs ] && cp -fR $HOME/ydfs/wineprogs $ISOTMP/iso/
 
-# For unetbootin
-cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/initramfs
-# For EFI
-[ "$ARCH" = "x86_64" ] && cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/init
-# cp /home/linuxconsole2026/iso/k6649 /$ISOTMP/iso/isolinux/kernel
-cp /$ISOTMP/iso/isolinux/$KERNEL36 /$ISOTMP/iso/isolinux/kernel
-
 if [ "$ARCH" = "x86_64" ]
 then 
   cp -fR boot-efi/* /$ISOTMP/iso/ || exit $?
@@ -416,17 +405,16 @@ fi
 
 CONSOLE="loglevel=0"
 [ "$1" = "realtime" ] && CONSOLE=
-if [ -n "$SHORTINITRD26" ]
+if [ -n "$SHORTINITRAMFS" ]
 then
-  MINIMAL="initrd=$SHORTINITRD26 "
+  MINIMAL="initrd=$SHORTINITRAMFS "
 else 
-  MINIMAL="initrd=$INITRD26 "
+  MINIMAL="initrd=$INITRAMFS "
 fi
 
 COMMON="$MINIMAL $CONSOLE"
 COMMON2="$MINIMAL "
 
-[ -n "$SHORTKERNEL36" ] && KERNEL36=$SHORTKERNEL36
 COMMON="$COMMON rdinit=/busybox/bin/ash /init-newroot"
 
 echo "HELP" > /$ISOTMP/iso/isolinux/help.txt
@@ -454,7 +442,7 @@ done
 # Fix Lili bug http://www.linuxliveusb.com
 cp -fR /$ISOTMP/iso/isolinux/ /$ISOTMP/iso/syslinux/ 
 
-ISONAME="Ydfs-$LCBUILD"
+ISONAME="$DISTRONAME-$LCBUILD"
 
 CPUARCH="amd64"
 [ "$ARCH" = "x86" ] && CPUARCH="i386"
