@@ -1,7 +1,7 @@
 if [ ! -e $HOME/.config/autostart ]
 then
 install -d $HOME/.config/autostart
-for app in nm-applet.desktop mate-power-manager.desktop blueman.desktop
+for app in nm-applet.desktop mate-power-manager.desktop # blueman.desktop
 do
   cp /usr/etc/xdg/autostart/$app $HOME/.config/autostart/$app
   #echo "Hidden=true" >> $HOME/.config/autostart/$app
