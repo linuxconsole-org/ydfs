@@ -18,10 +18,11 @@ if [ "$ARCH" = "x86" ]
 then
   wget https://packages.debian.org/bookworm/i386/$2/download  
 else
-  wget https://packages.debian.org/bookworm/amd64/$2/download  
+  echo get https://packages.ubuntu.com/plucky/amd64/$2/download  
+  wget https://packages.ubuntu.com/plucky/amd64/$2/download  
 fi
 
-URL=$(grep ftp.fr.debian.org download | cut -d '"' -f2)
+URL=$(grep fr.archive.ubuntu.com download | cut -d '"' -f2)
 if [ "$URL" = "" ]
 then
   URL=$( grep http://security.debian.org/debian-security/ download  | cut -d '"' -f2)
@@ -63,12 +64,12 @@ fi
 
 install -d $HOME/.local/tmp/$2
 cd $HOME/.local/tmp/$2
-[ -e control.tar.xz ] && rm control.tar.xz
-ar -x $HOME/.local/$DEB control.tar.xz
+[ -e control.tar ] && rm control.tar
+ar -x $HOME/.local/$DEB control.tar.zst
 
 # extract control
-
-tar xJvf control.tar.xz 
+unzstd control.tar.zst || exit 1
+tar xvf control.tar || exit 1
 [ $? != 0 ] &&  zenity --info --error="Tar failed" && exit 1
 DEPS=$(grep Depends control | cut -d: -f2,3,4,5)
 
