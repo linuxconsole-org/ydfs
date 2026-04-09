@@ -542,7 +542,7 @@ https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.34/libnma-1.8.34.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://github.com/ecki/net-tools.git#commit=0eebece8c964e3cfa8a018f42b2e7e751a7009a0
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
-https://github.com/blueman-project/blueman/releases/download/2.2.4/blueman-2.2.4.tar.xz
+blueman-2.4.6.tar.gz::https://github.com/blueman-project/blueman/archive/refs/tags/2.4.6.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
 https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2
