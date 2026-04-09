@@ -8,14 +8,14 @@ COMPOSE=docker-compose
 endif
 
 
-DOCKER_OPTIONS=run -v /boot:/boot -v /lib/modules/:/lib/modules -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
+DOCKER_OPTIONS=run -v /boot:/boot -v /lib/modules/:/lib/modules -e DISTRONAME="$(DISTRONAME)" -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
 BUILD_COMMAND=install -d /tmp/ydfs;cp -a ${GIT_BRANCH}/* /tmp/ydfs;cp /tmp/ydfs/init-x86/etc/profile /home/linuxconsole2026/.bashrc;cd /tmp/ydfs;
 
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES BUILDME=OK
 OPTION_BUILD=MENUCONFIG=YES
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES
 OPTION_BUILD=
-OPTION_BUILD=KERNEL3=SYSTEM 
+OPTION_BUILD=KERNEL3=SYSTEM
 
 initramfs-docker: busybox-docker
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make initramfs'
@@ -90,8 +90,11 @@ touch-docker:
 gamejam-docker:
 	DISTRONAME=gamejam ${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make iso'
 
-clean-docker:
+clean-disk:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make clean '
+
+clean-docker:
+	${COMPOSE} down --remove-orphans
 
 uninstall-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make uninstall '
