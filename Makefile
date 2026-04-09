@@ -140,6 +140,7 @@ gamejam: prepare
 	$(CMD) gamejam-docker
 
 clean: 
+	rm /home/yann/2.12/ydfs/build-x86_64/SYSTEM
 	$(CMD) clean-docker
 
 uninstall: 
