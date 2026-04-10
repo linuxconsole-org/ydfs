@@ -269,6 +269,10 @@ fi
 #fix udevadm settle
 #cp -fR $HOME/$ARCH /$HOME/ydfs/tmp/initramfs-$ARCH
 
+git clone https://github.com/linuxconsole-org/apt-get-wrapper.git
+mv apt-get-wrapper/bin/apt-get /$HOME/ydfs/tmp/initramfs-$ARCH/fix/apt-get || exit 1
+rm -fR apt-get-wrapper
+
 [ -e $HOME/$ARCH/bin/ntfs-3g ] && cp $HOME/$ARCH/bin/ntfs-3g /$HOME/ydfs/tmp/initramfs-$ARCH
 
 [ -e $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs ] && rm $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs

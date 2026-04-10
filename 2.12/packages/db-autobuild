@@ -4,8 +4,6 @@ MYDIR=`basename $MYPWD`
 #$MYDIR est donc le répertoire courant sans le chemin complet,en fait ici c'est le répertoire du package qu'on essaie de compiler
 #MYSHORTDIR=version raccourcie de $MYDIR:sert à avoir le nom sans les N° de version,est-ce bien cela?
 MYSHORTDIR=`echo $MYDIR | cut -d'-' -f1`
-DIALOG=Xdialog
-[ "$DISPLAY" = "" ] && DIALOG=dialog
 echo -n "Package source : $MYDIR " 
 [ -d $HOME/ydfs/packages-$ARCH/$MYDIR ] && [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
 [ "$FORCEBUILD" != "OK" ] && [ -d $HOME/ydfs/packages-$ARCH/$MYDIR ] && [ ! -e build-twice ] && [ ! -e $HOME/ydfs/build-$MODULE/$MYDIR/build-twice ] && echo -n "built OK ($HOME/ydfs/packages-$ARCH/$MYDIR)" && exit 0
@@ -2687,7 +2685,7 @@ Cflags: -I${includedir}' > lua.pc
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
   echo -n " Look for make ($PWD) ..  "
-  if [ -e Makefile ] || [ -e GNUmakefile ] 
+  if [ -e Makefile ] || [ -e GNUmakefile ] || [ -e makefile ]
   then
       MAKEOPT=" -j 2"
       pwd | grep qlite-src && MAKEOPT=""
