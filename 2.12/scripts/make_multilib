@@ -19,7 +19,7 @@ install -d $HOME/multilib/include
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
   
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libcap-ng util-linux libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-1 curl elfutils expat dbus-1.12.20 glib freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libcap-ng kmod eudev util-linux libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-1 curl elfutils expat dbus-1.12.20 glib freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -465,7 +465,7 @@ unset MAKE
   [ -e build-32 ] && rm -fR build-32
 	mkdir build-32
 	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dtty-setgid=false -Dncurses=disabled -Dncursesw=disabled -Dbuild-libmount=disabled -Dcryptsetup=disabled --libdir=$HOME/multilib/lib32 --libexecdir=$HOME/multilib/lib32 || exit 1
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dbuild-python=disabled -Dpython=false -Dtty-setgid=false -Dncurses=disabled -Dncursesw=disabled -Dbuild-libmount=enabled -Dcryptsetup=disabled --libdir=$HOME/multilib/lib32 --libexecdir=$HOME/multilib/lib32 || exit 1
 	;;
      libgudev | libsoup-2 | pango-1 )
 	mkdir build-32
@@ -615,6 +615,8 @@ unset MAKE
     util-linux)
   	echo "Run ninja install fail and continue "
         PYTHONPATH="" ninja install 
+        ln -s $HOME/x86_64/lib32/libmount.so.1.1.0 $HOME/x86_64/lib32/libmount.so
+        ln -s $HOME/x86_64/lib32/libmount.so.1.1.0 $HOME/x86_64/lib32/libmount.so.1
 	cd ..
 	;;
     * )
