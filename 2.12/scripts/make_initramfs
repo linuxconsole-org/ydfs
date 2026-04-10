@@ -49,27 +49,28 @@ add_file() {
 
 
 add_module() {
-        if modinfo -k $KERNEL $1 >/dev/null 2>&1; then
-                modname=$(modinfo -k $KERNEL -F name $1 | cut -d ' ' -f1 | head -n1)
+        # echo modinfo -b $KERNEL_MODULES_PATH -k $KERNEL $1 
+        if modinfo -b $KERNEL_MODULES_PATH -k $KERNEL $1 >/dev/null 2>&1; then
+                modname=$(modinfo -b $KERNEL_MODULES_PATH -k $KERNEL -F name $1 | cut -d ' ' -f1 | head -n1)
                 [ "$modname" = "name:" ] && return 0
-                modpath=$(modinfo -k $KERNEL -F filename $1 | cut -d ' ' -f1 | head -n1)
+                modpath=$(modinfo -b $KERNEL_MODULES_PATH -k $KERNEL -F filename $1 | cut -d ' ' -f1 | head -n1)
                 [ "$modpath" = "name:" ] && return 0
         else
-                msg "missing module: $1"
+                echo "missing module: $1" && exit 2
                 return
         fi
         if [ -f $INITDIR/lib/modules/$KERNEL/kernel/${modpath##*/} ]; then
                 return
         fi
         add_file "$modpath" lib/modules/$KERNEL/kernel/${modpath##*/}
-        modinfo -F firmware -k $KERNEL $modname | while read -r line; do
+        modinfo -b $KERNEL_MODULES_PATH -F firmware -k $KERNEL $modname | while read -r line; do
                 if [ ! -f /lib/firmware/$line ]; then
                         msgwarn "missing firmware for $modname: $line"
                 else
                         add_file /lib/firmware/$line
                 fi
         done
-        for i in $(modinfo -F depends -k $KERNEL $modname | tr ',' ' '); do
+        for i in $(modinfo -b $KERNEL_MODULES_PATH -F depends -k $KERNEL $modname | tr ',' ' '); do
                 add_module $i
         done
         unset modname modpath
@@ -154,11 +155,22 @@ KERNEL=$KERNEL3
                 kernel/drivers/usb/storage"
 
 	for mod in $REQMODULES; do
-		FTGT="$FTGT /lib/modules/$(uname -r)/$mod"
+    if [ "$KERNEL" = "KERNEL3" ]
+    then
+		  FTGT="$FTGT /lib/modules/$(uname -r)/$mod"
+    else
+		  FTGT="$KERNEL_MODULES_PATH/lib/modules/$KERNEL3"
+    fi   
+    echo "FTGT : $FTGT"
 	done
 	for modules in $(find $FTGT -type f -name "*.ko*" 2> /dev/null); do
 		modules=$(echo ${modules%*.ko*})
-		INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
+    if [ "$KERNEL" = "KERNEL3" ]
+    then
+		  INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
+    else
+		  INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$KERNEL add_module ${modules##*/}
+    fi
 	done
 
   cp $HOME_DIBAB/dev-initramfs.cpio $HOME/ydfs/build-$ARCH/initramfs

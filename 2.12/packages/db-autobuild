@@ -1248,8 +1248,8 @@ pwd && sleep 5
     echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
     export ACLOCAL_PATH="$HOME/$ARCH/share/aclocal:$HOME/opkg/share/aclocal:$HOME/opkg/share/aclocal"
     NOCONFIGURE=1 bash autogen.sh # || exit 3
-    #gettextize -f
-    make distclean && sleep 5
+    # [ -e blueman/bluemantyping.py ] && gettextize -f
+    # make distclean && sleep 5
   fi
 
   [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Run cherry-pick" && sleep 3 && git cherry-pick -n eea4f1be91

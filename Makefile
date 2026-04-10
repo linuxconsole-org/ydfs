@@ -140,8 +140,8 @@ gamejam: prepare
 	$(CMD) gamejam-docker
 
 clean: 
-	rm ${HOME}/2.12/ydfs/build-x86_64/initramfs
 	$(CMD) clean-docker
+	rm ${HOME}/2.12/ydfs/build-x86_64/initramfs
 
 uninstall: 
 	$(CMD) uninstall-docker

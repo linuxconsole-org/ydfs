@@ -14,6 +14,7 @@ install -d $HOME/opkg/share/aclocal
 install -d $HOME/opkg/share/pixmaps
 
 git config --global url."https://".insteadOf git://
+git config --global advice.detachedHead false
 
 echo $SRC_PATH/list-$1
 # normalement c'est un double crochet, le simple crochet est utilisé pour des raisons de compatibilité
