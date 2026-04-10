@@ -12,9 +12,9 @@ DOCKER_OPTIONS=run -v /boot:/boot -v /lib/modules/:/lib/modules -e DISTRONAME="$
 BUILD_COMMAND=install -d /tmp/ydfs;cp -a ${GIT_BRANCH}/* /tmp/ydfs;cp /tmp/ydfs/init-x86/etc/profile /home/linuxconsole2026/.bashrc;cd /tmp/ydfs;
 
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES BUILDME=OK
-OPTION_BUILD=MENUCONFIG=YES
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES
 OPTION_BUILD=
+OPTION_BUILD=MENUCONFIG=YES
 OPTION_BUILD=KERNEL3=SYSTEM
 
 initramfs-docker: busybox-docker

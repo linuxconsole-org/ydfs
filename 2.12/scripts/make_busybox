@@ -29,6 +29,7 @@ fi
 # patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.28.4.diff
 #echo FIXME & sleep 10 && rm $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
 [ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$ARCH-$BUSYBOX
+cp $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config $HOME/iso
 if [ $ARCH = "x86" ]
 then
  wget jukebox.linuxconsole.org/toolchains/libmpfr.so.4 && mv libmpfr.so.4 $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/lib32/
