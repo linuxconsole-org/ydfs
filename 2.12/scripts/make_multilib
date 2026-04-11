@@ -373,12 +373,12 @@ unset MAKE
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
 	;;
     e2fsprogs )
+    patch -p1 < /2.12/packages/patches/multilib-e2fsprogs-1.47.4.diff
 	./configure --prefix=$HOME/multilib/  --enable-elf-shlibs \
-    	--with-crond-dir=$HOME/multilib/etc/cron.d  --enable-elf-shlibs --disable-libblkid \
-    --disable-libuuid --disable-fsck \
-    --disable-uuidd --with-systemd-unit-dir=$HOME/$ARCH/lib/systemd/system
-	sleep 3
-	echo "E2FS"
+  --disable-debugfs --disable-imager --disable-resizer --disable-fsck --disable-uuidd --disable-libuuid --disable-libblkid \
+   	--with-crond-dir=$HOME/multilib/etc/cron.d --with-systemd-unit-dir=$HOME/$ARCH/lib/systemd/system
+    echo "--disable-debugfs --disable-imager --disable-resizer --disable-fsck --disable-uuidd --disable-libuuid --disable-libblkid "
+    #sed -i s"/-luuid//g" e2fsck/Makefile
   	# sed -i "s|CROND_DIR = /etc/cron.d|CROND_DIR = $HOME/multilib/etc/cron.d|" Makefile
 	;;
     ncurses )

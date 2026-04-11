@@ -1,0 +1,54 @@
+diff --git a/Makefile.in b/Makefile.in
+index 277b500..90eb95f 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -22,9 +22,6 @@ MKDIR_P = @MKDIR_P@
+ LIB_SUBDIRS=lib/et lib/ss $(E2P_LIB_SUBDIR) $(UUID_LIB_SUBDIR) \
+ 	$(BLKID_LIB_SUBDIR) $(SUPPORT_LIB_SUBDIR) $(EXT2FS_LIB_SUBDIR)
+ 
+-PROG_SUBDIRS=e2fsck $(DEBUGFS_DIR) misc $(RESIZE_DIR) tests/progs \
+-	tests/fuzz po $(E2SCRUB_DIR)
+-
+ SUBDIRS=util $(LIB_SUBDIRS) $(PROG_SUBDIRS) tests
+ 
+ SUBS= util/subst.conf lib/config.h $(top_builddir)/lib/dirpaths.h \
+diff --git a/configure b/configure
+index ddfc752..6b1e470 100755
+--- a/configure
++++ b/configure
+@@ -6364,7 +6364,7 @@ then :
+   printf %s "(cached) " >&6
+ else case e in #(
+   e) ac_check_lib_save_LIBS=$LIBS
+-LIBS="-luuid  $LIBS"
++LIBS="  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -6381,8 +6381,6 @@ char uuid_generate (void);
+ int
+ main (void)
+ {
+-return uuid_generate ();
+-  ;
+   return 0;
+ }
+ _ACEOF
+@@ -6433,7 +6431,7 @@ then :
+   printf %s "(cached) " >&6
+ else case e in #(
+   e) ac_check_lib_save_LIBS=$LIBS
+-LIBS="-luuid  $LIBS"
++LIBS=" $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -6658,7 +6656,7 @@ then :
+   printf %s "(cached) " >&6
+ else case e in #(
+   e) ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lblkid -luuid $LIBS"
++LIBS="-lblkid $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
