@@ -101,7 +101,7 @@ https://ftp.gnu.org/pub/gnu/gperf/gperf-3.1.tar.gz
 https://ftp.gnu.org/pub/gnu/texinfo/texinfo-6.8.tar.xz
 https://xdownload.oracle.com/berkeley-db/db-5.3.28.tar.gz
 https://xdownload.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz  
-https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.bz2
+https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.17.1/fontconfig-2.17.1.tar.xz
 https://download.videolan.org/pub/videolan/libbluray/1.1.2/libbluray-1.1.2.tar.bz2
 https://ftp.gnome.org/pub/GNOME/sources/gtk-doc/1.32/gtk-doc-1.32.tar.xz
 https://xwww.tcpdump.org/release/libpcap-1.7.4.tar.gz 
@@ -164,9 +164,9 @@ https://xxcb.freedesktop.org/dist/xcb-util-0.4.0.tar.bz2
 https://xorg.freedesktop.org//releases/individual/lib/libX11-1.8.7.tar.xz
 https://xorg.freedesktop.org//releases/individual/lib/libpciaccess-0.16.tar.bz2
 https://dri.freedesktop.org/libdrm/libdrm-2.4.109.tar.xz
-ftp://ftp.freedesktop.org/pub/individual/lib/libICE-1.0.9.tar.gz 
+https://xorg.freedesktop.org//releases/individual/lib/libICE-1.1.2.tar.xz
 https://xorg.freedesktop.org//releases/individual/lib/libxkbfile-1.1.0.tar.bz2
-ftp://ftp.freedesktop.org/pub/individual/lib/libSM-1.2.2.tar.bz2 
+https://xorg.freedesktop.org//releases/individual/lib/libSM-1.2.6.tar.xz
 ftp://ftp.freedesktop.org/pub/individual/lib/libXt-1.1.5.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXext-1.3.3.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/lib/libxkbui-1.0.2.tar.bz2 
@@ -842,8 +842,8 @@ https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
 https://github.com/google/googletest/archive/release-1.11.0.tar.gz
 https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
 https://movit.sesse.net/movit-1.6.2.tar.gz
-#Gtkmm For Ardour
-https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
+#Gtkmm For Ardour ?
+#https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz #SKIP-x86_64#
 https://github.com/mltframework/mlt/releases/download/v7.8.0/mlt-7.8.0.tar.gz #SKIP-x86#
 git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
