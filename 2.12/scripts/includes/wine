@@ -23,17 +23,18 @@ then
 #          mv $HOME/multilib/include/$INC $HOME/multilib/include/"$INC"-disabled
 #        done
 
-	echo "Configure Wine"
-
-	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --disable-tests \
-			    --libdir=$PREFIX/lib32 \
-			    --enable-archs=x86_64,i386 \
-			    --enable-build-id || exit 1
-	echo "Make Wine"
+  echo "Configure Win32"
+	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --with-gstreamer --libdir=$HOME/multilib/lib/ --with-wine64=$WINEBUILD || exit 1
+	echo "Make Win32"
 	make || exit 1
-	echo "Make install Wine"
+	echo "Make install Win32"
 	make prefix="$PREFIX" libdir=$PREFIX/lib32 dlldir=$PREFIX/lib32/wine install || exit 1
-    
+
+	cd $WINEBUILD
+	echo "Make install Win64"
+	make install || exit 1
+	# make prefix="$PREFIX" libdir="$PREFIX/lib" dlldir="$PREFIX/lib/wine" install || exit 1
+	touch buildok-$ARCH
         exit 0
 
 fi
