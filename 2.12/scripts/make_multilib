@@ -225,7 +225,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	echo "meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
     -D b_lto=false \
     -D b_ndebug=true \
-    -D platforms=x11,wayland \
+    -D platforms=x11 \
     -D dri-drivers=i915,i965,r100,r200,nouveau \
     -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink \
     -D vulkan-drivers=amd,intel \
@@ -264,6 +264,7 @@ unset CXXFLAGS
 unset MAKE
     bash build-mesa32 || exit 1
     bash build-mesa32 > ydfs-conf || exit 2
+    sed -i "s@/home/linuxconsole2026/x86_64/lib/lib@/home/linuxconsole2026/multilib/lib/lib@" build.ninja
 	;;
 
     lm-sensors )
