@@ -19,8 +19,50 @@ install -d $HOME/multilib/include
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
   
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libcap-ng kmod eudev util-linux libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-1 curl elfutils expat dbus-1.12.20 glib freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
-xtrans libXau libpthread-stubs xcb-proto libxcb \
+PKGMULTILIB="zlib-1 \
+gmp \
+xz-5 \
+libunwind \
+libunistring \
+libtasn1 \
+libidn \
+nettle \
+xorgproto \
+alsa-lib \
+ncurses \
+readline \
+libxcrypt \
+pcre- \
+pcre2 \
+tcl8 \
+sqlite \
+libcap-ng \
+kmod \
+eudev \
+util-linux \
+libpng-1.2 \
+libpng-1.6 \
+libffi \
+p11-kit \
+zstd \
+gnutls \
+openssl-1 \
+curl \
+elfutils \
+expat \
+dbus-1.12.20 \
+glib \
+freetype-2 \
+icu \
+harfbuzz \
+freetype-2 \
+json-c \
+fontconfig-2 \
+xtrans \
+libXau \
+libpthread-stubs \
+xcb-proto \
+libxcb \
 libX11-1 \
 libXext-1 \
 libICE-1 \
@@ -49,8 +91,80 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
-unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
+libxshmfence-1 \
+pixman \
+cairo-1 \
+libdrm \
+xz-5 \
+libxml \
+libgpg-error \
+libgcrypt \
+libxslt \
+llvm \
+elfutils \
+libogg \
+libvdpau \
+kmod \
+eudev \
+tiff-4 \
+libjpeg-turbo \
+gdk-pixbuf \
+flac \
+libvorbis \
+libsndfile \
+speex \
+opus-1 \
+opusfile \
+sox- \
+soxr \
+sbc \
+check \
+fftw-3.3 \
+pulseaudio-14 \
+libglvnd \
+wayland-1 \
+lm-sensors \
+Vulkan-Loader \
+mesa-2 \
+expat \
+glu \
+libsamplerate \
+SDL2-2 \
+openal-soft \
+fribidi \
+pango-1 \
+atk-2 \
+unixODBC \
+libtheora \
+libcap-2 \
+at-spi2-core \
+at-spi2-atk \
+libepoxy \
+libxkbcommon \
+libgudev \
+lcms2 \
+libusb-1 \
+libgusb \
+libtirpc \
+libnsl \
+Linux-PAM \
+duktape \
+polkit-1 \
+colord \
+glib-networking \
+libpsl \
+brotli \
+e2fsprogs \
+krb5 \
+libsoup-2 \
+rest \
+json-glib \
+gtk+-3 \
+gstreamer-1 \
+libgudev \
+bzip2 \
+libva-2 \
+gst-plugins-base" 
 
 # PKGMULTILIB="libffi llvm"
 
@@ -185,6 +299,9 @@ unset MAKE
     -D tests=true \
     -D introspection=false || exit 1
         ;;
+    libSM-1 )
+	./configure --prefix=$HOME/multilib --without-libuuid --libdir=$HOME/multilib/lib32
+	;;
     libcap-ng )
 	./configure --prefix=$HOME/multilib --without-python3 --without-python
 	;;
@@ -256,7 +373,9 @@ unset MAKE
 	;;
     e2fsprogs )
 	./configure --prefix=$HOME/multilib/  --enable-elf-shlibs \
-    	--with-crond-dir=$HOME/multilib/etc/cron.d  --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck --with-systemd-unit-dir=$HOME/$ARCH/lib/systemd/system
+    	--with-crond-dir=$HOME/multilib/etc/cron.d  --enable-elf-shlibs --disable-libblkid \
+    --disable-libuuid --disable-fsck \
+    --disable-uuidd --with-systemd-unit-dir=$HOME/$ARCH/lib/systemd/system
 	sleep 3
 	echo "E2FS"
   	# sed -i "s|CROND_DIR = /etc/cron.d|CROND_DIR = $HOME/multilib/etc/cron.d|" Makefile
