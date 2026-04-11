@@ -1,0 +1,39 @@
+diff --git a/revokefs/main.c b/revokefs/main.c
+index 54908d8..457dcc9 100644
+--- a/revokefs/main.c
++++ b/revokefs/main.c
+@@ -37,7 +37,7 @@
+ #include <sys/xattr.h>
+ #include <dirent.h>
+ #include <unistd.h>
+-#include <fuse.h>
++#include <fuse3/fuse.h>
+ 
+ #include <glib.h>
+ 
+diff --git a/revokefs/writer.c b/revokefs/writer.c
+index 2861487..bca0af1 100644
+--- a/revokefs/writer.c
++++ b/revokefs/writer.c
+@@ -37,7 +37,7 @@
+ #include <dirent.h>
+ #include <unistd.h>
+ #include <poll.h>
+-#include <fuse.h>
++#include <fuse3/fuse.h>
+ 
+ #include <glib.h>
+ 
+diff --git a/tests/can-use-fuse.c b/tests/can-use-fuse.c
+index 3352710..6cb908b 100644
+--- a/tests/can-use-fuse.c
++++ b/tests/can-use-fuse.c
+@@ -18,7 +18,7 @@
+ #endif
+ 
+ #if FUSE_USE_VERSION >= 31
+-#include <fuse.h>
++#include <fuse3/fuse.h>
+ #else
+ #include <fuse_lowlevel.h>
+ #endif

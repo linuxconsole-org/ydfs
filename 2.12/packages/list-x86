@@ -981,6 +981,13 @@ https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-
 #Flatpak
 git://github.com/containers/bubblewrap#tag=v0.11.1
 git://github.com/ostreedev/ostree#tag=v2025.7
+pip::linuxdoc
+pip::sphinx_markdown_builder
+pip::gi-docgen
+git://github.com/pantoniou/libfyaml#tag=v0.9.6
+git://github.com/ximion/appstream#tag=v1.1.2
+http://www.dest-unreach.org/socat/download/socat-1.8.1.1.tar.gz
+git://github.com/flatpak/flatpak#tag=1.16.4
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
