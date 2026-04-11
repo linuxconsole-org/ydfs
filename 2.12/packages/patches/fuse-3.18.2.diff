@@ -1,0 +1,45 @@
+diff --git a/test/ci-build.sh b/test/ci-build.sh
+index 2bced37..0d495e4 100755
+--- a/test/ci-build.sh
++++ b/test/ci-build.sh
+@@ -61,10 +61,6 @@ non_sanitized_build()
+         # libfuse will first try the install path and then system defaults
+         sudo chmod 4755 ${PREFIX_DIR}/bin/fusermount3
+ 
+-        # also needed for some of the tests
+-        sudo chown root:root util/fusermount3
+-        sudo chmod 4755 util/fusermount3
+-
+         ${TEST_CMD}
+         popd
+         rm -fr build-${CC}
+@@ -103,8 +99,6 @@ sanitized_build()
+     sudo chmod 4755 ${PREFIX_DIR}/bin/fusermount3
+ 
+     # also needed for some of the tests
+-    sudo chown root:root util/fusermount3
+-    sudo chmod 4755 util/fusermount3
+ 
+     # Test as root and regular user
+     sudo env PATH=$PATH ${TEST_CMD}
+diff --git a/util/install_helper.sh b/util/install_helper.sh
+index 76f2b47..df6b33a 100755
+--- a/util/install_helper.sh
++++ b/util/install_helper.sh
+@@ -27,16 +27,6 @@ fi
+ install -D -m 644 "${MESON_SOURCE_ROOT}/util/fuse.conf" \
+ 	"${DESTDIR}${sysconfdir}/fuse.conf"
+ 
+-if $useroot; then
+-    chown root:root "${DESTDIR}${bindir}/fusermount3"
+-    chmod u+s "${DESTDIR}${bindir}/fusermount3"
+-
+-    if test ! -e "${DESTDIR}/dev/fuse"; then
+-        mkdir -p "${DESTDIR}/dev"
+-        mknod "${DESTDIR}/dev/fuse" -m 0666 c 10 229
+-    fi
+-fi
+-
+ if [ "${udevrulesdir}" != "" ]; then
+     install -D -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
+         "${DESTDIR}${udevrulesdir}/99-fuse3.rules"

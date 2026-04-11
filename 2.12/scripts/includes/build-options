@@ -49,6 +49,7 @@ echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS=" -DCMAKE_BUILD_TYPE=Rele
       -Wno-dev "
 [ "$ARCH" = "x86" ] && echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DFORCE_32BIT=ON -DCMAKE_CXX_LIBRARY_ARCHITECTURE=x86"
 
+echo $ARCHIVE | grep dbusmenu && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3"
 echo $ARCHIVE | grep graphviz && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --enable-lua=no --disable-lua"
 echo $ARCHIVE | grep exiv2-0.26 &&  LC_CONFIGURE_OPTS=" -DEXIV2_ENABLE_VIDEO=ON \
     -DEXIV2_ENABLE_BUILD_PO=ON \
@@ -147,7 +148,7 @@ echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS="--without-lvm_dbus --wit
 echo $ARCHIVE | grep librevenge &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86" ] && export ABI=32 && LC_CONFIGURE_OPTS="--disable-werror "
 echo $ARCHIVE | grep gmp-6 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --enable-fat  --enable-cxx"
-echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
+echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="-D selinux=disabled"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep raqm &&  LC_CONFIGURE_OPTS="--disable-Werror"
@@ -295,7 +296,7 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
 	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 
 	echo $ARCHIVE | grep fuse-2 && export LC_CONFIGURE_OPTS="--enable-lib --enable-util --disable-example" 
-	echo $ARCHIVE | grep fuse-3 && export LC_CONFIGURE_OPTS="-Dexamples=false" 
+	echo $ARCHIVE | grep fuse-3 && export LC_CONFIGURE_OPTS="-Dinitscriptdir=$HOME/$ARCH/etc/init.d -Dexamples=false" 
 	echo $ARCHIVE | grep hplip && export LC_CONFIGURE_OPTS="--with-icondir=$HOME/$MODULE/share/applications  --with-systraydir=$HOME/$MODULE//etc/xdg/autostart --with-cupsbackenddir=$DIBAB_PREFIX/$MODULE/lib/cups/backend --enable-libusb01_build --with-cupsfilterdir=$DIBAB_PREFIX/$MODULE/lib/cups/filter  --with-mimedir=$DIBAB_PREFIX/$MODULE/share/cups/mime/"
 	echo $ARCHIVE | grep net-snmp && export LC_CONFIGURE_OPTS=" --with-default-snmp-version=3 --with-sys-contact=root@localhost --with-sys-location=Unknown --with-logfile=/var/log/snmpd.log --with-persistent-directory='/var/net-snmp'"
 #	echo $ARCHIVE | grep kino && export LC_CONFIGURE_OPTS=" --enable-local-ffmpeg" 

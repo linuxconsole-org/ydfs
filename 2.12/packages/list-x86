@@ -45,7 +45,7 @@ https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
 https://github.com/mesonbuild/meson/releases/download/0.63.0/meson-0.63.0.tar.gz
 git://gitlab.gnome.org/GNOME/glib.git#tag=2.78.4
 https://download.savannah.gnu.org/releases/libunwind/libunwind-1.6.2.tar.gz
-https://github.com/libfuse/libfuse/releases/download/fuse-2.9.9/fuse-2.9.9.tar.gz
+https://github.com/libfuse/libfuse/releases/download/fuse-3.18.2/fuse-3.18.2.tar.gz
 ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz
 https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2
 https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.xz
@@ -65,7 +65,7 @@ https://github.com/unicode-org/icu/releases/download/release-70-1/icu4c-70_1-src
 https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz #SKIP-x86_64#
 https://xftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.71/gobject-introspection-1.71.0.tar.xz
 https://download.gimp.org/pub/babl/0.1/babl-0.1.92.tar.xz
-https://xftp.gnome.org/pub/gnome/sources/json-glib/1.4/json-glib-1.4.4.tar.xz
+https://download.gnome.org/sources/json-glib/1.6/json-glib-1.6.6.tar.xz
 https://xorg.freedesktop.org/releases/individual/lib/pixman-0.40.0.tar.xz
 https://xftp.gnu.org/gnu/cpio/cpio-2.13.tar.gz
 https://xminiupnp.free.fr/files/miniupnpc-2.0.tar.gz
@@ -501,7 +501,6 @@ https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.4.tar.xz
 https://download.gnome.org/sources/gcr/3.41/gcr-3.41.1.tar.xz
 https://github.com/sahlberg/libnfs/archive/libnfs-2.0.0.tar.gz
 https://download.gnome.org/sources/gsettings-desktop-schemas/41/gsettings-desktop-schemas-41.0.tar.xz
-https://github.com/libfuse/libfuse/releases/download/fuse-3.9.3/fuse-3.9.3.tar.xz
 pip::Cython==0.29.36
 git://github.com/libimobiledevice/libplist#commit=c5a30e9267068436a75b5d00fcbf95cb9c1f4dcd
 git://github.com/libimobiledevice/libusbmuxd.git#commit=ce98c346b7c1dc2a21faea4fd3f32c88e27ca2af
@@ -967,16 +966,21 @@ https://ftp.postgresql.org/pub/source/v18.1/postgresql-18.1.tar.bz2
 pip::psycopg2==2.9.2
 git://github.com/fwupd/fwupd.git#tag=1.8.7
 https://downloads.sourceforge.net/project/freeimage/Source%20Distribution/3.18.0/FreeImage3180.zip
+#Mate and Cinnamon
+#dbusmenu16.10-r498.tar.gz::https://bazaar.launchpad.net/~dbusmenu-team/libdbusmenu/trunk.16.10/tarball/498
+#https://jukebox.linuxconsole.org/sources/libdbusmenu.tar.gz
+https://deb.debian.org/debian/pool/main/libd/libdbusmenu/libdbusmenu_18.10.20180917~bzr492+repack1.orig.tar.xz
 #Cinnamon
 https://gitlab.gnome.org/Archive/libgnomekbd.git#tag=3.28.1
 https://github.com/linuxmint/xapp/archive/3.2.2/xapp-3.2.2.tar.gz
-#dbusmenu16.10-r498.tar.gz::https://bazaar.launchpad.net/~dbusmenu-team/libdbusmenu/trunk.16.10/tarball/498
-https://jukebox.linuxconsole.org/sources/libdbusmenu.tar.gz
 https://libopenraw.freedesktop.org/download/exempi-2.6.5.tar.xz
 https://gitlab.gnome.org/GNOME/libgsf.git#commit=ea9d8cd1369661bf62d0476474700a9e0887c812
 git://github.com/CanonicalLtd/lightdm.git#commit=9e72b5b3072ff9990211f35aa2a48e971ff710c7
 #lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz
 https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-3.20211022.1.tar.gz
+#Flatpak
+git://github.com/containers/bubblewrap#tag=v0.11.1
+git://github.com/ostreedev/ostree#tag=v2025.7
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#

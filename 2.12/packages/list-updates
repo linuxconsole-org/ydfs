@@ -1,3 +1,4 @@
 #git://github.com/dracut-ng/dracut-ng#tag=110
-#git://github.com/containers/bubblewrap#tag=v0.11.1
-#git://github.com/flatpak/flatpak#tag=1.16.4
+#https://download.gnome.org/sources/json-glib/1.10/json-glib-1.10.6.tar.xz
+git://github.com/flatpak/flatpak#tag=1.16.4
+FAIL
