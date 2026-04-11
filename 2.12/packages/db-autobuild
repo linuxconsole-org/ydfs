@@ -19,6 +19,8 @@ echo $MYPWD | grep gc- && SHORTNAME=gc-
 echo $MYPWD | grep gnome-vfs && SHORTNAME=gnomevfs 
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
 
+[ -e $HOME/x86_64/lib/gobject-introspection/giscanner/ccompiler.py ] && grep distutils.msvccompiler $HOME/x86_64/lib/gobject-introspection/giscanner/ccompiler.py && echo "Fix $HOME/x86_64/lib/gobject-introspection/giscanner/ccompiler.py" && sleep 5 && sed -i "s@distutils.msvccompiler@distutils._msvccompiler@" $HOME/x86_64/lib/gobject-introspection/giscanner/ccompiler.py
+
 [ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null 2>/dev/null && echo -n "$HOME/ydfs/opkg/$SHORTNAME OK " && exit 0
 
 [ "$FORCEBUILD" != "OK" ] && [ -e buildok-$ARCH ] && echo -n "built OK ($PWD)" && exit 0
