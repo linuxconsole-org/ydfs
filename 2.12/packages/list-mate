@@ -1,4 +1,5 @@
 #pip::setuptools==65.0.2
+https://jukebox.linuxconsole.org/sources/libdbusmenu.tar.gz
 lp:libappindicator
 https://github.com/mate-desktop/mate-polkit/releases/download/v1.28.0/mate-polkit-1.28.0.tar.xz
 https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v1.28.1.tar.gz
