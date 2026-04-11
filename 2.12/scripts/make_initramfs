@@ -41,8 +41,8 @@ add_file() {
                 
         install -Dm$mode $src $INITDIR/$dest
         echo $INITDIR/$dest
-  # Busybox modprobe does not support zst
-	echo $dest | grep zst && unzstd $INITDIR/$dest && NEW=$(echo $INITDIR/$dest| sed  's/\.zst//') && mv $NEW $INITDIR/$dest
+        # Busybox modprobe does not support zst
+	      echo $dest | grep zst && unzstd $INITDIR/$dest && NEW=$(echo $INITDIR/$dest| sed  's/\.zst//') && mv $NEW $INITDIR/$dest
 
         unset src dest mode
 }
@@ -53,6 +53,7 @@ add_module() {
         if modinfo -b $KERNEL_MODULES_PATH -k $KERNEL $1 >/dev/null 2>&1; then
                 modname=$(modinfo -b $KERNEL_MODULES_PATH -k $KERNEL -F name $1 | cut -d ' ' -f1 | head -n1)
                 [ "$modname" = "name:" ] && return 0
+                # echo "modinfo -b $KERNEL_MODULES_PATH -k $KERNEL -F filename $1 "
                 modpath=$(modinfo -b $KERNEL_MODULES_PATH -k $KERNEL -F filename $1 | cut -d ' ' -f1 | head -n1)
                 [ "$modpath" = "name:" ] && return 0
         else
@@ -62,7 +63,14 @@ add_module() {
         if [ -f $INITDIR/lib/modules/$KERNEL/kernel/${modpath##*/} ]; then
                 return
         fi
-        add_file "$modpath" lib/modules/$KERNEL/kernel/${modpath##*/}
+        #echo "KERNEL_MODULES_PATH is $KERNEL_MODULES_PATH" && sleep 1
+        #echo "Modpath is $modpath" && sleep 1
+        DEST=$(echo $modpath | sed -e "s@$KERNEL_MODULES_PATH@@" | sed -e "s@/lib/modules/$KERNEL/@@")
+
+        # Only works for drivers on /lib/modules/KVER/
+        #add_file "$modpath" lib/modules/$KERNEL/kernel/${modpath##*/}
+        echo add_file "$modpath" $DEST #&& sleep 1
+        add_file "$modpath" $DEST
         modinfo -b $KERNEL_MODULES_PATH -F firmware -k $KERNEL $modname | while read -r line; do
                 if [ ! -f /lib/firmware/$line ]; then
                         msgwarn "missing firmware for $modname: $line"
@@ -145,7 +153,7 @@ KERNEL=$KERNEL3
 
   #From ydfs3 branch : mkinitramfs/hook/modules.hook
   REQMODULES="
-                kernel/fs
+                kernel/fs/fat
                 kernel/lib
                 kernel/drivers/block
                 kernel/drivers/ata
@@ -159,7 +167,7 @@ KERNEL=$KERNEL3
     then
 		  FTGT="$FTGT /lib/modules/$(uname -r)/$mod"
     else
-		  FTGT="$KERNEL_MODULES_PATH/lib/modules/$KERNEL3"
+		  FTGT="$FTGT $KERNEL_MODULES_PATH/lib/modules/$KERNEL3/$mod"
     fi   
     echo "FTGT : $FTGT"
 	done
