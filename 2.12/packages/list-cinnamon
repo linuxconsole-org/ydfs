@@ -5,6 +5,7 @@ git://github.com/linuxmint/cinnamon-session.git#tag=6.6.3
 git://github.com/linuxmint/nemo.git#tag=6.6.4
 git://github.com/linuxmint/cinnamon-settings-daemon.git#tag=6.6.3
 git://github.com/linuxmint/cinnamon-control-center.git#tag=6.6.0
-git://github.com/linuxmint/muffin.git#tag=6.6.3
-git://github.com/linuxmint/cinnamon-screensaver.git#tag=6.6.1
+git://github.com/linuxmint/muffin.git#tag=6.4.0
+#https://github.com/baskerville/xdo/archive/0.5.7/xdo-0.5.7.tar.gz
+#git://github.com/linuxmint/cinnamon-screensaver.git#tag=6.6.1
 git://github.com/linuxmint/cinnamon.git#tag=6.6.7

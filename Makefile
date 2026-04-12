@@ -80,39 +80,33 @@ openxr:
 iso-devtools:
 	$(CMD) iso-devtools-docker
 
-qemu-initrd-system:
-	qemu-system-x86_64 -m size=2000  -D ./qemu-debug-log -monitor pty \
-	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
-	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
-		-initrd /home/yann/src/ydfs/initrd/initrd \
-		-append "root=/dev/ram0 rootfstype=ramfs init=/init2 rdinit=/init2 console=ttyS0 "
-
 qemu-initramfs-system:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
-		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/SYSTEM \
 		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
+
 qemu-initramfs:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
-	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.10/arch/x86_64/boot/bzImage \
-		-initrd ${HOME}/2.12/ydfs/build-x86_64/61810 \
-		-append "rdinit=/init2 nofcc livecd debug1 quiet text"
+	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.21/arch/x86_64/boot/bzImage \
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/initramfs \
+		-append "rdinit=/busybox/bin/ash /init-newroot"
 
 qemu-azerty-system:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-SYSTEM/arch/x86_64/boot/bzImage \
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/SYSTEM \
-		-append "rdinit=/busybox/bin/ash" \
+		-append "rdinit=/busybox/bin/ash /azerty" \
 		-cdrom ${HOME}/iso/linuxconsole.iso 
 
 qemu-efi:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
 qemu:
-	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -usb -device usb-tablet -m size=2000 -cdrom ${HOME}/iso/linuxconsole.iso
+	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -m size=2000 -cdrom ${HOME}/iso/linuxconsole.iso
 
 qemu-usb:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \

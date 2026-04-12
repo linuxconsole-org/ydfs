@@ -7,6 +7,7 @@ services:
             - $HOME/2.12/opkg:/home/linuxconsole2026/opkg
             - $HOME/iso:/home/linuxconsole2026/iso
             - $HOME/2.12/mate:/home/linuxconsole2026/mate
+            - $HOME/2.12/cinnamon:/home/linuxconsole2026/cinnamon
             - $HOME/2.12/x86_64:/home/linuxconsole2026/x86_64
             - $HOME/2.12/multilib:/home/linuxconsole2026/multilib
             - $HOME/2.12/llvm-multilib:/home/linuxconsole2026/llvm-multilib
@@ -27,6 +28,7 @@ services:
             - $HOME/2.12/opkg:/home/linuxconsole2026/opkg
             - $HOME/iso:/home/linuxconsole2026/iso
             - $HOME/2.12/mate:/home/linuxconsole2026/mate
+            - $HOME/2.12/cinnamon:/home/linuxconsole2026/cinnamon
             - $HOME/2.12/x86_64:/home/linuxconsole2026/x86_64
             - $HOME/2.12/multilib:/home/linuxconsole2026/multilib
             - $HOME/2.12/llvm-multilib:/home/linuxconsole2026/llvm-multilib

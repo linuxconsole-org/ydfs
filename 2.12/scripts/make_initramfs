@@ -1,5 +1,6 @@
 . ./config.ini
 
+
 #From ydfs3 branch : mkinitramfs/hook/modules.hook
 
 msgwarn() {
@@ -38,11 +39,19 @@ add_file() {
                 msgwarn "failed get file mode: $src"
                 return
         fi
-                
-        install -Dm$mode $src $INITDIR/$dest
-        echo $INITDIR/$dest
+        LIBMODULE=$INITDIR/lib/modules/$KERNEL/ 
+        install -Dm$mode $src $LIBMODULE/$dest
+        [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo "$src -> $LIBMODULE/$dest"
+
         # Busybox modprobe does not support zst
-	      echo $dest | grep zst && unzstd $INITDIR/$dest && NEW=$(echo $INITDIR/$dest| sed  's/\.zst//') && mv $NEW $INITDIR/$dest
+        ARCHIVEZSTD=""
+	      echo $dest | grep zst && ARCHIVEZSTD="OK"
+        if [ "$ARCHIVEZSTD" = "OK" ]
+        then
+          unzstd $LIBMODULE/$dest 1>/dev/null 2>/dev/null
+          NEW=$(echo $LIBMODULE/$dest | sed 's/\.zst//') 
+          mv $NEW $LIBMODULE/$dest
+        fi
 
         unset src dest mode
 }
@@ -63,13 +72,12 @@ add_module() {
         if [ -f $INITDIR/lib/modules/$KERNEL/kernel/${modpath##*/} ]; then
                 return
         fi
-        #echo "KERNEL_MODULES_PATH is $KERNEL_MODULES_PATH" && sleep 1
-        #echo "Modpath is $modpath" && sleep 1
         DEST=$(echo $modpath | sed -e "s@$KERNEL_MODULES_PATH@@" | sed -e "s@/lib/modules/$KERNEL/@@")
 
+        #echo "DIBAB_VERBOSE_BUILD : $DIBAB_VERBOSE_BUILD" && sleep 5
         # Only works for drivers on /lib/modules/KVER/
         #add_file "$modpath" lib/modules/$KERNEL/kernel/${modpath##*/}
-        echo add_file "$modpath" $DEST #&& sleep 1
+        [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo add_file "$modpath" $DEST && sleep 1
         add_file "$modpath" $DEST
         modinfo -b $KERNEL_MODULES_PATH -F firmware -k $KERNEL $modname | while read -r line; do
                 if [ ! -f /lib/firmware/$line ]; then
@@ -95,6 +103,7 @@ then
 fi
 
 INITRAMFS=/$HOME/ydfs/tmp/initramfs-$ARCH
+echo "INITRAMFS build on $INITRAMFS" && sleep 1
 [ ! -e init-$ARCH ] && exit 0
 
 if [ -e $INITRAMFS ]
@@ -135,7 +144,7 @@ fi
 
  [ "$ARCH" = "x86" ] && cp -fR /$HOME/ydfs/build/lfs-bootscripts/* $INITRAMFS
 
-KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"     
+#KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"     
 KERNEL=$KERNEL3
 
 [ -n "$1" ] && KERNEL=$1 
@@ -169,15 +178,18 @@ KERNEL=$KERNEL3
     else
 		  FTGT="$FTGT $KERNEL_MODULES_PATH/lib/modules/$KERNEL3/$mod"
     fi   
-    echo "FTGT : $FTGT"
 	done
+  [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo "KENEL:$KENEL find in $FTGT" && sleep 2
 	for modules in $(find $FTGT -type f -name "*.ko*" 2> /dev/null); do
 		modules=$(echo ${modules%*.ko*})
+    echo -n "$module " && sleep 1
     if [ "$KERNEL" = "KERNEL3" ]
     then
 		  INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
+		  [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
     else
 		  INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$KERNEL add_module ${modules##*/}
+		  [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$KERNEL add_module ${modules##*/}
     fi
 	done
 
