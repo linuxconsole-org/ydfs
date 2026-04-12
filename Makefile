@@ -85,14 +85,25 @@ qemu-initramfs-system:
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/SYSTEM \
-		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/init2 nofcc livecd debug1 quiet text"
+		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/rescue nofcc livecd debug1 quiet text"
+
+qemu-initramfs-rescue:
+	qemu-system-x86_64 -m size=2000 \
+	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
+	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.21/arch/x86_64/boot/bzImage \
+		-initrd ${HOME}/2.12/ydfs/build-x86_64/initramfs \
+		-append "fr azerty rdinit=/busybox/bin/ash /rescue" \
+		-cdrom ${HOME}/iso/linuxconsole.iso 
+		#-append "rdinit=/busybox/bin/ash"
 
 qemu-initramfs:
 	qemu-system-x86_64 -m size=2000 \
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel ${HOME}/2.12/ydfs/build/linux-x86_64-6.18.21/arch/x86_64/boot/bzImage \
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/initramfs \
-		-append "rdinit=/busybox/bin/ash /init-newroot"
+		-append "fr azerty rdinit=/busybox/bin/ash /init-newroot" \
+		-cdrom ${HOME}/iso/linuxconsole.iso 
+		#-append "rdinit=/busybox/bin/ash"
 
 qemu-azerty-system:
 	qemu-system-x86_64 -m size=2000 \
@@ -147,3 +158,6 @@ uninstall:
 
 buildme: 
 	$(CMD) buildme-docker
+
+modinfo:
+

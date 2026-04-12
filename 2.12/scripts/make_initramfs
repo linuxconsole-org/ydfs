@@ -50,6 +50,7 @@ add_file() {
         then
           unzstd $LIBMODULE/$dest 1>/dev/null 2>/dev/null
           NEW=$(echo $LIBMODULE/$dest | sed 's/\.zst//') 
+          #echo mv $NEW $LIBMODULE/$dest # && sleep 1
           mv $NEW $LIBMODULE/$dest
         fi
 
@@ -87,6 +88,7 @@ add_module() {
                 fi
         done
         for i in $(modinfo -b $KERNEL_MODULES_PATH -F depends -k $KERNEL $modname | tr ',' ' '); do
+                echo "$modname needs $i"
                 add_module $i
         done
         unset modname modpath
@@ -153,7 +155,7 @@ KERNEL=$KERNEL3
   install -d $INITRAMFS/share
   cp -a /$HOME/ydfs/src/busybox-$BUSYBOX/examples/udhcp $INITRAMFS/share || exit 3
   install -d $INITRAMFS/lib/modules/$KERNEL/
-#  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
+  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.* $INITRAMFS/lib/modules/$KERNEL/
   DEPS=""
   du -sh $INITRAMFS
   date "+%Y-%m-%d-%H-%M" > $INITRAMFS/initramfs-build-date
@@ -161,15 +163,21 @@ KERNEL=$KERNEL3
   install -d $HOME/ydfs/build-$ARCH
 
   #From ydfs3 branch : mkinitramfs/hook/modules.hook
+                #kernel/lib
+                #kernel/drivers/block
+                #kernel/fs
   REQMODULES="
-                kernel/fs/fat
-                kernel/lib
-                kernel/drivers/block
+                kernel/drivers/block/loop*
+                kernel/drivers/cdrom
+                kernel/drivers/scsi/sr_mod*
                 kernel/drivers/ata
                 kernel/drivers/usb/host
+                kernel/drivers/fs/isofs
+                kernel/drivers/fs/nls
+                kernel/drivers/usb/storage
                 kernel/fs/overlayfs 
                 kernel/drivers/net/ethernet/intel/e1000
-                kernel/drivers/usb/storage"
+                "
 
 	for mod in $REQMODULES; do
     if [ "$KERNEL" = "KERNEL3" ]
@@ -182,7 +190,7 @@ KERNEL=$KERNEL3
   [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && echo "KENEL:$KENEL find in $FTGT" && sleep 2
 	for modules in $(find $FTGT -type f -name "*.ko*" 2> /dev/null); do
 		modules=$(echo ${modules%*.ko*})
-    echo -n "$module " && sleep 1
+    echo -n "$module " && [ "$DIBAB_VERBOSE_BUILD" = "YES" ] && sleep 1
     if [ "$KERNEL" = "KERNEL3" ]
     then
 		  INITDIR=$HOME/ydfs/tmp/initramfs-$ARCH/ KERNEL=$(uname -r) add_module ${modules##*/}
@@ -198,13 +206,12 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
- echo "Custom init2"
- echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
- # echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
- chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "Custom rescue"
+ echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/rescue
+ echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
+ echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
+ echo "PATH=/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/ /busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
+ chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/rescue
 
  echo "Custom init3"
  echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init3

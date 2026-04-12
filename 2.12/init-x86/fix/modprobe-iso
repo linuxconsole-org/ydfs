@@ -1,0 +1,12 @@
+find /lib/modules -name *.ko -o -name *.zst | while read module
+do
+  echo "File : $module"
+  echo $module | grep '\.ko' && MODULE=$(echo $module | sed 's/\.ko//')
+  echo $module | grep '\.zst' && MODULE=$(echo $module | sed 's/\.ko\.zst//')
+  echo "MODULE : $MODULE"
+  MOD=$(basename $MODULE)
+  modprobe "$MOD"
+  echo "Mod : $MOD"
+  dmesg | grep sr0 && break
+done
+

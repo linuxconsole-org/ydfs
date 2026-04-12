@@ -13,10 +13,10 @@ do
 done
 echo
 
-modprobe nls_iso8859-1
-modprobe usb-storage
-modprobe xhci-pci
-modprobe exfat
+for module in isofs overlay cdrom ata-piix nls-iso8859-1 usb-storage xhci-pci ata-generic ata-generic exfat cdrom sr_mod pata-acpi loop squashfs
+do
+    modprobe $module
+done
 
 #modprobe acard-ahci
 
@@ -66,7 +66,6 @@ fi
 
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 then
-	modprobe isofs
 	echo -n "Search in CD drive .. "
 	for CDROM in sr0 sr1 sr2 sr3 sr4 sr5 sr6
 	do
@@ -74,7 +73,6 @@ then
 	done
 fi
 
-modprobe overlay
 #modprobe e1000
 #sleep 5
 #udhcpd

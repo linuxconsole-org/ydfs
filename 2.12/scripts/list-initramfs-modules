@@ -1,0 +1,4 @@
+for module in isofs overlay cdrom ata_piix nls_iso8859-1 usb-storage xhci_pci ata-generic ata_generic exfat cdrom sr_mod pata-acpi loop squashfs sr_mod cdrom isofs ata_generic pata_acpi squashfs overlay ext2 ext3 ext4 xfs jfs sd_mod ahci nvme ehci_pci usb_storage virtio_blk virtio_pci atkbd hid_generic ohci_pci usbhid 
+do
+  modinfo  -b $HOME/ydfs/kernel-x86_64/modules/6.18.21/ -k 6.18.21 -m $module | grep filename
+done

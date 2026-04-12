@@ -41,7 +41,7 @@ menuentry "'$DISTRONAME' Aerty" {
 }
 menuentry "'$DISTRONAME' DEBUG" {
 	set gfxpayload=keep
-	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/init2 ---
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/rescue ---
 	initrd	/isolinux/initramfs
 }
 '
@@ -57,7 +57,7 @@ menuentry "'$DISTRONAME' LiveUSB (loopback)" {
 }
 menuentry "'$DISTRONAME' LiveUSB DEBUG (loopback)" {
 	set gfxpayload=keep
-	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/init2 ---
+	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/rescue ---
 	initrd	/isolinux/initramfs
 }'
 }
@@ -118,9 +118,9 @@ fi
   echo KERNEL $KERNEL
   echo "APPEND $COMMON xterm $LIVE"
 
-  echo LABEL Debug init2
+  echo LABEL Debug rescue
   echo KERNEL $KERNEL
-  echo "APPEND $COMMON rdinit=/init2 quiet text"
+  echo "APPEND $COMMON rdinit=/rescue quiet text"
   
   echo LABEL Debug init3
   echo KERNEL $KERNEL

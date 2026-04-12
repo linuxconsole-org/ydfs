@@ -19,6 +19,7 @@ do
 done
 
 [ -e /ydfs/boot/options/fr ] && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap
+[ -e /ydfs/boot/options/azerty ] && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap
 
 /busybox/bin/echo -n "Boot options : "
 /busybox/bin/ls /ydfs/boot/options
