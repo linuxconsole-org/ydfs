@@ -1,0 +1,7 @@
+wget https://flathub.org/repo/flathub.gpg
+install -d ~/.local/share/flatpak/repo/
+cp flathub.gpg ~/.local/share/flatpak/repo/flathub.trustedkeys.gpg
+cp flathub.gpg ~/.local/share/flatpak/repo/flathub-beta.trustedkeys.gpg
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak search gimp
+flatpak install gimp

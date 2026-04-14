@@ -19,7 +19,8 @@ install -d $HOME/multilib/include
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
   
-PKGMULTILIB="zlib-1 \
+PKGMULTILIB="
+zlib-1 \
 gmp \
 xz-5 \
 libunwind \
@@ -164,6 +165,9 @@ gstreamer-1 \
 libgudev \
 bzip2 \
 libva-2 \
+libebur128 \
+pipewire \
+libvpx \
 gst-plugins-base" 
 
 # PKGMULTILIB="libffi llvm"
@@ -356,6 +360,26 @@ unset MAKE
 	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --host=i686-pc-linux-gnu \
     --disable-documentation 
 	;;
+
+    libvpx )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure --prefix=$HOME/multilib --enable-shared --disable-install-bins \
+    --disable-install-docs \
+    --disable-install-srcs \
+    --disable-unit-tests \
+    --enable-pic \
+    --enable-postproc \
+    --enable-runtime-cpu-detect || exit 1
+
+	;;
+
+    fftw-3.3 )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --enable-shared -enable-float 
+	;;
+
     nettle )
 	 export CC="gcc -m32"
 	 export CXX="g++ -m32"
@@ -463,7 +487,7 @@ unset MAKE
     gtk+-3 )
   	./configure --prefix=$HOME/multilib --disable-cups || exit $?
     ;;
-    check | libjpeg-turbo )
+    libebur128 | check | libjpeg-turbo )
   	# ./configure --prefix=$HOME/multilib --without-simd || exit $?
 	mkdir build32
 	 cd build32
@@ -587,6 +611,13 @@ unset MAKE
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dbuild-python=disabled -Dpython=false -Dtty-setgid=false -Dncurses=disabled -Dncursesw=disabled -Dbuild-libmount=enabled -Dcryptsetup=disabled --libdir=$HOME/multilib/lib32 --libexecdir=$HOME/multilib/lib32 || exit 1
 	;;
+     pipewire )
+  rm -fR build-32
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ -D jack=disabled -D avahi=disabled     -D avb=disabled     -D bluez5-codec-lc3=disabled     -D bluez5-codec-lc3plus=disabled     -D bluez5-codec-opus=disabled    -D bluez5=disabled     -D compress-offload=disabled     -D docs=disabled     -D ebur128=disabled     -D echo-cancel-webrtc=disabled     -D examples=disabled     -D gstreamer-device-provider=disabled     -D gstreamer=disabled  -D libcamera=disabled     -D libcanberra=disabled     -D libffado=disabled    -D libmysofa=disabled     -D libpulse=disabled     -D libusb=disabled     -D lv2=disabled     -D man=disabled     -D opus=disabled     -D pw-cat=disabled     -D raop=disabled     -D readline=disabled     -D rlimits-install=false     -D roc=disabled     -D sdl2=disabled     -D selinux=disabled     -D session-managers=[]     -D snap=disabled     -D sndfile=disabled     -D systemd-user-service=disabled     -D tests=disabled     -D v4l2=disabled     -D x11-xfixes=disabled     -D x11=disabled --prefix=$HOME/multilib  --libdir=$HOME/multilib/lib32 || exit 1
+	sed -i "s@/home/linuxconsole2026/x86_64/lib/libncursesw.so@/home/linuxconsole2026/multilib/lib/libncursesw.so@g" build.ninja
+  ;;
      libgudev | libsoup-2 | pango-1 )
 	mkdir build-32
 	cd build-32
