@@ -369,6 +369,7 @@ unset MAKE
     --disable-unit-tests \
     --enable-pic \
     --enable-postproc \
+    --target=x86-linux-gcc \
     --enable-runtime-cpu-detect || exit 1
 
 	;;
