@@ -9,4 +9,4 @@ then
     cp /fontconfig-64/* /usr/var/cache/fontconfig/
   fi
 fi
-fc-cache
+echo -n "Run fc-cache .. " && touch /tmp/.fc-cache-start && fc-cache && echo "done" && touch /tmp/.fc-cache-stop

@@ -1,6 +1,6 @@
 #!/busybox/bin/ash
 
-/busybox/bin/mount /proc proc -t proc
+[ ! -e /proc/stat ] && /busybox/bin/mount /proc proc -t proc
 
 . /ydfs/detect/boot_options
 
@@ -8,9 +8,10 @@
 
 . /etc/profile
 
-mount /sys sys -t sysfs
+[ ! -e /sys/kernel ] && mount /sys sys -t sysfs
 mount -t devtmpfs none /dev
-mkdir /dev/pts
+
+[ ! -e /dev/pts ] && mkdir /dev/pts
 mount devpts /dev/pts -t devpts
 
 ln -s /proc/mounts /etc/mtab # For Gparted
@@ -31,35 +32,31 @@ echo -n "Detect media"
 echo -n "Mount ydfs modules"
 . /ydfs/detect/modules
 
-[ -e /ydfs/boot/options/logger  ] && logger debug04
 [ -e /ydfs/boot/options/debug04  ] && sh
 
 # [ ! -e /ydfs/boot/options/nofcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
-[ -e /ydfs/boot/options/fcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
+[ -e /ydfs/boot/options/fcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts
 
 . /ydfs/start/fixydfs
 
-[ -e /ydfs/boot/options/logger  ] && logger automount
-[ -e /ydfs/boot/options/debug1  ] && sh
-. /ydfs/start/automount
 [ -e /ydfs/boot/options/debug05  ] && sh
-echo "Detect hardware"
-[ -e /ydfs/boot/options/logger  ] && logger hardware
-. /ydfs/detect/hardware
+. /ydfs/start/automount
+. /ydfs/start/mountopt
 [ -e /ydfs/boot/options/debug06  ] && sh
+echo "Detect hardware"
+. /ydfs/detect/hardware
+[ -e /ydfs/boot/options/debug07  ] && sh
 echo "Detect Network"
-[ -e /ydfs/boot/options/logger  ] && logger network
 . /ydfs/detect/network & #> /dev/tty2 2>/dev/tty2
 
 # echo "Set up sound mixer"
 
-[ -e /ydfs/boot/options/logger  ] && logger  mixer
 . /ydfs/detect/mixer &
 . /ydfs/enable/swap &
 . /ydfs/detect/cups &
 . /ydfs/detect/wireless &
 
-[ -e /ydfs/boot/options/debug2  ] && sh
+[ -e /ydfs/boot/options/debug08  ] && sh
 
 if [ -e /ydfs/boot/options/fixusb  ]; then 
 echo "FIXUSB mode, looking into usb disks ..." && sleep 9
@@ -76,9 +73,6 @@ echo "Benchmark" && sleep 5
 . /ydfs/start/benchmark || ash
 fi
 
-/ydfs/start/mountopt
-
-[ -e /ydfs/boot/options/logger  ] && logger virtualbox
 . /ydfs/enable/virtualbox # &
 
 /fix/libs
@@ -87,7 +81,6 @@ fi
 
 date > /tmp/xorg-start-date
 
-[ -e /ydfs/boot/options/logger  ] && logger start-xorg
 if [ -e /ydfs/boot/options/text  ]; then
   echo "You can now start /ydfs/start/xorg"
   sh
@@ -98,7 +91,7 @@ fi
 
 /ydfs/start/save-persistant-data
 
-[ -e /ydfs/boot/options/debug3  ] && sh
+[ -e /ydfs/boot/options/debug09  ] && sh
 
 busybox sh /ydfs/stop/all
 
@@ -106,7 +99,7 @@ echo "Stoping all process ... "
 touch /tmp/stop
 killall5 
 
-[ -e /ydfs/boot/options/debug4  ] && sh
+[ -e /ydfs/boot/options/debug10  ] && sh
 echo -n "Stoping network interfaces ... "
 ls /sys/class/net/| while read NET
 do
@@ -121,6 +114,7 @@ sleep 1
 echo
 /busybox/bin/umount /usr/var/cache/fontconfig
 /busybox/bin/umount /usr/var
+
 [ $? != 0 ] && [ -e /ydfs/boot/options/debugpoweroff ] && echo "debugpoweroff mode on" && /busybox/bin/ash
 /busybox/bin/umount -a >/dev/null 2>/dev/null
 lsof | grep usr
@@ -134,7 +128,7 @@ else
  echo "umounting : done" > /dev/tty1
 fi
 
-[ -e /ydfs/boot/options/debug5  ] && sh
+[ -e /ydfs/boot/options/debug11  ] && sh
 
 [ -e /media/ydfs/modules ] && [ -e /ydfs/boot/options/debugpoweroff ] && mount && echo "error while umount, run poweroff yourself" && /busybox/bin/ash
 
@@ -146,7 +140,7 @@ then
   sleep 5
 fi
 
-[ -e /ydfs/boot/options/debug6  ] && sh
+[ -e /ydfs/boot/options/debug12  ] && sh
 [ -e /run-before-poweroof  ] && sh /run-before-poweroof
 
 [ -e /var/log/ConsoleKit/history ] && grep RESTART /var/log/ConsoleKit/history && echo "Rebooting" && reboot

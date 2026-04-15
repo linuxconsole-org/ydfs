@@ -71,12 +71,13 @@ fi
 
 KMOD=$(which kmod)
 #KMOD=/modprobe-bookworm
+echo "Disable busybox kmod"
 for KMODCMD in lsmod rmmod insmod modinfo modprobe depmod
 do
   OLDBIN=$(which $KMODCMD)
-  echo rm $OLDBIN
+  #echo rm $OLDBIN
   rm $OLDBIN
-  echo ln -s $KMOD $OLDBIN
+  #echo ln -s $KMOD $OLDBIN
   ln -s $KMOD $OLDBIN
 done
 

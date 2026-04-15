@@ -74,10 +74,13 @@ do
 	[ $module = "x86_64" ] && continue
 	[ ! -e $HOME_DIBAB/$module/share/glib-2.0/schemas/ ] && continue
 	echo "Install $HOME_DIBAB/$module/share/glib-2.0/schemas/ to /usr/share/glib-2.0/schemas/"
-	cp $HOME_DIBAB/$module/share/glib-2.0/schemas/*  /usr/share/glib-2.0/schemas/ >/dev/null && touch /tmp/compile-schemas
+  ls $HOME_DIBAB/$module/share/glib-2.0/schemas/ | while read file
+  do 
+    [ ! -e /usr/share/glib-2.0/schemas/$file ] && cp $HOME_DIBAB/$module/share/glib-2.0/schemas/$file /usr/share/glib-2.0/schemas/ && touch /tmp/compile-schemas
+  done
 done
 
-[ -e /tmp/compile-schemas ] && glib-compile-schemas /usr/share/glib-2.0/schemas/
+[ -e /tmp/compile-schemas ] && echo -n "glib-compile-schemas .." && glib-compile-schemas /usr/share/glib-2.0/schemas/ && echo "done"
 
 if [ ! -e /etc/X11/Xsession ]
 then

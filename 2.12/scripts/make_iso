@@ -6,7 +6,7 @@
 print_menu_options()
 {
   echo "MENU TITLE $DISTRONAME $LCBUILD (c) Yann Le Doare"                                                    
-  echo "MENU BACKGROUND splash.png"
+#  echo "MENU BACKGROUND splash.png"
   echo '
 DEFAULT vesamenu.c32
 MENU VSHIFT 6 
@@ -24,22 +24,17 @@ TIMEOUT 200
 print_efi_options()
 {
 echo '
-menuentry "'$DISTRONAME' New Root" {
+menuentry "'$DISTRONAME'" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init-newroot ---
 	initrd	/isolinux/initramfs
 }
-menuentry "'$DISTRONAME Old Root'" {
-	set gfxpayload=keep
-	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path ---
-	initrd	/isolinux/initramfs
-}
-menuentry "'$DISTRONAME' Aerty" {
+menuentry "'$DISTRONAME' : azerty console keyboard" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /azerty ---
 	initrd	/isolinux/initramfs
 }
-menuentry "'$DISTRONAME' DEBUG" {
+menuentry "'$DISTRONAME' : rescue boot" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/rescue ---
 	initrd	/isolinux/initramfs
@@ -55,30 +50,24 @@ menuentry "'$DISTRONAME' LiveUSB (loopback)" {
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path rdinit=/busybox/bin/ash /init-newroot ---
 	initrd	/isolinux/initramfs
 }
-menuentry "'$DISTRONAME' LiveUSB DEBUG (loopback)" {
+menuentry "'$DISTRONAME' LiveUSB rescue (loopback)" {
 	set gfxpayload=keep
 	linux	/isolinux/kernel quiet liveusb ISOPATH=$iso_path debug02 rdinit=/rescue ---
 	initrd	/isolinux/initramfs
 }'
 }
 
-#print_efi_options
-#exit
-
 print_options()
 {
 
 print_menu_options
-
-#echo "APPEND $COMMON kbd=azerty lang=french livecd"
-#echo "APPEND $COMMON kbd=azerty lang=spanish livecd"
 
 if [ "$LIVECD" = "1" ]
 then
   LIVE=livecd
   echo ONTIMEOUT Auto
 
-  echo LABEL Auto
+  echo LABEL Auto detet boot media
   echo KERNEL $KERNEL
   echo "APPEND $COMMON"
 
@@ -110,21 +99,17 @@ fi
   echo KERNEL $KERNEL
   echo "APPEND $COMMON fixme $LIVE"
 
-  echo LABEL Text
+  echo LABEL Text : Stop before starting Xorg
   echo KERNEL $KERNEL
   echo "APPEND $COMMON text $LIVE"
   
-  echo LABEL Xterm
+  echo LABEL Xterm : Force start xterm 
   echo KERNEL $KERNEL
   echo "APPEND $COMMON xterm $LIVE"
 
-  echo LABEL Debug rescue
+  echo LABEL Rescue : Early shell script 
   echo KERNEL $KERNEL
   echo "APPEND $COMMON rdinit=/rescue quiet text"
-  
-  echo LABEL Debug init3
-  echo KERNEL $KERNEL
-  echo "APPEND $COMMON rdinit=/init3 quiet text"
 
 echo '
 MENU SEPARATOR
@@ -140,7 +125,6 @@ label Rescue
  append rescue.cfg
 '
 }
-
 
 print_help_fr()
 {
@@ -159,12 +143,10 @@ Boot option :
  * text : do not run Xorg
  * fr : AZERTY keymap at boot 
  * debug01 : run ash first
- * look inside /etc/init.d/rcS for debug02 ... debug6
-
+ * look inside /etc/init.d/rcS for debug tags
 
 "
 }
-
 
 print_rescue_options()
 {
@@ -248,12 +230,12 @@ print_grub_options()
   echo "kernel /isolinux/kernel $COMMON"             
   echo "initrd /isolinux/initramfs"     
   
-  echo "title $DISTRONAME  Partition 2" 
+  echo "title $DISTRONAME Partition 2" 
   echo "root (hd0,1)"                 
   echo "kernel /isolinux/kernel $COMMON"             
   echo "initrd /isolinux/initramfs"     
   
-  echo "title $DISTRONAME  failsafe" 
+  echo "title $DISTRONAME failsafe" 
   echo "root (hd0,0)"                 
   echo "kernel /isolinux/kernel $COMMON acpi=off noacpi noapic nocapic"             
   echo "initrd /isolinux/initramfs"     
@@ -329,9 +311,6 @@ do
   fi
 done
 
-# rm /$ISOTMP/iso/modules/drivers-x86_64.squashfs
-# ln -s /home/linuxconsole2026/iso/drivers-x86_64.squashfs /$ISOTMP/iso/modules
-
 OUT=`basename $ISOPATH`
 
   if [ -e $ISOTMP/$OUT ] 
@@ -349,15 +328,9 @@ du -sL /$ISOTMP/iso
 
 [ "$NOLCM" = "OK" ] && rm /$ISOTMP/iso/modules/*
 
-# cp boot-efi/boot/grub/efi.img /$ISOTMP/iso/isolinux || exit 1
 cp boot/isohdpfx.bin /$ISOTMP/iso/isolinux || exit 1
 cp boot/isolinux.bin /$ISOTMP/iso/isolinux || exit 1
 cp boot/chain.c32 /$ISOTMP/iso/isolinux || exit 1
-#cp boot/ldlinux.c32 /$ISOTMP/iso/isolinux || exit 1
-#cp boot/libutil.c32 /$ISOTMP/iso/isolinux || exit 1
-#cp boot/liblua.c32 /$ISOTMP/iso/isolinux || exit 1
-#cp boot/libgpl.c32 /$ISOTMP/iso/isolinux || exit 1
-#cp boot/libcom32.c32  /$ISOTMP/iso/isolinux || exit 1
 cp boot/menu.c32 /$ISOTMP/iso/isolinux
 cp boot/vesamenu.c32 /$ISOTMP/iso/isolinux
 #if [ "$ARCH" = "x86" ]
@@ -468,10 +441,6 @@ xorriso -as mkisofs \
     -eltorito-alt-boot \
 	$EFIBOOT -no-emul-boot -isohybrid-gpt-basdat \
   -o /$ISODIR/$OUT /$ISOTMP/iso/
-# -eltorito-alt-boot \
-# -e isolinux/efi.img \
-#  -no-emul-boot \
-# isohybrid --uefi $ISODIR/linuxconsole.iso
 
 if [ $? != 0 ]
 then

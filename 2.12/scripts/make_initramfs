@@ -244,12 +244,12 @@ cd $INITRAMFS
  echo "cp -a /busybox /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "cp -a /fix /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "cp -a /etc /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+ echo "cp -a /share /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "cp -a /ydfs /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "cp -a /lib /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "cp /ydfs-* /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "echo Switch YDFS root .." >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  echo "exec /busybox/sbin/switch_root /rootfs /busybox/sbin/init </dev/console >dev/console 2>&1 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- #echo "exec /busybox/sbin/switch_root /rootfs /busybox/bin/ash /etc/init.d/rcS </dev/console >dev/console 2>&1 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
  chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
 
  ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
