@@ -85,7 +85,7 @@ qemu-initramfs-system:
 	       	-bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \
 	       	-kernel /boot/vmlinuz-${SYSTEM_KERNEL} \
 		-initrd ${HOME}/2.12/ydfs/build-x86_64/SYSTEM \
-		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci,netdev=net0 root=/dev/ram0 rdinit=/rescue nofcc livecd debug1 quiet text"
+		-append "printk.devkmsg=on printk.time=y console=ttyS0 -device edu -device lkmc_pci_min -device virtio-net-pci root=/dev/ram0 rdinit=/rescue nofcc livecd debug1 quiet text"
 
 qemu-initramfs-rescue:
 	qemu-system-x86_64 -m size=2000 \
@@ -117,7 +117,7 @@ qemu-efi:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
 qemu:
-	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -m size=2000 -cdrom ${HOME}/iso/linuxconsole.iso
+	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -device e1000 -m size=2000 -cdrom ${HOME}/iso/linuxconsole.iso
 
 qemu-usb:
 	qemu-system-x86_64 -usb -device usb-tablet -m size=2000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin \

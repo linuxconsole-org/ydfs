@@ -1,6 +1,6 @@
 ##JUMP
-https://xwww.oberhumer.com/opensource/lzo/download/lzo-2.09.tar.gz 
-https://xwww.lzop.org/download/lzop-1.04.tar.gz 
+https://wwww.oberhumer.com/opensource/lzo/download/lzo-2.09.tar.gz 
+https://wwww.lzop.org/download/lzop-1.04.tar.gz 
 https://tukaani.org/xz/xz-5.2.5.tar.gz 
 git://github.com/lz4/lz4.git#tag=v1.9.2
 https://github.com/facebook/zstd/releases/download/v1.5.5/zstd-1.5.5.tar.gz
@@ -86,12 +86,12 @@ https://sourceforge.net/projects/libpng/files/libpng-1.2.59.tar.xz
 https://xdownloads.sourceforge.net/sourceforge/libpng/libpng-1.6.37.tar.xz
 https://sourceforge.net/projects/libjpeg-turbo/files/2.1.3/libjpeg-turbo-2.1.3.tar.gz
 https://download.osgeo.org/libtiff/tiff-4.5.0.tar.gz
-https://xwww.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
+https://wwww.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
 https://www.libraw.org/data/LibRaw-0.21.1.tar.gz
 https://xxmlsoft.org/sources/libxslt-1.1.34.tar.gz
-https://xwww.mega-nerd.com/SRC/libsamplerate-0.1.8.tar.gz 
+https://wwww.mega-nerd.com/SRC/libsamplerate-0.1.8.tar.gz 
 ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.2.4.tar.bz2
-https://xwww.portaudio.com/archives/pa_stable_v190600_20161030.tgz
+https://wwww.portaudio.com/archives/pa_stable_v190600_20161030.tgz
 https://xdownloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip
 ftp://ftp.alsa-project.org/pub/utils/alsa-utils-1.2.4.tar.bz2
 https://www.alsa-project.org/files/pub/oss-lib/alsa-oss-1.1.8.tar.bz2
@@ -104,7 +104,7 @@ https://xdownload.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz
 https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.17.1/fontconfig-2.17.1.tar.xz
 https://download.videolan.org/pub/videolan/libbluray/1.1.2/libbluray-1.1.2.tar.bz2
 https://ftp.gnome.org/pub/GNOME/sources/gtk-doc/1.32/gtk-doc-1.32.tar.xz
-https://xwww.tcpdump.org/release/libpcap-1.7.4.tar.gz 
+https://wwww.tcpdump.org/release/libpcap-1.7.4.tar.gz 
 https://download.samba.org/pub/ppp/ppp-2.4.9.tar.gz
 https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
 https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
@@ -116,22 +116,22 @@ https://curl.haxx.se/download/curl-7.81.0.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz
 https://www.cpan.org/authors/id/T/TI/TINITA/YAML-1.30.tar.gz
 https://xcpan.metacpan.org/authors/id/O/OA/OALDERS/Net-HTTP-6.17.tar.gz
-https://xwww.cpan.org/authors/id/M/MI/MIROD/XML-Twig-3.52.tar.gz
-https://xwww.cpan.org/authors/id/D/DA/DANBERR/Net-DBus-1.1.0.tar.gz
+https://wwww.cpan.org/authors/id/M/MI/MIROD/XML-Twig-3.52.tar.gz
+https://wwww.cpan.org/authors/id/D/DA/DANBERR/Net-DBus-1.1.0.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.60.tar.gz
-https://xwww.cpan.org/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
-https://xwww.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-Base-1.09.tar.gz
-https://xwww.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-0.99.tar.gz
+https://wwww.cpan.org/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
+https://wwww.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-Base-1.09.tar.gz
+https://wwww.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-0.99.tar.gz
 https://www.cpan.org/authors/id/G/GR/GRANTM/XML-Simple-2.25.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/C/CH/CHORNY/Tie-IxHash-1.23.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 https://cpan.metacpan.org/authors/id/M/MA/MANWAR/XML-XPath-1.40.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/E/ET/ETHER/Test-Pod-1.51.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/R/RB/RBERJON/XML-Filter-BufferText-1.01.tar.gz
-https://xwww.cpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
-https://xwww.cpan.org/authors/id/X/XA/XAOC/ExtUtils-Depends-0.405.tar.gz
+https://wwww.cpan.org/authors/id/J/JO/JOSEPHW/XML-Writer-0.625.tar.gz
+https://wwww.cpan.org/authors/id/X/XA/XAOC/ExtUtils-Depends-0.405.tar.gz
 https://cpan.metacpan.org/authors/id/X/XA/XAOC/ExtUtils-PkgConfig-1.16.tar.gz
-https://xwww.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
+https://wwww.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
 ftp://ftp.gnu.org/gnu/groff/groff-1.22.3.tar.gz
 https://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.xz
 https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.63.tar.xz
@@ -201,7 +201,7 @@ pip::sphinx_rtd_theme
 https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
 git://github.com/hughsie/colord#commit=43c19fd019da5f69d2ebc00a9908b1dd83129485
 git://github.com/lathiat/avahi#commit=fd482a74625b8db8547b8cfca3ee3d3c6c721423
-https://github.com/OpenPrinting/cups/releases/download/v2.4.1/cups-2.4.1-source.tar.gz
+https://github.com/OpenPrinting/cups/releases/download/v2.4.16/cups-2.4.16-source.tar.gz
 https://xxorg.freedesktop.org//archive/individual/lib/libXfont2-2.0.1.tar.bz2
 https://xxorg.freedesktop.org/releases/individual/data/xbitmaps-1.1.1.tar.bz2
 https://xorg.freedesktop.org/archive/individual/app/bdftopcf-1.1.tar.bz2
@@ -264,7 +264,7 @@ https://download-fallback.gnome.org/sources/at-spi2-core/2.38/at-spi2-core-2.38.
 https://download-fallback.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
 libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz
 git://github.com/json-c/json-c#commit=985c46fec39d1d3043f98e8d8cdb9d040131b3bb
-https://xwww.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz 
+https://wwww.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz 
 https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.5.tar.xz
 https://www.kernel.org/pub/linux/bluetooth/bluez-5.65.tar.xz
 https://xorg.freedesktop.org//archive/individual/lib/libxshmfence-1.3.2.tar.xz
@@ -383,7 +383,7 @@ https://downloads.sourceforge.net/lame/lame-3.100.tar.gz
 https://downloads.us.xiph.org/releases/speex/speex-1.2.0.tar.gz
 https://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2
 https://xdownloads.sourceforge.net/mikmod/libmikmod-3.3.8.tar.gz
-https://xwww.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 
+https://wwww.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 
 https://xdownloads.xvid.org/downloads/xvidcore-1.3.3.tar.bz2 
 git://github.com/cisco/openh264.git#tag=v1.8.0
 https://code.videolan.org/videolan/x264/-/archive/stable/x264-stable.tar.bz2
@@ -405,11 +405,11 @@ https://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.ta
 https://xdownload.kde.org/stable/polkit-qt-1/polkit-qt-1-0.114.0.tar.xz #SKIP-gamejam
 https://xarchive.ubuntu.com/ubuntu/pool/main/libd/libdbusmenu-qt/libdbusmenu-qt_0.9.3+16.04.20160218.orig.tar.gz  #SKIP-gamejam
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
-https://xwww.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
-https://xwww.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
-https://xwww.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.11.tar.gz 
-https://xwww.libsdl.org/projects/SDL_image/release/SDL_image-1.2.12.tar.gz 
-https://xwww.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-2.0.25.tar.gz 
+https://wwww.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
+https://wwww.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
+https://wwww.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.11.tar.gz 
+https://wwww.libsdl.org/projects/SDL_image/release/SDL_image-1.2.12.tar.gz 
+https://wwww.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-2.0.25.tar.gz 
 https://xftp.gnu.org/gnu/enscript/enscript-1.6.6.tar.gz
 https://xsg.danny.cz/sg/p/sg3_utils-1.44.tar.xz
 https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz
@@ -453,7 +453,7 @@ https://download.videolan.org/contrib/live555/live.2022.02.07.tar.gz
 https://xgstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz 
 https://xgstreamer.freedesktop.org/src/gst-python/gst-python-1.2.0.tar.gz 
 https://xgstreamer.freedesktop.org//src/gst-libav/gst-libav-1.14.0.tar.xz 
-https://xwww.fftw.org/fftw-3.3.8.tar.gz 
+https://wwww.fftw.org/fftw-3.3.8.tar.gz 
 https://xfreefr.dl.sourceforge.net/project/libexif/libexif/0.6.20/libexif-0.6.20.tar.bz2
 https://xportland.freedesktop.org/download/xdg-utils-1.1.0-rc1.tar.gz
 https://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
@@ -532,7 +532,7 @@ https://github.com/devnev/libxdg-basedir/archive/libxdg-basedir-1.2.0.tar.gz
 https://xroy.marples.name/downloads/dhcpcd/dhcpcd-6.11.5.tar.xz
 https://w1.fi/releases/wpa_supplicant-2.6.tar.gz
 https://www.freedesktop.org/software/libmbim/libmbim-1.26.2.tar.xz
-https://xwww.freedesktop.org/software/libqmi/libqmi-1.30.4.tar.xz
+https://wwww.freedesktop.org/software/libqmi/libqmi-1.30.4.tar.xz
 https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.6.tar.xz
 https://xlibndp.org/files/libndp-1.8.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
@@ -561,7 +561,7 @@ https://github.com/kcat/openal-soft/archive/openal-soft-1.20.1.tar.gz
 https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz
 https://ftp.gnu.org/gnu/diffutils/diffutils-3.8.tar.xz
 https://xftp.gnu.org/gnu/sed/sed-4.2.2.tar.gz
-https://xwww.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
+https://wwww.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
 https://jukebox.linuxconsole.org/sources/liberation-fonts-ttf-1.07.3.tar.gz
 ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2
 https://ezix.org/software/files/lshw-B.02.18.tar.gz
@@ -578,7 +578,7 @@ https://xsearch.cpan.org/CPAN/authors/id/P/PJ/PJF/IPC-System-Simple-1.25.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/D/DR/DRTECH/Locale-Maketext-Lexicon-1.00.tar.gz
 https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Compress-Bzip2-2.26.tar.gz
 https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/File-Which-1.23.tar.gz
-https://xwww.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
+https://wwww.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/R/RE/REHSACK/File-ShareDir-1.102.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/B/BI/BINGOS/Archive-Extract-0.80.tar.gz
 https://xsearch.cpan.org/CPAN/authors/id/P/PL/PLICEASE/Class-Inspector-1.32.tar.gz
@@ -606,15 +606,15 @@ ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz
 https://xfreefr.dl.sourceforge.net/project/net-snmp/net-snmp/5.7.3/net-snmp-5.7.3.tar.gz
 https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9530/jbig2dec-0.19.tar.gz
 https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9550/ghostpdl-9.55.0.tar.xz
-https://xwww.openprinting.org/download/ijs/download/ijs-0.35.tar.bz2 
+https://wwww.openprinting.org/download/ijs/download/ijs-0.35.tar.bz2 
 https://github.com/qpdf/qpdf/archive/release-qpdf-9.1.1.tar.gz
 https://mupdf.com/downloads/archive/mupdf-1.16.1-source.tar.xz
 https://github.com/liblouis/liblouis/releases/download/v3.9.0/liblouis-3.9.0.tar.gz
-https://www.openprinting.org/download/cups-filters/cups-filters-1.28.12.tar.xz
-https://xwww.openprinting.org/download/foomatic/foomatic-db-engine-4.0.8.tar.gz
-https://xwww.openprinting.org/download/foomatic/foomatic-db-current.tar.gz
-https://xwww.openprinting.org/download/foomatic/foomatic-filters-4.0.17.tar.gz
-https://downloads.sourceforge.net/gimp-print/gutenprint-5.3.4.tar.xz
+https://www.openprinting.org/download/cups-filters/cups-filters-1.28.16.tar.xz
+https://www.openprinting.org/download/foomatic/foomatic-db-engine-4.0-current.tar.gz
+https://wwww.openprinting.org/download/foomatic/foomatic-db-current.tar.gz
+https://wwww.openprinting.org/download/foomatic/foomatic-filters-4.0.17.tar.gz
+https://downloads.sourceforge.net/gimp-print/gutenprint-5.3.5.tar.xz
 pip::pycups
 https://github.com/OpenPrinting/system-config-printer/releases/download/v1.5.13/system-config-printer-1.5.13.tar.xz
 git://github.com/lloyd/yajl.git
@@ -668,12 +668,12 @@ https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.0/SDL2_ima
 https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
 https://xdownloads.sourceforge.net/modplug-xmms/libmodplug-0.8.9.0.tar.gz
 https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.1/SDL2_mixer-2.6.1.tar.gz
-https://xwww.cabextract.org.uk/cabextract-1.6.tar.gz
+https://wwww.cabextract.org.uk/cabextract-1.6.tar.gz
 https://xsavannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
 https://launchpad.net/python-distutils-extra/trunk/2.39/+download/python-distutils-extra-2.39.tar.gz
 #pip::setuptools==65.0.2
 https://gitlab.freedesktop.org/archived-projects/libxklavier.git#tag=libxklavier-5.4
-https://xwww.freedesktop.org/software/accountsservice/accountsservice-0.6.39.tar.xz
+https://wwww.freedesktop.org/software/accountsservice/accountsservice-0.6.39.tar.xz
 https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
 https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz
 https://download.gnome.org/sources/system-tools-backends/2.10/system-tools-backends-2.10.2.tar.bz2
@@ -714,7 +714,7 @@ https://download.kde.org/stable/frameworks/5.96/oxygen-icons5-5.96.0.tar.xz
 #https://download.kde.org/stable/oxygen-icons/oxygen-icons-6.0.0.tar.xz
 pip::PyOpenGL
 pip::Jinja2
-https://xwww.greenwoodsoftware.com/less/less-479.tar.gz
+https://wwww.greenwoodsoftware.com/less/less-479.tar.gz
 ftp://ftp.astron.com/pub/file/file-5.24.tar.gz
 ftp://ftp.gnu.org/gnu/a2ps/a2ps-4.14.tar.gz
 https://download.drobilla.net/serd-0.30.10.tar.bz2
@@ -902,7 +902,7 @@ https://github.com/sddm/sddm/archive/v0.18.0.tar.gz
 https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz
 https://github.com/mono/libgdiplus/archive/5.6.1/libgdiplus-5.6.1.tar.gz
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
-https://xwww.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
+https://wwww.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
 freerdp-2.2.0.tar.gz::https://github.com/freerdp/freerdp/archive/2.2.0.tar.gz
 #Pantheon
 git://git.launchpad.net/bamf
@@ -913,7 +913,7 @@ https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#commit=6466cae65b2bf962
 https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/archive/GNOMEBT_V_3_34_3/gnome-bluetooth-GNOMEBT_V_3_34_3.tar.bz2
 git://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.4.10
 https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.bz2
-https://xwww.sysprof.com/sysprof-1.2.0.tar.gz
+https://wwww.sysprof.com/sysprof-1.2.0.tar.gz
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
 https://xorg.freedesktop.org/archive/individual/xserver/xwayland-22.1.0.tar.xz
@@ -945,7 +945,7 @@ https://gitlab.gnome.org/GNOME/orca/-/archive/ORCA_3_36_3/orca-ORCA_3_36_3.tar.g
 #End-pantheon
 # deps for mixx
 qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v0.11.1.tar.gz
-https://xwww.wavpack.com/wavpack-5.3.0.tar.bz2
+https://wwww.wavpack.com/wavpack-5.3.0.tar.bz2
 # deps for lxqt and lxde
 https://xopenbox.org/dist/openbox/openbox-3.6.1.tar.gz
 https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
