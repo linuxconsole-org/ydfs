@@ -19,6 +19,7 @@ else
   YDFS_MODULES=""
 endif
 
+export BUILDME
 export BUILDYDFS
 export SUBARCH
 export BUILD_DESKTOP
@@ -28,7 +29,11 @@ export SKIPOPKG
 export SEND_BUILD_LOG
 export TOOLCHAIN
 export HOME_DIBAB
-export YDFS=$(shell basename ${PWD})
+ifeq ($(GIT_BRANCH),)
+  export YDFS=$(shell basename ${PWD})
+else
+  export YDFS=$(GIT_BRANCH)
+endif
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
 export MKSQUASHFS_OPT
@@ -188,6 +193,7 @@ wineprogs:
 test:
 	./scripts/make_test
 fast-files:
+	# YDFS=${YDFS} ./scripts/make_fast_files
 	./scripts/make_fast_files
 test-liveusb:
 	./scripts/make_test bootusb
