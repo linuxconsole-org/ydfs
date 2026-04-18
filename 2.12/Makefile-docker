@@ -63,6 +63,9 @@ iso-verbose-docker:
 virtualbox-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make virtualbox'
 
+fast-iso-docker:
+	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} BUILDYDFS="fast" make iso'
+
 iso-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make iso'
 
@@ -106,4 +109,6 @@ uninstall-docker:
 buildme-docker:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} BUILDME=OK make iso'
 
+fast-files:
+	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make fast-files'
 

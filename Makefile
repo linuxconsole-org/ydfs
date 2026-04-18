@@ -65,8 +65,14 @@ mate:
 virtualbox:
 	$(CMD) virtualbox-docker
 
+fast-iso: prepare
+	$(CMD) fast-iso-docker
+
 iso: prepare
 	$(CMD) iso-docker
+
+fast-files:
+	$(CMD) fast-files
 
 updates:
 	$(CMD) updates-docker
@@ -158,6 +164,3 @@ uninstall:
 
 buildme: 
 	$(CMD) buildme-docker
-
-modinfo:
-
