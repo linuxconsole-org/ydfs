@@ -46,3 +46,15 @@ make verbose-iso
 
 # Tips
 [tips](/TIPS.md)
+
+# News
+
+Kernel config based on Arch linux
+Kernel module on initramfs
+Pivot-root
+Auto connect wireless
+
+
+# Todo 
+
+Reduce size for initramfs + kernel drivers + 
