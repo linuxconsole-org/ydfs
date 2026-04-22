@@ -1,3 +1,4 @@
+echo "BUILDYDFS : $BUILDYDFS"
 if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH" ]
 then
   echo "Building fast package $1"

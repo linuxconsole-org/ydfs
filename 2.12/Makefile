@@ -19,8 +19,9 @@ else
   YDFS_MODULES=""
 endif
 
+BUILDYDFS=$(shell env | grep BUILDYDFS | cut -d'=' -f2)
+
 export BUILDME
-export BUILDYDFS
 export SUBARCH
 export BUILD_DESKTOP
 export DISTRONAME
@@ -131,6 +132,7 @@ all:
 	@echo "make test "
 	@echo "make modules "
 	@echo "make opkg "
+	echo "BUILDYDFS is" ${BUILDYDFS}
 	tail -f /dev/null
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
@@ -219,6 +221,7 @@ endif
 	
 ${HOME}/${ARCH}/buildenv: packages/list-${LIST}
 	echo "Build packages/list-${LIST}"
+	echo "BUILDYDFS is" ${BUILDYDFS}
 	./scripts/make_packages ${LIST}
 core: ${LCMBUILD}/${ARCH}.squashfs 
 drivers: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${ARCH}.squashfs
