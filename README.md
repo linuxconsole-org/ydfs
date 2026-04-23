@@ -5,6 +5,11 @@ This branch is designed to build LinuxConsole 2026 ISO, modules and packages
 
 # Using Docker is highly recommended, building whithout official docker image will need your hacks
 
+# Fast build (makes Iso)
+```
+make fast-iso
+```
+
 # Building All (makes Iso)
 
 ```
