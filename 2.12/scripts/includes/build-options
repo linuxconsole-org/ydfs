@@ -19,6 +19,7 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
     -DCMAKE_BUILD_TYPE=Release "
 
+echo $ARCHIVE | grep gnupg &&  LC_CONFIGURE_OPTS="  --disable-doc --prefix=/home/linuxconsole2026/x86_64/ --enable-g13 --enable-large-secmem --enable-maintainer-mode"
 echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
@@ -170,7 +171,8 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
         -Wno-dev "
 echo $ARCHIVE | grep gegl-0 &&  LC_CONFIGURE_OPTS="-Ddocs=false "
 echo $ARCHIVE | grep gegl-0 && [ -e $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir ] && [ ! -e $HOME/$ARCH/share/gir-1.0/babl-0.1.gir ] && cp $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir $HOME/$ARCH/share/gir-1.0/babl-0.1.gir
-echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
+# ostree with soup3 fails !!!!"
+echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile --with-curl --without-soup3"
 echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Dsystemd_user_services=false -Ddocs=false -Dman=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"

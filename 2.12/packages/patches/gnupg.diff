@@ -1,0 +1,13 @@
+diff --git a/po/Makefile.in.in b/po/Makefile.in.in
+index eb68ea2..7d46c2e 100644
+--- a/po/Makefile.in.in
++++ b/po/Makefile.in.in
+@@ -9,7 +9,7 @@
+ # General Public License and is *not* in the public domain.
+ #
+ # Origin: gettext-0.17
+-GETTEXT_MACRO_VERSION = 0.17
++GETTEXT_MACRO_VERSION = 0.20
+ 
+ PACKAGE = @PACKAGE@
+ VERSION = @VERSION@
