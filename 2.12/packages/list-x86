@@ -49,11 +49,11 @@ https://github.com/libfuse/libfuse/releases/download/fuse-3.18.2/fuse-3.18.2.tar
 ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz
 https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2
 https://github.com/libarchive/libarchive/releases/download/v3.6.0/libarchive-3.6.0.tar.xz
-https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.44.tar.bz2
-https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.0.tar.bz2
+https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.46.tar.bz2
+https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.3.tar.bz2
 https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.5.tar.bz2
 https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.9.4.tar.bz2
-https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.32.tar.bz2
+git://dev.gnupg.org/source/gnupg.git#tag=gnupg-2.4.9
 https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.17.0.tar.bz2
 https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.tar.gz
 https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
@@ -980,14 +980,14 @@ git://github.com/CanonicalLtd/lightdm.git#commit=9e72b5b3072ff9990211f35aa2a48e9
 https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-3.20211022.1.tar.gz
 #Flatpak
 git://github.com/containers/bubblewrap#tag=v0.11.1
-git://github.com/ostreedev/ostree#tag=v2025.7
+https://github.com/ostreedev/ostree/releases/download/v2026.1/libostree-2026.1.tar.xz
 pip::linuxdoc
 pip::sphinx_markdown_builder
 pip::gi-docgen
 git://github.com/pantoniou/libfyaml#tag=v0.9.6
 git://github.com/ximion/appstream#tag=v1.1.2
 http://www.dest-unreach.org/socat/download/socat-1.8.1.1.tar.gz
-git://github.com/flatpak/flatpak#tag=1.16.4
+https://github.com/flatpak/flatpak/releases/download/1.17.6/flatpak-1.17.6.tar.xz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#

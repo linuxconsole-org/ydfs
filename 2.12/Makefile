@@ -210,7 +210,7 @@ clean-opkg:
 clean:
 	./scripts/make_clean
 uninstall:
-	./scripts/uninstall-package net-tools
+	./scripts/uninstall-package flatpak-1.17.6
 ifeq ($(ARCH),x86)
 	rm ${ISOPATH}
 	rm ${LCMBUILD}/*

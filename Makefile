@@ -42,6 +42,9 @@ prepare:
 sh:
 	$(CMD) sh-docker
 
+bash-root:
+	$(CMD) bash-root-docker
+
 bash:
 	$(CMD) bash-docker
 
