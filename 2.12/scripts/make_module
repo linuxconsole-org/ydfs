@@ -22,6 +22,7 @@ fi
 [ -e $HOME_DIBAB/logos/$1.png ] && echo get $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
 [ -e $HOME_DIBAB/logos/$1.png ] && cp $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
 install -d $LCMBUILD
+[ -e $LCMBUILD/$1-$ARCH.squashfs ] && echo "rm $LCMBUILD/$1-$ARCH.squashfs" && rm $LCMBUILD/$1-$ARCH.squashfs
 [ -e $LCMBUILD/$1.squashfs ] && rm $LCMBUILD/$1.squashfs
 if [ "$ARCH" = "x86_64" ]
 then
