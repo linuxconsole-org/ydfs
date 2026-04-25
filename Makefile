@@ -22,6 +22,7 @@ prepare:
 	install -d ${HOME}/2.12/ydfs
 	install -d ${HOME}/2.12/mate
 	install -d ${HOME}/2.12/cinnamon
+	install -d ${HOME}/2.12/linuxconsole
 	install -d ${HOME}/2.12/kde
 	install -d ${HOME}/2.12/llvm-multilib
 	install -d ${HOME}/2.12/opkg
@@ -32,6 +33,7 @@ prepare:
 	chmod 777 ${HOME}/2.12/ydfs
 	chmod 777 ${HOME}/2.12/mate
 	chmod 777 ${HOME}/2.12/cinnamon
+	chmod 777 ${HOME}/2.12/linuxconsole
 	chmod 777 ${HOME}/2.12/kde
 	chmod 777 ${HOME}/2.12/llvm-multilib
 	chmod 777 ${HOME}/2.12/opkg
