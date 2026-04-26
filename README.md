@@ -6,15 +6,17 @@
 
 This new branch is designed to use modern tools such as :
 
-* Systemd
-* Wayland
+* Systemd (TODO)
+* Wayland (TODO)
 
 The release source packages commes from Arch Linux
 
 See at :
 
 > core/packages/list-core-x86_64
+
 > core/scripts/echo-archpkg
+
 > core/packages/build-packages
 
 # Current status
