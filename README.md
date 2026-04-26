@@ -4,7 +4,7 @@
 
 # About Ydfs 3.0
 
-This new branch is designed to use modern tools such as :
+This new (expermiental) branch is designed to use modern tools such as :
 
 * Systemd (TODO)
 * Wayland (TODO)
