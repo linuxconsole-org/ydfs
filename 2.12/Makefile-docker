@@ -7,10 +7,21 @@ else
 COMPOSE=docker-compose
 endif
 
+ifneq ($(wildcard /lib/modules),)
+VOLUME_LIBMODULES=-v /lib/modules/:/lib/modules
+else
+VOLUME_LIBMODULES=
+endif
 
-DOCKER_OPTIONS=run -v /boot:/boot -v /lib/modules/:/lib/modules -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
-DOCKER_OPTIONS_FAST=run -v /boot:/boot -v /lib/modules/:/lib/modules -e BUILDYDFS=fast -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
-DOCKER_OPTIONS_ROOT=run -u root -v /boot:/boot -v /lib/modules/:/lib/modules -e BUILDYDFS=fast -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
+ifneq ($(wildcard /boot),)
+VOLUME_BOOT=-v /boot:/boot
+else
+VOLUME_BOOT=
+endif
+
+DOCKER_OPTIONS=run ${VOLUME_BOOT} ${VOLUME_LIBMODULES} -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
+DOCKER_OPTIONS_FAST=run ${VOLUME_BOOT} ${VOLUME_LIBMODULES} -e BUILDYDFS=fast -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
+DOCKER_OPTIONS_ROOT=run -u root ${VOLUME_BOOT} ${VOLUME_LIBMODULES} -e BUILDYDFS=fast -e DISTRONAME=$(DISTRONAME) -e GIT_BRANCH=${GIT_BRANCH} ydfs${GIT_BRANCH} bash
 BUILD_COMMAND=install -d /tmp/ydfs;cp -a ${GIT_BRANCH}/* /tmp/ydfs;cp /tmp/ydfs/init-x86/etc/profile /home/linuxconsole2026/.bashrc;cd /tmp/ydfs;
 
 OPTION_BUILD=DIBAB_VERBOSE_BUILD=YES BUILDME=OK
