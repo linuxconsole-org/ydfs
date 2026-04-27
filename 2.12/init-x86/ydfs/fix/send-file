@@ -1,2 +1,2 @@
 FILE="$1"
-curl -F "uploadedfile=@$FILE" http://jukebox.linuxconsole.org/uploader.php 
+curl -F "uploadedfile=@$FILE" https://jukebox.linuxconsole.org/uploader.php 

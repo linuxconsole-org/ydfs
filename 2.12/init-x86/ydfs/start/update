@@ -1,2 +1,2 @@
-wget http://jukebox.linuxconsole.org/update.sh
+wget https://jukebox.linuxconsole.org/update.sh
 sh update.sh

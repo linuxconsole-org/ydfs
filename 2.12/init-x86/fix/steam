@@ -4,12 +4,12 @@ export PATH=/home/linuxconsole2026/x86_64/bin/:$PATH
 cd $HOME/
 install -d .fonts
 cd .fonts
-[ ! -e Liberation.tar ] && wget http://jukebox.linuxconsole.org/steam/Liberation.tar && tar xf Liberation.tar && fc-cache
+[ ! -e Liberation.tar ] && wget https://jukebox.linuxconsole.org/steam/Liberation.tar && tar xf Liberation.tar && fc-cache
 cd ..
 install -d Steam
 cd Steam
-[ ! -e steam_$STEAM.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_$STEAM.tar.gz
-[ ! -e steam_$STEAM.tar.gz ] && wget http://jukebox.linuxconsole.org/steam/steam_$STEAM.tar.gz
+[ ! -e steam_$STEAM.tar.gz ] && wget httpss://repo.steampowered.com/steam/pool/steam/s/steam/steam_$STEAM.tar.gz
+[ ! -e steam_$STEAM.tar.gz ] && wget https://jukebox.linuxconsole.org/steam/steam_$STEAM.tar.gz
 [ ! -e steam-launcher ] && tar xzvf steam_$STEAM.tar.gz
 
 cd steam-launcher 
