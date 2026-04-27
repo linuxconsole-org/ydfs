@@ -33,11 +33,11 @@ function ydfs-install-package () {
     find $PREFIX -newer $HOME/ydfs/tmp/.$MYDIR.ydfs-start-build | while read FILE
     do
       #si_$FILE_est_un_repertoire_alors_on_le_créé
-      [ -d "$FILE" ] && install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && continue
+      [ -d "$FILE" ] && /usr/bin/install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && continue
       #si_$FILE_est_un_fichier_alors_on_le_copie
       if [ -f "$FILE" ] 
       then
-        [ ! -e "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`" ] && install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`"
+        [ ! -e "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`" ] && /usr/bin/install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`"
         cp $FILE $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
         [ -e $HOME/.ydfs-error ] && rm $HOME/.ydfs-error
       fi
@@ -188,7 +188,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   then
 
   mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled
-  install -d build-{client,server}
+  /usr/bin/install -d build-{client,server}
 
   git clone https://github.com/minetest/irrlicht.git lib/irrlichtmt
   cd lib/irrlichtmt
@@ -231,12 +231,12 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
     echo "Godot project"
     if [ ! -e $PREFIX/bin/godot ]
     then
-	install -d $PREFIX/bin
+	/usr/bin/install -d $PREFIX/bin
 	wget https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_x11.64.zip
 	unzip Godot_v3.5.1-stable_x11.64.zip
 	mv Godot_v3.5.1-stable_x11.64 $PREFIX/bin/godot
     fi
-	install -d $PREFIX/share/applications
+	/usr/bin/install -d $PREFIX/share/applications
         NAME="Godot" GENERICNAME="Godot" COMMENT="a free game framework" EXEC="$PREFIX/bin/godot" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop || exit 1
 	cp -fR $PWD $PREFIX
@@ -246,7 +246,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   then
 	echo src/bindgen/cargo
 	cargo build --release || exit 1
-	install -d $PREFIX/bin
+	/usr/bin/install -d $PREFIX/bin
 	cp target/release/cbindgen $PREFIX/bin/	|| exit 1
      touch buildok-$ARCH
      exit 0
@@ -550,7 +550,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   pwd | grep bluez-qtt
   if [ "$?" = "0" ]
   then
-	install -d build
+	/usr/bin/install -d build
 	cd build
 	echo "Build bluez-qt " && sleep 2
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
@@ -572,7 +572,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
   pwd | grep plasma-frameworkk
   if [ "$?" = "0" ]
   then
-	install -d build
+	/usr/bin/install -d build
 	cd build
 	echo "Build Plasma framework" && sleep 2
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
@@ -623,9 +623,9 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
     echo "Build Surge XT"
     git submodule update --init --recursive
     [ -e $HOME/$ARCH/include/fmt ] && mv $HOME/$ARCH/include/fmt $HOME/$ARCH/include/fmt-disabled
-    install -d $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lua*  $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lauxlib.h $HOME/$ARCH/include/disabled-lua
+    /usr/bin/install -d $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lua*  $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lauxlib.h $HOME/$ARCH/include/disabled-lua
     # git submodule update --init --recursive
-    install -d build
+    /usr/bin/install -d build
     sed -e "s|/usr/share/Surge|$PREFIX/share/Surge|" -i src/common/SurgeStorage.cpp
     grep share/Surge src/common/SurgeStorage.cpp
       LDFLAGS="${LDFLAGS},-z,noexecstack" cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
@@ -637,8 +637,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
       cd build
       make || exit 1
       cd ..
-      install -d $PREFIX/lib/vst3
-      install -d $PREFIX/share/Surge
+      /usr/bin/install -d $PREFIX/lib/vst3
+      /usr/bin/install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 222
       echo "Install VST3"
       mv build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 223
@@ -652,7 +652,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
     echo 1
     git submodule update --init --recursive
     echo 2
-    install -d build
+    /usr/bin/install -d build
     sed -e "s|/usr/share/Surge|$PREFIX/share/Surge|" -i src/common/SurgeStorage.cpp
 grep share/Surge src/common/SurgeStorage.cpp
     # cd build-headless
@@ -666,9 +666,9 @@ grep share/Surge src/common/SurgeStorage.cpp
       make VERBOSE=1 -C build || exit 1
       #make surge-headless -C build VERBOSE=1 || exit 1
       #make Surge.vst3 -C build VERBOSE=1 || exit 1
-      install -d $PREFIX/lib/vst3
-      install -d $PREFIX/lib/lv2
-      install -d $PREFIX/share/Surge
+      /usr/bin/install -d $PREFIX/lib/vst3
+      /usr/bin/install -d $PREFIX/lib/lv2
+      /usr/bin/install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 3
       cp -fR build/surge_products/Surge.lv2 $PREFIX/lib/lv2 || exit 1
       cp -fR build/surge_products/Surge.vst3 $PREFIX/lib/vst3 || exit 1
@@ -729,9 +729,9 @@ grep share/Surge src/common/SurgeStorage.cpp
 
   if [ -e bin/yarn ]
   then
-	install -dm755  "$pkgdir"/lib/node_modules/yarn
+	/usr/bin/install -dm755  "$pkgdir"/lib/node_modules/yarn
 	cp -R * "$pkgdir"/lib/node_modules/yarn
-	install -dm755 "$pkgdir"/bin
+	/usr/bin/install -dm755 "$pkgdir"/bin
 	ln -s "$pkgdir"/lib/node_modules/yarn/bin/yarn.js "$pkgdir"/bin/yarn
 	ln -s "$pkgdir"/lib/node_modules/yarn/bin/yarn.js "$pkgdir"/bin/yarnpkg
   fi
@@ -832,7 +832,7 @@ grep share/Surge src/common/SurgeStorage.cpp
   	cd ../lp_solve
   	sh -x ccc || exit 1
 	cd ..
-  install -dm755 ${PREFIX}{bin,lib,include/lpsolve} || exit 1
+  /usr/bin/install -dm755 ${PREFIX}{bin,lib,include/lpsolve} || exit 1
   install -m755 lp_solve/bin/ux*/lp_solve ${PREFIX}/bin/ || exit 1
   install -m755 lpsolve55/bin/ux*/liblpsolve55.so ${PREFIX}/lib/ || exit 1
   install -m644 lp*.h ${PREFIX}/include/lpsolve/ || exit 1
@@ -948,7 +948,7 @@ fi
   [ -e libomxil-bellagio.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -v
   [ -e libomxil-bellagio.pc.in ] && export CFLAGS+=' -fcommon' 
   [ -e sox.pc.in ] && sed -i -e 's:CFLAGS="-g":CFLAGS="$CFLAGS -g":' configure.ac && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm CMakeLists.txt
-  [ -e liboauth.lsm.in  ] && install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e liboauth.lsm.in  ] && /usr/bin/install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e mount.cifs.c  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e celestia.cfg  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
@@ -1096,7 +1096,7 @@ python3 -c 'from dbus.mainloop.pyqt5 import DBusQtMainLoop; print("DBus import o
   if [ -e  Scratch.image ]
   then
         pkgname=scratch
-	install -d /usr/lib/$pkgname
+	/usr/bin/install -d /usr/lib/$pkgname
 	echo "Install  Scratch"
         sed -i 's/-xshm //' src/$pkgname
         make build || exit $?
@@ -1105,7 +1105,7 @@ python3 -c 'from dbus.mainloop.pyqt5 import DBusQtMainLoop; print("DBus import o
   install -m644 Scratch.ini $PREFIX/lib/$pkgname/Scratch.ini
   install -Dm644 src/$pkgname.desktop $PREFIX/share/applications/$pkgname.desktop || exit $?
   install -Dm644 src/$pkgname.xml PREFIX/share/mime/packages/$pkgname.xml
-  install -dm755 $PREFIX/share/{$pkgname,icons/hicolor}
+  /usr/bin/install -dm755 $PREFIX/share/{$pkgname,icons/hicolor}
 
   cp -rp Help locale Media Projects README $PREFIX/share/$pkgname/
   cp -rp Plugins $PREFIX/lib/$pkgname/
@@ -1261,7 +1261,7 @@ pwd && sleep 5
   then
     sh unix/configure 
     make -f unix/Makefile generic
-    install -d $PREFIX/bin
+    /usr/bin/install -d $PREFIX/bin
     cp zip $PREFIX/bin
     touch buildok-$ARCH
   fi
@@ -1427,12 +1427,12 @@ EOF
 
   if [ -e unix/npsqueak ]
   then
-	install -d $HOME/opkg/lib/squeak
+	/usr/bin/install -d $HOME/opkg/lib/squeak
 	[ ! -e Squeak4.6-13700.zip ] && wget http://ftp.squeak.org/4.6alpha/Squeak4.6-13700.zip && unzip -d $HOME/opkg/lib/squeak Squeak4.6-13700.zip 
 	./unix/cmake/configure --prefix=$PREFIX --without-quartz --with-x --enable-mpg-mmx
   fi
 
-  [ -e crypto/bio/bio.h ] && install -d include/openssl
+  [ -e crypto/bio/bio.h ] && /usr/bin/install -d include/openssl
   [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-elf shared
   [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-x86_64 shared
   [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-generic32 shared
@@ -1519,9 +1519,9 @@ EOF
       fi
       [ ! -e $HOME/fpc-$FREEPASCAL/bin/fpc ] && echo "Please install $HOME/fpc-$FREEPASCAL/bin/fpc !" && exit 67
       LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$PREFIX/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-$FREEPASCAL/bin/fpc"
-      install -d $PREFIX/share/applications/
+      /usr/bin/install -d $PREFIX/share/applications/
       install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
-      install -d $PREFIX/share/pixmaps/
+      /usr/bin/install -d $PREFIX/share/pixmaps/
       cp misc/hedgewars.png  $PREFIX/share/pixmaps/hedgewars.png || exit 1
       [ "$ARCH" = "x86" ] && export CXXFLAGS+=' -fcommon' 
       [ "$ARCH" = "x86" ] && export CFLAGS+=' -fcommon' 
@@ -1543,8 +1543,8 @@ EOF
 	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
         VERBOSE=1 make || exit $?
         make install || exit $?
-    install -d $PREFIX/share/pixmaps
-    install -d $PREFIX/share/applications
+    /usr/bin/install -d $PREFIX/share/pixmaps
+    /usr/bin/install -d $PREFIX/share/applications
     sed 's|Icon=scribus|Icon=scribus.png|' -i scribus.desktop || exit $?
     cp resources/iconsets/1_5_1/scribus.png $PREFIX/share/pixmaps || exit $?
     cp scribus.desktop $PREFIX/share/applications
@@ -1612,8 +1612,8 @@ EOF
 	cp -fR Xonotic/server .
 	cp Xonotic/key_0.d0pk $PREFIX/share/xonotic/key_0.d0pk || exit 1
         echo "Custom Xonotic build" && sleep 5
-	install -d $PREFIX/share/pixmaps
-	install -d $PREFIX/share/applications
+	/usr/bin/install -d $PREFIX/share/pixmaps
+	/usr/bin/install -d $PREFIX/share/applications
 	cp ./misc/logos/icons_png/xonotic_64.png $PREFIX/share/pixmaps/xonotic.png || exit 1
  	pkgname=xonotic	
         BIN=$pkgname-glx
@@ -1630,8 +1630,8 @@ EOF
 	cmake -G "Unix Makefiles" -H. -Bbuild -DOpenGL_GL_PREFERENCE=LEGACY -DCMAKE_BUILD_TYPE=Release 
 	make
    	cmake --build build --target install `DOWNLOAD_GAMEPACKS=ON` -- 
-	install -d "${PREFIX}/netradiant/"
-	install -d "${PREFIX}/bin/"
+	/usr/bin/install -d "${PREFIX}/netradiant/"
+	/usr/bin/install -d "${PREFIX}/bin/"
 
 	cp -r install/* "${PREFIX}/netradiant/" || exit 1
 
@@ -1726,7 +1726,7 @@ fi
 
     if [ -e snappy-c.cc ]
 	then
-	install -d $PREFIX/lib/pkgconfig
+	/usr/bin/install -d $PREFIX/lib/pkgconfig
 
 	echo 'prefix='"$PREFIX"'
 exec_prefix=${prefix}
@@ -1743,7 +1743,7 @@ Cflags: -I${includedir}' > $PREFIX/lib/pkgconfig/snappy.pc
 
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 
       export SDL2DIR=$HOME/$ARCH
-      install -d build
+      /usr/bin/install -d build
       cd build
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
 CMAKEOPTIONS="-DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
@@ -1764,7 +1764,7 @@ CMAKEOPTIONS="-DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR
 		# cmake -D BUILD_GAME_NACL=OFF -D BUILD_GAME_NATIVE_DLL=OFF -D BUILD_GAME_NATIVE_EXE=OFF .. || exit 1
 		PYTHON=/usr/bin/python cmake .. -DOpenGL_GL_PREFERENCE=LEGACY || exit 1
 		make
-		install -d $PREFIX/bin $PREFIX/share/pixmaps $PREFIX/share/applications
+		/usr/bin/install -d $PREFIX/bin $PREFIX/share/pixmaps $PREFIX/share/applications
 		install -m 755 daemon                  "$PREFIX/bin"
 		install -m 755 daemonded               "$PREFIX/bin"
 		install -m 755 daemon-tty              "$PREFIX/bin"
@@ -1823,7 +1823,7 @@ Cflags: -I${includedir}' > glm.pc
   	sed -i "s@/usr@$HOME/$ARCH@" glm.pc
         sed -i "s/@VERSION@/$pkgver/" glm.pc
 
-        install -d $HOME/$ARCH/lib/pkgconfig/
+        /usr/bin/install -d $HOME/$ARCH/lib/pkgconfig/
 	cp glm.pc $HOME/$ARCH/lib/pkgconfig/
         cp -r ../glm $HOME/$ARCH/include/
    	touch ../buildok-$ARCH
@@ -1860,7 +1860,7 @@ Cflags: -I${includedir}' > glm.pc
   [ -e src/FTGL/ftgl.h ] &&  sed -i '/^SUBDIRS =/s/docs//' Makefile.in
   if [ -e libgcc/libgcov-driver.c ]
   then
-	install -d host-$ARCH-unknown-linux-gnu/zlib
+	/usr/bin/install -d host-$ARCH-unknown-linux-gnu/zlib
 	echo libgcc/libgcov-driver.c
 	ls $HOME/opkg/lib| while read file
 	do
@@ -1934,7 +1934,7 @@ Cflags: -I${includedir}' > glm.pc
   [ -e src/tracker/tracker-miner-manager.c ] && sed -i "s@/etc/asciidoc@$HOME/$ARCH/etc/asciidoc@" docs/manpages/meson.build
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
-  [ -e gdb/charset.h ] && [ -e $HOME/$ARCH/include/charset.h ] && install -d $HOME/$ARCH/include/smb && mv $HOME/$ARCH/include/charset.h  $HOME/$ARCH/include/smb
+  [ -e gdb/charset.h ] && [ -e $HOME/$ARCH/include/charset.h ] && /usr/bin/install -d $HOME/$ARCH/include/smb && mv $HOME/$ARCH/include/charset.h  $HOME/$ARCH/include/smb
   [ -e bzflag.spec ] && [ -e $HOME/$ARCH/include/cares ] && echo "Enable deps/cares for Bzflag" && mv $HOME/$ARCH/include/cares/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/cares && sleep 3
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
@@ -1960,7 +1960,7 @@ libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c
     # [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
     if [ "$SKIP_DIR" != "" ]
     then
-      install -d $BUILD_DIR
+      /usr/bin/install -d $BUILD_DIR
       cd $BUILD_DIR
 	echo "build into $BUILD_DIR"
     else
@@ -1992,7 +1992,7 @@ libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c
 		cd bbswitch
 		  make -C $HOME/ydfs/build/linux-x86_64-$KERNEL3 M=$PWD modules || exit 1
 	 	cd ..
-		install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/lib/modules
+		/usr/bin/install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/lib/modules
 		cp bbswitch/bbswitch.ko	$HOME/ydfs/packages-$ARCH/$MYDIR/usr/lib/modules || exit 1
 
 	fi
@@ -2108,7 +2108,7 @@ ac_cv_file__dev_ptc=no' >  config.site
   then
     # sed -i 's|^#!.*python$|#!/$HOME/$ARCH/bin/python2|' $(grep -rl '^#!.*python')
     python setup.py install --prefix=$PREFIX || exit $?
-    install -d $PREFIX/data/
+    /usr/bin/install -d $PREFIX/data/
     ydfs-install-package 
     touch buildok-$ARCH
     exit 0
@@ -2179,7 +2179,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     #test_Catchchallenger;mais s'il y a un autre jeu avec un sous rep datapack ça ne va pas marcher
     if [ -e datapack ]
     then
-      install -d $PREFIX/share
+      /usr/bin/install -d $PREFIX/share
       cp -fR datapack $PREFIX/share
     fi
     if [ -e server/catchchallenger-server-gui.pro ]
@@ -2189,7 +2189,7 @@ ac_cv_file__dev_ptc=no' >  config.site
       #make || exit $?
       cd ../client/single-player
       qmake *.pro || exit $?
-      install -d $PREFIX/bin
+      /usr/bin/install -d $PREFIX/bin
       cp catchchallenger-single-player $PREFIX/bin
     fi
 . $(dirname $0)/../scripts/includes/linuxfr.org
@@ -2200,9 +2200,9 @@ ac_cv_file__dev_ptc=no' >  config.site
       qmake
       lrelease kitsune.pro
       make
-      install -d $PREFIX/bin
+      /usr/bin/install -d $PREFIX/bin
       cp bin/kitsune $PREFIX/bin || exit $?
-      install -d $PREFIX/share/applications
+      /usr/bin/install -d $PREFIX/share/applications
       NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=$pkgname ICON=$pkgname.png CATEGORIES="Game;" \
       $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
       ydfs-install-package
@@ -2212,9 +2212,9 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e scripts/2H4U_win.cbp ]
     then
       pkgname=2H4U
-      install -d $PREFIX/bin
+      /usr/bin/install -d $PREFIX/bin
 echo "cd $HOME
-install -d .2H4U
+/usr/bin/install -d .2H4U
 cd .2H4U
 ln -sf $PREFIX/share/data .
 ln -sf $PREFIX/bin/2H4U .
@@ -2313,10 +2313,10 @@ ln -sf $PREFIX/bin/2H4U .
     PREFIX=$HOME/$ARCH make install || exit $?
     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR PREFIX=$HOME/$ARCH make install || exit $?
     pkgname="netsurf"
-    install -d $PREFIX/share/pixmaps
+    /usr/bin/install -d $PREFIX/share/pixmaps
     wget http://ubuntu.allmyapps.com/data/n/e/netsurf-netsurf-web-browser/icon_48x48_netsurf.png
     mv icon_48x48_netsurf.png $PREFIX/share/pixmaps/netsurf.png
-    install -d $PREFIX/share/applications
+    /usr/bin/install -d $PREFIX/share/applications
     NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="netsurf" ICON=$pkgname.png CATEGORIES="Internet;" \
     $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
     touch buildok-$ARCH
@@ -2333,10 +2333,10 @@ ln -sf $PREFIX/bin/2H4U .
 	then
 	  perl Build.PL||exit $?
 	  perl Build install destdir=$HOME/frozen-bubble ||exit $?
-	  install -d $PREFIX/bin
-	  install -d $PREFIX/lib
-          install -d $PREFIX/share/applications
-          install -d $PREFIX/share/pixmaps
+	  /usr/bin/install -d $PREFIX/bin
+	  /usr/bin/install -d $PREFIX/lib
+          /usr/bin/install -d $PREFIX/share/applications
+          /usr/bin/install -d $PREFIX/share/pixmaps
   	  FBBIN=$HOME/frozen-bubble/$HOME/$ARCH/bin/
 	  FBLIB=$HOME/frozen-bubble/$HOME/$ARCH/lib/
 	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
@@ -2386,13 +2386,13 @@ echo "At BUILDPERL"
   if [ -e darkplaces-sdl.dev ]
   then
 	  SDLCONFIG_UNIXCFLAGS_X11="-I$HOME/$ARCH/include" make sdl-release || exit $?
-	  install -d $PREFIX/bin
+	  /usr/bin/install -d $PREFIX/bin
 	  install darkplaces-sdl $PREFIX/bin/darkplaces && touch buildok-$ARCH
   fi
   if [ -e bin/java ] # OpenJDK
   then
 	  install java into $PREFIX
-	  install -d $PREFIX
+	  /usr/bin/install -d $PREFIX
 	  cp -fR * $PREFIX
   fi
   [ -e SConstruct ] && [ -e brushes/label-brush-mypaint.sh ] && echo "Delete Sconstruct for mypaint-brushes" && rm SConstruct && sleep 5
@@ -2541,16 +2541,16 @@ echo "At BUILDPERL"
   ./genMakefiles linux
 	make || exit $?
       for dir in BasicUsageEnvironment groupsock liveMedia UsageEnvironment; do
-    install -dm755 ${PREFIX}/{bin,lib,include/${dir}}
+    /usr/bin/install -dm755 ${PREFIX}/{bin,lib,include/${dir}}
     install -m644 ${dir}/*.a "${PREFIX}/lib" || exit ?
     install -m644 ${dir}/include/*.h* "${PREFIX}/include/${dir}"  || exit $?
     # Mplayer
-    install -dm755 ${PREFIX}/lib/live/include/${dir}
+    /usr/bin/install -dm755 ${PREFIX}/lib/live/include/${dir}
     install -m644 ${dir}/include/*.h*  ${PREFIX}/lib/live/include/${dir}  || exit $?
     cp ${dir}/*.a ${PREFIX}/lib/live/include/${dir}
   done
     # cp ${PREFIX}/include/UsageEnvironment/UsageEnvironment.hh ${PREFIX}/include/
-  install -d $PREFIX/lib/pkgconfig
+  /usr/bin/install -d $PREFIX/lib/pkgconfig
   echo "
 Name: live555
 Description: multimedia RTSP streaming library
@@ -2684,8 +2684,8 @@ Cflags: -I${includedir}' > lua.pc
   [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
   [ -e libconsolekit/libconsolekit.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
 
-  [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
-  [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
+  [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && /usr/bin/install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
+  [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && /usr/bin/install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] || [ -e makefile ]
   then
@@ -2753,14 +2753,14 @@ Cflags: -I${includedir}' > lua.pc
       then
 	cd tools/llvm-spirv 
 	make llvm-spirv || exit 1
-	install -d $PREFIX/bin 
+	/usr/bin/install -d $PREFIX/bin 
 	cp llvm-spirv $PREFIX/bin || exit 1
 	cd ../..
       fi
 
       if [ -e chntpw ]
       then
-        install -d $PREFIX/bin
+        /usr/bin/install -d $PREFIX/bin
 	for file in chntpw reged cpnt
         do
           cp $file $PREFIX/bin || exit 1
@@ -2825,7 +2825,7 @@ Cflags: -I${includedir}' > lua.pc
 	  [ "$NOTEXIT" = "OK" ] && echo "Build faild, but we continue" && exit 0
 	  exit 23
 	fi
-	[ -e flatc  ] && install -d $PREFIX/bin/ && cp flatc $PREFIX/bin
+	[ -e flatc  ] && /usr/bin/install -d $PREFIX/bin/ && cp flatc $PREFIX/bin
 	[ -e contrib/ssh-copy-id ] && install -Dm755 contrib/ssh-copy-id "${PREFIX}"/bin/ssh-copy-id
 	[ -e liblightdm-gobject ] && make -C liblightdm-gobject install
 	if [ -e base/gsht.c ]
@@ -2878,7 +2878,7 @@ Cflags: -I${includedir}' > lua.pc
   fi
 
   pwd |grep wine-installer && cp -r usr/* $PREFIX/ && cp -r etc/* $PREFIX/etc && exit 0
-  [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
+  [ -e growisofs ] &&  /usr/bin/install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
 . $(dirname $0)/../scripts/includes/games
   echo $HOME/ydfs/packages-$ARCH/$MYDIR
   if [ ! -e $HOME/ydfs/packages-$ARCH/$MYDIR ] 
@@ -2916,9 +2916,9 @@ Cflags: -I${includedir}' > lua.pc
 	done
 	 install -m 755 Xsession "${pkgdir}"/etc/lightdm/Xsession
 
-  install -dm 755 "${pkgdir}"/var/cache/lightdm
-  install -dm 770 "${pkgdir}"/var/lib/lightdm{,-data}
-  install -dm 711 "${pkgdir}"/var/log/lightdm
+  /usr/bin/install -dm 755 "${pkgdir}"/var/cache/lightdm
+  /usr/bin/install -dm 770 "${pkgdir}"/var/lib/lightdm{,-data}
+  /usr/bin/install -dm 711 "${pkgdir}"/var/log/lightdm
   chmod +t "${pkgdir}"/var/{cache/lightdm,lib/lightdm{,-data}}
   echo 'GDK_CORE_DEVICE_EVENTS=true' > "${pkgdir}"/var/lib/lightdm/.pam_environment
   chmod 644 "${pkgdir}"/var/lib/lightdm/.pam_environment
@@ -2930,11 +2930,11 @@ Cflags: -I${includedir}' > lua.pc
   install -m 644 lightdm-autologin.pam "${pkgdir}"/etc/pam.d/lightdm-autologin
 
 # PolicyKit
-  install -d "${pkgdir}"/share/polkit-1/rules.d
+  /usr/bin/install -d "${pkgdir}"/share/polkit-1/rules.d
   install -m 644 lightdm.rules "${pkgdir}"/share/polkit-1/rules.d/lightdm.rules
 
 # Systemd
-  install -d "${pkgdir}"/lib/{systemd/system,tmpfiles.d}
+  /usr/bin/install -d "${pkgdir}"/lib/{systemd/system,tmpfiles.d}
   install -m 644 lightdm.service "${pkgdir}"/lib/systemd/system/lightdm.service
   install -m 644 lightdm.tmpfiles "${pkgdir}"/lib/tmpfiles.d/lightdm.conf
   fi

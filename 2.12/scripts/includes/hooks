@@ -1,5 +1,7 @@
+echo "DEBUG2 $PREFIX"
+echo install -d $PREFIX/bin
 
-install -d $PREFIX/bin
+/usr/bin/install -d $PREFIX/bin
 
 [ -e inxi.1 ] && cp inxi $PREFIX/bin # && exit 0
 
