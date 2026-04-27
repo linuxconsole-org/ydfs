@@ -140,77 +140,77 @@ sleep:
 	sleep ${SLEEPTIME}
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
-	./scripts/make_busybox_toolchain
+	bash scripts/make_busybox_toolchain
 busybox-toolchain: ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
 
 busybox: ${HOME}/ydfs/build/busybox-${ARCH}-${BUSYBOX}/_install
 
 ${HOME}/ydfs/build/busybox-${ARCH}-${BUSYBOX}/_install:
-	./scripts/make_busybox ${BUSYBOX}
+	bash scripts/make_busybox ${BUSYBOX}
 
 ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config:
-	./scripts/make_linux
+	bash scripts/make_linux
 
 ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/make_linux # ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config config/kernel-${ARCH}/config
 	@echo "build " ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}
-	./scripts/make_linux
+	bash scripts/make_linux
 
 linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
 
 ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: # init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
-	./scripts/make_initramfs
+	bash scripts/make_initramfs
 
 initramfs: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}
 initramfs2: 
-	CUSTOMINIT=OK ./scripts/make_initramfs
+	CUSTOMINIT=OK bash scripts/make_initramfs
 
 crosstool-ng-x86_64:
 	@echo Bug with recursion
-	echo run ./scripts/make_crosstool-ng-x86_64
-	#./scripts/make_crosstool-ng-x86_64
+	echo run bash scripts/make_crosstool-ng-x86_64
+	#bash scripts/make_crosstool-ng-x86_64
 ${GCCPATH}: 
-	./scripts/make_toolchain
+	bash scripts/make_toolchain
 toolchain: ${GCCPATH}
 iso: isodep wineprogs ${ISOPATH} # sleep
 metalink:
-	./scripts/iso_to_metalink
+	bash scripts/iso_to_metalink
 
 ${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${LCMBUILD}/mate-${ARCH}.squashfs ${LCMBUILD}/firmware-${ARCH}.squashfs # ${LCMBUILD}/kde-${ARCH}.squashfs # config.ini #  ${LCMBUILD}
-	./scripts/make_iso
+	bash scripts/make_iso
 
 config.ini:
-	./scripts/make_config_ini
+	bash scripts/make_config_ini
 	ls -l config.ini
 	touch -t 2301011536 config.ini
 live-test:
-	./scripts/make_live_test
+	bash scripts/make_live_test
 test-arm:
-	./scripts/make_test_arm
+	bash scripts/make_test_arm
 logs:
-	./scripts/upload_logs
+	bash scripts/upload_logs
 desktop-menus:
-	./scripts/install-desktop-menus
+	bash scripts/install-desktop-menus
 wineprogs:
-	./scripts/get_wine_progs
+	bash scripts/get_wine_progs
 test:
-	./scripts/make_test
+	bash scripts/make_test
 fast-files:
-	# YDFS=${YDFS} ./scripts/make_fast_files
-	./scripts/make_fast_files
+	# YDFS=${YDFS} bash scripts/make_fast_files
+	bash scripts/make_fast_files
 test-liveusb:
-	./scripts/make_test bootusb
+	bash scripts/make_test bootusb
 test2:
-	./scripts/make_test curses
+	bash scripts/make_test curses
 cleanmultilib:
-	./scripts/make_clean_multilib
+	bash scripts/make_clean_multilib
 distclean:
-	./scripts/make_distclean
+	bash scripts/make_distclean
 clean-opkg:
-	./scripts/make_clean_opkg
+	bash scripts/make_clean_opkg
 clean:
-	./scripts/make_clean
+	bash scripts/make_clean
 uninstall:
-	./scripts/uninstall-package SuperTuxKart-1.4-src
+	bash scripts/uninstall-package SuperTuxKart-1.4-src
 ifeq ($(ARCH),x86)
 	rm ${ISOPATH}
 	rm ${LCMBUILD}/*
@@ -222,167 +222,167 @@ endif
 ${HOME}/${ARCH}/buildenv: packages/list-${LIST}
 	echo "Build packages/list-${LIST}"
 	echo "BUILDYDFS is" ${BUILDYDFS}
-	./scripts/make_packages ${LIST}
+	bash scripts/make_packages ${LIST}
 core: ${LCMBUILD}/${ARCH}.squashfs 
 drivers: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${ARCH}.squashfs
 firmware: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${ARCH}.squashfs
 
 ${LCMBUILD}/firmware-${ARCH}.squashfs: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config
-	./scripts/make_firmwares
+	bash scripts/make_firmwares
 ${LCMBUILD}/drivers-${ARCH}.squashfs: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config
-	./scripts/make_drivers
+	bash scripts/make_drivers
 ${LCMBUILD}/${ARCH}.squashfs: packages/list-${LIST} scripts/make_modules
-	./scripts/make_modules
+	bash scripts/make_modules
 
 check:
-	./scripts/check_url
+	bash scripts/check_url
 archives: ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2
 
 ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
-	./scripts/make_archives
+	bash scripts/make_archives
 updates: packages/list-updates
-	./scripts/make_packages updates
+	bash scripts/make_packages updates
 
 kodi: ${LCMBUILD}/kodi-${ARCH}.squashfs
 ${LCMBUILD}/kodi-${ARCH}.squashfs : packages/list-kodi
-	./scripts/make_packages kodi
-	./scripts/make_module kodi
+	bash scripts/make_packages kodi
+	bash scripts/make_module kodi
 hackerOS: packages/list-hackerOS
-	./scripts/make_packages hackerOS
-	./scripts/make_module hackerOS
+	bash scripts/make_packages hackerOS
+	bash scripts/make_module hackerOS
 
 modules: $(shell echo ${YDFS_MODULES})
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
-	./scripts/make_packages kde
-	./scripts/make_module kde
+	bash scripts/make_packages kde
+	bash scripts/make_module kde
 
 browsers: ${LCMBUILD}/browsers-${ARCH}.squashfs
 ${LCMBUILD}/browsers-${ARCH}.squashfs : packages/list-browsers
-	./scripts/make_packages browsers
-	./scripts/make_module browsers
+	bash scripts/make_packages browsers
+	bash scripts/make_module browsers
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
-	./scripts/make_packages lxqt
-	./scripts/make_module lxqt
+	bash scripts/make_packages lxqt
+	bash scripts/make_module lxqt
 
 gnome-flashback: ${LCMBUILD}/gnome-flashback-${ARCH}.squashfs
 ${LCMBUILD}/gnome-flashback-${ARCH}.squashfs : packages/list-gnome-flashback
-	./scripts/make_packages gnome-flashback
-	./scripts/make_module gnome-flashback
+	bash scripts/make_packages gnome-flashback
+	bash scripts/make_module gnome-flashback
 
 lxde: ${LCMBUILD}/lxde-${ARCH}.squashfs
 ${LCMBUILD}/lxde-${ARCH}.squashfs : packages/list-lxde
-	./scripts/make_packages lxde
-	./scripts/make_module lxde
+	bash scripts/make_packages lxde
+	bash scripts/make_module lxde
 
 kdegames: ${LCMBUILD}/kdegames-${ARCH}.squashfs
 ${LCMBUILD}/kdegames-${ARCH}.squashfs : packages/list-kdegames
-	./scripts/make_packages kdegames
-	./scripts/make_module kdegames
+	bash scripts/make_packages kdegames
+	bash scripts/make_module kdegames
 
 libreoffice: ${LCMBUILD}/libreoffice-${ARCH}.squashfs
 ${LCMBUILD}/libreoffice-${ARCH}.squashfs : packages/list-libreoffice
-	./scripts/make_packages libreoffice
-	./scripts/make_module libreoffice
+	bash scripts/make_packages libreoffice
+	bash scripts/make_module libreoffice
 
 xfce: ${LCMBUILD}/xfce-${ARCH}.squashfs
 ${LCMBUILD}/xfce-${ARCH}.squashfs : packages/list-xfce
-	./scripts/make_packages xfce
-	./scripts/make_module xfce
+	bash scripts/make_packages xfce
+	bash scripts/make_module xfce
 
 virtualbox: ${LCMBUILD}/virtualbox-${ARCH}.squashfs
 ${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
-	./scripts/make_packages virtualbox
-	./scripts/make_module virtualbox
+	bash scripts/make_packages virtualbox
+	bash scripts/make_module virtualbox
 
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
-	./scripts/make_packages games
-	./scripts/make_module games
+	bash scripts/make_packages games
+	bash scripts/make_module games
 
 video: ${LCMBUILD}/video-${ARCH}.squashfs
 ${LCMBUILD}/video-${ARCH}.squashfs : packages/list-video
-	./scripts/make_packages video
-	./scripts/make_module video
+	bash scripts/make_packages video
+	bash scripts/make_module video
 
 music: ${LCMBUILD}/music-${ARCH}.squashfs
 ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
-	./scripts/make_packages music
-	./scripts/strip_module music
-	./scripts/make_module music
+	bash scripts/make_packages music
+	bash scripts/strip_module music
+	bash scripts/make_module music
 
 cinnamon: ${LCMBUILD}/cinnamon-${ARCH}.squashfs
 ${LCMBUILD}/cinnamon-${ARCH}.squashfs : packages/list-cinnamon
-	./scripts/make_packages cinnamon
-	./scripts/strip_module cinnamon
-	./scripts/make_module cinnamon
+	bash scripts/make_packages cinnamon
+	bash scripts/strip_module cinnamon
+	bash scripts/make_module cinnamon
 
 vst: ${LCMBUILD}/vst-${ARCH}.squashfs
 ${LCMBUILD}/vst-${ARCH}.squashfs : packages/list-vst
-	./scripts/make_packages vst
-	./scripts/strip_module vst
-	./scripts/make_module vst
+	bash scripts/make_packages vst
+	bash scripts/strip_module vst
+	bash scripts/make_module vst
 
 mate: ${LCMBUILD}/mate-${ARCH}.squashfs
 ${LCMBUILD}/mate-${ARCH}.squashfs : packages/list-mate
-	./scripts/make_packages mate
-	./scripts/strip_module mate
-	./scripts/make_module mate
+	bash scripts/make_packages mate
+	bash scripts/strip_module mate
+	bash scripts/make_module mate
 
 devtools: ${LCMBUILD}/devtools-${ARCH}.squashfs
 ${LCMBUILD}/devtools-${ARCH}.squashfs : packages/list-devtools
-	./scripts/make_packages devtools
-	./scripts/make_module devtools
+	bash scripts/make_packages devtools
+	bash scripts/make_module devtools
 
 accessibility: ${LCMBUILD}/accessibility-${ARCH}.squashfs
 ${LCMBUILD}/accessibility-${ARCH}.squashfs : packages/list-accessibility
-	./scripts/make_packages accessibility
-	./scripts/make_module accessibility
+	bash scripts/make_packages accessibility
+	bash scripts/make_module accessibility
 
 emulators: ${LCMBUILD}/emulators-${ARCH}.squashfs
 ${LCMBUILD}/emulators-${ARCH}.squashfs : packages/list-emulators
-	./scripts/make_packages emulators
-	./scripts/make_module emulators
+	bash scripts/make_packages emulators
+	bash scripts/make_module emulators
 
 multimedia: ${LCMBUILD}/multimedia-${ARCH}.squashfs
 ${LCMBUILD}/multimedia-${ARCH}.squashfs : packages/list-multimedia
-	./scripts/make_packages multimedia
-	./scripts/make_module multimedia
+	bash scripts/make_packages multimedia
+	bash scripts/make_module multimedia
 
 network: ${LCMBUILD}/network-${ARCH}.squashfs
 ${LCMBUILD}/network-${ARCH}.squashfs : packages/list-network
-	./scripts/make_packages network
-	./scripts/make_module network
+	bash scripts/make_packages network
+	bash scripts/make_module network
 
 graphics: ${LCMBUILD}/graphics-${ARCH}.squashfs
 ${LCMBUILD}/graphics-${ARCH}.squashfs : packages/list-graphics
-	./scripts/make_packages graphics
-	./scripts/make_module graphics
+	bash scripts/make_packages graphics
+	bash scripts/make_module graphics
 
 fps: ${LCMBUILD}/fps-${ARCH}.squashfs
 ${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
-	./scripts/make_packages fps
-	./scripts/make_module fps
+	bash scripts/make_packages fps
+	bash scripts/make_module fps
 
 chromium: ${LCMBUILD}/chromium-${ARCH}.squashfs
 ${LCMBUILD}/chromium-${ARCH}.squashfs : packages/list-chromium
-	./scripts/make_packages chromium
-	./scripts/make_module chromium
+	bash scripts/make_packages chromium
+	bash scripts/make_module chromium
 
 firefox: ${LCMBUILD}/firefox-${ARCH}.squashfs
 
 firefox: ${LCMBUILD}/firefox-${ARCH}.squashfs
 ${LCMBUILD}/firefox-${ARCH}.squashfs : packages/list-firefox
-	./scripts/make_packages firefox
-	./scripts/make_module firefox
+	bash scripts/make_packages firefox
+	bash scripts/make_module firefox
 
 office: ${LCMBUILD}/office-${ARCH}.squashfs
 ${LCMBUILD}/office-${ARCH}.squashfs : packages/list-office
-	./scripts/make_packages office
-	./scripts/make_module office
+	bash scripts/make_packages office
+	bash scripts/make_module office
 
 clean-linuxconsole:
 	# rm ${HOME}/ydfs/build/modules/linuxconsole-${ARCH}.squashfs
@@ -391,30 +391,30 @@ clean-linuxconsole:
 
 unfa: ${LCMBUILD}unfa-${ARCH}.squashfs
 ${LCMBUILD}unfa-${ARCH}.squashfs : packages/list-unfa
-	./scripts/make_packages unfa
-	./scripts/make_module unfa
+	bash scripts/make_packages unfa
+	bash scripts/make_module unfa
    
 multilib: 
-	./scripts/make_multilib # || ./scripts/make_multilib
+	bash scripts/make_multilib # || bash scripts/make_multilib
 dist: 
-	./scripts/make_opkg_filelist opkg
+	bash scripts/make_opkg_filelist opkg
 fixopkg:
-	./scripts/make_thunderbird
-	./scripts/make_fixes
-#	./scripts/make_firefox
-#	./scripts/make_custom_opkg playonlinux
-	./scripts/make_custom_opkg flash
-#	./scripts/make_custom_opkg arabic
-#	./scripts/make_custom_opkg spring
-	./scripts/make_opkg_filelist opkg
+	bash scripts/make_thunderbird
+	bash scripts/make_fixes
+#	bash scripts/make_firefox
+#	bash scripts/make_custom_opkg playonlinux
+	bash scripts/make_custom_opkg flash
+#	bash scripts/make_custom_opkg arabic
+#	bash scripts/make_custom_opkg spring
+	bash scripts/make_opkg_filelist opkg
 buildenv: ${HOME}/${ARCH}/buildenv
 # opkg: ${HOME}/${ARCH}/buildenv ${HOME}/ydfs/opkg/Packages
 opkg: ${HOME}/ydfs/opkg/Packages
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
 ifeq ($(BUILDOPKG),YES)
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
-	./scripts/make_packages opkg
-	./scripts/make_opkg_filelist opkg
+	bash scripts/make_packages opkg
+	bash scripts/make_opkg_filelist opkg
 else
 	echo "Skip opkg"
 endif
@@ -423,15 +423,15 @@ endif
 ${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
 #${DISTRONAME}: ${LCMBUILD}devtools-${ARCH}.squashfs
 ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs : packages/list-${DISTRONAME}
-	./scripts/make_packages ${DISTRONAME}
-	./scripts/make_module ${DISTRONAME}
+	bash scripts/make_packages ${DISTRONAME}
+	bash scripts/make_module ${DISTRONAME}
    
 papyrus: ${LCMBUILD}papyrus-${ARCH}.squashfs
 
 lanpower: ${LCMBUILD}lanpower-${ARCH}.squashfs
 ${LCMBUILD}lanpower-${ARCH}.squashfs : packages/list-lanpower
-	./scripts/make_packages lanpower
-	./scripts/make_module lanpower
+	bash scripts/make_packages lanpower
+	bash scripts/make_module lanpower
 
 clean-lanpower:
   #pour mettre à zéro la compil lanpower
@@ -441,28 +441,28 @@ clean-lanpower:
    
 papyrus: ${LCMBUILD}papyrus-${ARCH}.squashfs
 ${LCMBUILD}papyrus-${ARCH}.squashfs : packages/list-papyrus
-	./scripts/make_packages papyrus
-	./scripts/make_module papyrus
+	bash scripts/make_packages papyrus
+	bash scripts/make_module papyrus
    
 vm: ${LCMBUILD}vm-${ARCH}.squashfs
 ${LCMBUILD}vm-${ARCH}.squashfs : packages/list-vm
-	./scripts/make_packages vm
-	./scripts/make_module vm
+	bash scripts/make_packages vm
+	bash scripts/make_module vm
 
 pantheon: ${LCMBUILD}pantheon-${ARCH}.squashfs
 ${LCMBUILD}pantheon-${ARCH}.squashfs : packages/list-pantheon
-	./scripts/make_packages pantheon
-	./scripts/make_module pantheon
+	bash scripts/make_packages pantheon
+	bash scripts/make_module pantheon
    
 kodi: ${LCMBUILD}kodi-${ARCH}.squashfs
 ${LCMBUILD}kodi-${ARCH}.squashfs : packages/list-kodi
-	./scripts/make_packages kodi
-	./scripts/make_module kodi
+	bash scripts/make_packages kodi
+	bash scripts/make_module kodi
 
 antivirus: ${LCMBUILD}antivirus-${ARCH}.squashfs
 ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
-	./scripts/make_packages antivirus
-	./scripts/make_module antivirus
+	bash scripts/make_packages antivirus
+	bash scripts/make_module antivirus
 
 archive:
 	cd ..
@@ -470,5 +470,5 @@ archive:
 
 openxr: ${LCMBUILD}/openxr-${ARCH}.squashfs
 ${LCMBUILD}/openxr-${ARCH}.squashfs : packages/list-openxr
-	./scripts/make_packages openxr
-	SKIP_STRIP=OK ./scripts/make_module openxr
+	bash scripts/make_packages openxr
+	SKIP_STRIP=OK bash scripts/make_module openxr
