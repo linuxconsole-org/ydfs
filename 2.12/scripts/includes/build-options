@@ -8,6 +8,7 @@ echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv
 #echo "PREFIX is $DIBAB_PREFIX" && exit 1
 #PREFIX=$DIBAB_PREFIX/$MODULE
 echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
+echo $ARCHIVE | grep flatpak && LC_CONFIGURE_OPTS=" -Dtests=false "
 
 echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=True \
     -DBUILD_WSI_XCB_SUPPORT=On \
