@@ -235,9 +235,9 @@ PATH=/busybox/bin/:/busybox/sbin/
 mkdir /rootfs
 mount -t proc proc /proc
 mount -t sysfs sys /sys
-mount -t devtmpfs none /dev"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
-mkdir /dev/pts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
-mount devpts /dev/pts -t devpts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+mount -t devtmpfs none /dev
+mkdir /dev/pts
+mount devpts /dev/pts -t devpts
 mount -t tmpfs none /rootfs -o rw,noatime,mode=755
 mkdir /rootfs/sys
 mkdir /rootfs/proc
