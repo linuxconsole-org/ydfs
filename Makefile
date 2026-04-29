@@ -127,6 +127,10 @@ qemu-azerty-system:
 qemu-efi:
 	qemu-system-x86_64 -usb -device usb-tablet -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -m size=4000 -bios 2.12/boot-efi/bios/qemu-ovmf/bios/bios.bin -cdrom ${HOME}/iso/linuxconsole.iso
 
+qemu-bios-diskinstall:
+	# fallocate -l 10G disk.img
+	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -device e1000 -m size=4000 -hda disk.img -cdrom ${HOME}/iso/linuxconsole.iso
+
 qemu:
 	qemu-system-x86_64 -enable-kvm -cpu qemu64,avx,pdpe1gb,check,enforce -device e1000 -m size=4000 -cdrom ${HOME}/iso/linuxconsole.iso
 

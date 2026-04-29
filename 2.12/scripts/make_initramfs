@@ -205,14 +205,7 @@ KERNEL=$KERNEL3
 #  [ -e $HOME/uclib/ ] && cp -fR $HOME/uclib/* $INITRAMFS/
 install -d $INITRAMFS/lib
 cd $INITRAMFS
-
- echo "Custom rescue"
- echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/rescue
- echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
- echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
- echo "PATH=/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/ /busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/rescue
- chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/rescue
-
+ 
  echo "Custom init3"
  echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init3
  echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init3
@@ -226,33 +219,45 @@ cd $INITRAMFS
  echo "ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/azerty
  chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/azerty
 
- echo "Custom init-newroot"
- echo "PATH=/busybox/bin/:/busybox/sbin/" > $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mkdir /rootfs" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -t proc proc /proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -t sysfs sys /sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -t devtmpfs none /dev"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mkdir /dev/pts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount devpts /dev/pts -t devpts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -t tmpfs none /rootfs -o rw,noatime,mode=755" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mkdir /rootfs/sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mkdir /rootfs/proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mkdir /rootfs/dev" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -n -o move /sys /rootfs/sys" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -n -o move /proc /rootfs/proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "mount -n -o move /dev /rootfs/dev" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /busybox /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /fix /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /etc /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /share /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /ydfs /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp -a /lib /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "cp /ydfs-* /rootfs/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "echo Switch YDFS root .." >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- echo "exec /busybox/sbin/switch_root /rootfs /busybox/sbin/init </dev/console >dev/console 2>&1 " >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
- chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+ echo "Custom rescue"
+cat > $HOME/ydfs/tmp/initramfs-$ARCH/rescue << "EOF"
+#!/busybox/bin/ash
+export PATH=/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/
+echo INIT OK, run /etc/init.d/rcS
+/busybox/bin/ash
+EOF
+ chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/rescue
 
- ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
+ echo "Custom init-newroot"
+
+cat > $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot << "EOF"
+PATH=/busybox/bin/:/busybox/sbin/
+mkdir /rootfs
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+mount -t devtmpfs none /dev"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+mkdir /dev/pts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+mount devpts /dev/pts -t devpts"  >> $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+mount -t tmpfs none /rootfs -o rw,noatime,mode=755
+mkdir /rootfs/sys
+mkdir /rootfs/proc
+mkdir /rootfs/dev
+mount -n -o move /sys /rootfs/sys
+mount -n -o move /proc /rootfs/proc
+mount -n -o move /dev /rootfs/dev
+cp -a /busybox /rootfs/
+cp -a /fix /rootfs/
+cp -a /etc /rootfs/
+cp -a /share /rootfs/
+cp -a /ydfs /rootfs/
+cp -a /lib /rootfs/
+cp /ydfs-* /rootfs/
+echo Switch YDFS root ..
+exec /busybox/sbin/switch_root /rootfs /busybox/sbin/init </dev/console >dev/console 2>&1 
+EOF
+chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init-newroot
+
+ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
 
 ROOTFS=/$HOME/ydfs/tmp/initramfs-$ARCH/
 install -d $ROOTFS/$HOME
