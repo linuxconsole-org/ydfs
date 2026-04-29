@@ -5,6 +5,8 @@ do
      ls /media/$media/fixusb |while read file
      do
        echo /media/$media/fixusb/$file
+       cat /media/$media/fixusb/$file
+       sleep 1
        bash /media/$media/fixusb/$file
      done
   fi

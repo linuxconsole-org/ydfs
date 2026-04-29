@@ -24,15 +24,17 @@ plugins=keyfile
 EOF
   NetworkManager --log-level=ERR
 #else
-  sleep 1 # waiting loading kernel module
+  sleep 2 # waiting loading kernel module
   [ -e /ydfs/boot/options/livecd ] && echo -n " waiting .. " && sleep 3 # LiveCD could be very slow
   ETH=`/ydfs/detect/eth0`
   if [ "$ETH" != "" ]
   then
     echo "Start dhcp on $ETH"
     ifconfig $ETH up > /var/log/eth0.log
-    udhcpc -i $ETH -t 5 -q -S -s /etc/udhcpc/simple.script >/dev/null 2>/dev/null &
+    udhcpc -i $ETH -t 5 -q -S -s /etc/udhcpc/simple.script &
   else
     echo "No network card was found"
   fi
 #fi
+
+/ydfs/detect/wireless

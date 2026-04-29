@@ -1,1 +1,8 @@
-ip a |grep 2: |head -1|cut -d' ' -f2|cut -d':' -f1
+#ip a |grep 2: |head -1|cut -d' ' -f2|cut -d':' -f1
+ls /sys/class/net/ | while read network
+do
+  [ -e /sys/class/net/$network/wireless ] && continue
+  [ -e /sys/class/net/$network/bridge ] && continue
+  echo $network
+  break
+done

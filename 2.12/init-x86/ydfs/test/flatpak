@@ -1,6 +1,14 @@
+#!/bin/bash
+set -e
+
 flatpak remotes
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak search gimp
+flatpak search supertuxkart
+flatpak install net.supertuxkart.SuperTuxKart
+flatpak run net.supertuxkart.SuperTuxKart
+
+# FIXME - Bug with Gimp
+# flatpak search gimp
 # flatpak install flathub org.gimp.GIMP
 # flatpak install https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
 # flatpak install gimp

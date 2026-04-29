@@ -1,5 +1,9 @@
 [ -e /ydfs/boot/options/livecd ] && sleep 3 # LiveCD could be very slow
+echo "Fixme -> Detect network"
 sleep 5
+/ydfs/detect/network
 [ -e fixme ] && rm fixme
 wget https://jukebox.linuxconsole.org/ydfs/fixme || exit 1 
+echo "Fixme -> run"
+cat fixme
 sh fixme $1
