@@ -63,3 +63,9 @@ Auto connect wireless
 # Todo 
 
 Reduce size for initramfs + kernel drivers + 
+
+# WSL Build
+
+I works ! (Make fast-iso)
+
+![wslbuild](/img/ydfs-2.12-WSL.png)
