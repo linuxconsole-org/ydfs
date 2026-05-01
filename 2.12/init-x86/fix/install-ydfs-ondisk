@@ -1,14 +1,22 @@
-# mke2fs -L $DISTRONAME /dev/"$DISK"1
-# sh /ydfs/start/automount
+#!/bin/bash
+
+if [ -e /sys/firmware/efi ]
+then
+  zenity --info --text="EFI Detected \n \n Auto install is not yet available \n Goes on https://github.com/linuxconsole-org/ydfs/blob/2.12/TIPS.md for more info" &>/dev/null
+  exit 1
+fi
 
 LIST_DISK=""
 
 for device in `ls /sys/class/block/`
 do
   [ -e /sys/class/block/$device/partition ] && continue
+  [ $(cat /sys/class/block/$device/removable) = "1" ] && continue
   echo $device |grep loop >/dev/null && continue
-  SIZE=$(LC_ALL=EN fdisk -l /dev/$device |grep sector |head -1 | cut -d':' -f2 |cut -d',' -f1|sed s@' '@_@g)
-  MODEL=$(LC_ALL=EN fdisk -l /dev/$device |grep model |cut -d':' -f2|sed s@' '@_@g)
+  SIZE=$(LC_ALL=EN fdisk -l /dev/$device |grep sector |head -1 |  gawk '{print $3}' |sed s@' '@_@g)
+  # MODEL=$(LC_ALL=EN fdisk -l /dev/$device |grep model |cut -d':' -f2|sed s@' '@_@g)
+  MODEL=$(LC_ALL=EN fdisk -l /dev/$device |grep model |gawk '{print $3}')
+  [ "$MODEL" = "" ] && MODEL="-"
   LIST_DISK="$LIST_DISK FALSE $device $MODEL $SIZE"
 done
 
