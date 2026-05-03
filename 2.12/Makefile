@@ -119,7 +119,8 @@ export LIST=${ARCH}
     export MENUCONFIG
   endif
 endif
-INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
+# INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
+INITRAMFS=initramfs
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
 all:
