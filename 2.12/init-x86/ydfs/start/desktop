@@ -27,6 +27,11 @@ install -d $HOME/.local/share/applications
 update-desktop-database
 update-mime-database /usr/share/mime
 
+function start_plasma
+{
+  dbus-launch startplasma-x11
+}
+
 function start_mate
 {
 	export XDG_DATA_DIRS=$XDG_DATA_DIRS:$HOME_DIBAB/mate/share 

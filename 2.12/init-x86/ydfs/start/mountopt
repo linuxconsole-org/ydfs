@@ -34,6 +34,13 @@ then
      [ ! -e /share/pixmaps/$file ] && ln -s /ydfs/modules/$MODULE/$subdir/$file /share/pixmaps
    done
  done
+ if [ "$module" = kde ]
+ then
+   ls /ydfs/modules/kde/lib/plugins/ | while read plugin
+   do
+     [ ! -e $HOME_DIBAB/$ARCH/lib/qt/plugins/$plugin ] && ln -s /ydfs/modules/kde/lib/plugins/$plugin $HOME_DIBAB/$ARCH/lib/qt/plugins/$plugin
+   done
+ fi
 fi
 done
 
