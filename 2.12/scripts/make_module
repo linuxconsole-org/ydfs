@@ -8,6 +8,7 @@ echo "Strip "
 find $HOME/$1 |while read file 
 do
   [ "$DISTRONAME" = "hackerOS" ] && break
+  [ "$DISTRONAME" = "linuxconsole" ] && break
   echo $file|grep '\.' >/dev/null && continue
   test -d "$file" && continue
   echo " "$file" ?"
@@ -18,6 +19,22 @@ done
 else
 echo "Skip strip "
 fi
+
+if [ "$1" = "kde" ]
+then
+  # Even if prefix is set to $HOME/$ARCH/kde, some libs are installed on $HOME/$ARCH/$ARCH
+  ls $HOME/ydfs/packages-$ARCH | while read package
+  do 
+    # echo "Check  $HOME/ydfs/packages-$ARCH/$package/$HOME/kde" && sleep 1
+    [ -e $HOME/ydfs/packages-$ARCH/$package/$HOME/kde ] && [ -e $HOME/ydfs/packages-$ARCH/$package/$HOME/$ARCH/lib ] && echo "$HOME/ydfs/packages-$ARCH/$package/$HOME/$ARCH/lib exists" && cp -a $HOME/ydfs/packages-$ARCH/$package/$HOME/$ARCH/lib/* $HOME/kde/lib/
+  done
+fi
+
+ls $HOME/$ARCH/lib | while read lib
+do 
+  # echo "Check $HOME/$ARCH/lib/$lib" && sleep 1
+  [ $HOME/$ARCH/lib/$lib -nt $HOME/ydfs/build/modules/"$ARCH".squashfs ] && echo "Warning, $HOME/$ARCH/lib/$lib newer than $HOME/ydfs/build/modules/"$ARCH".squashfs !"
+done
 
 [ -e $HOME_DIBAB/logos/$1.png ] && echo get $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
 [ -e $HOME_DIBAB/logos/$1.png ] && cp $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
