@@ -20,6 +20,7 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
     -DCMAKE_BUILD_TYPE=Release "
 
+echo $ARCHIVE | grep qemu && LC_CONFIGURE_OPTS=" --target-list=x86_64-softmmu "
 echo $ARCHIVE | grep gnupg &&  LC_CONFIGURE_OPTS="  --disable-doc --prefix=/home/linuxconsole2026/x86_64/ --enable-g13 --enable-large-secmem --enable-maintainer-mode"
 echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
@@ -322,7 +323,9 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep gcr-3 && export LC_CONFIGURE_OPTS="-Dgtk_doc=false"
-	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false" 
+	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false" a
+  # Needs qt6 
+	# echo $ARCHIVE | grep ximion/appstream && export LC_CONFIGURE_OPTS="-Dsystemd=false -Dqt=true -Dvapi=true -Dcompose=true" 
 	echo $ARCHIVE | grep ximion/appstream && export LC_CONFIGURE_OPTS="-Dsystemd=false"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS=" -DWANT_QT5=ON -DWANT_SOUNDIO=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo "
