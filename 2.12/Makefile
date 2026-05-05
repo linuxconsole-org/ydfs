@@ -135,7 +135,7 @@ all:
 	@echo "make opkg "
 	echo "BUILDYDFS is" ${BUILDYDFS}
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv linux busybox initramfs core firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}

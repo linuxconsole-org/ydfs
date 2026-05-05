@@ -26,7 +26,8 @@ done
 
 if [ -e /ventoy/hook/debian/linuxconsole-disk.sh ]
 then
-  echo "Ventoy detected"
+  echo "Ventoy detected" > /dev/tty1
+  echo "If it fails, You can try https://github.com/Mexit/MultiOS-USB " > /dev/tty1
   sleep 5
   # No more need modprobe dm-mod
   cp /fix/linuxconsole-disk.sh /ventoy/hook/debian/linuxconsole-disk.sh
