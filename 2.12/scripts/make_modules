@@ -144,6 +144,7 @@ ln -sf libcurl.so.4 $HOME/ydfs/modules/$ARCH/lib/libcurl-gnutls.so.4
 install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 
+# FIXME : to much slow !!
 echo "Striping  $HOME/ydfs/modules/$ARCH"
 find  $HOME/ydfs/modules/$ARCH -type f \( ! -iname "*.h" ! -iname "*.hpp"  ! -iname "*.ttl" \) |while read file; do strip "$file" 2>/tmp/strip.err; done
 echo done

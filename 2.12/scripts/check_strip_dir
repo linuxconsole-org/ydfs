@@ -1,0 +1,11 @@
+ROOT_DIR=/usr/lib
+find $ROOT_DIR -type d | while read checkdir
+do
+  ls $checkdir | while read filetocheck
+  do
+    [ -d $checkdir/$filetocheck ] && continue
+    # sleep 1
+    # echo "? $checkdir/$filetocheck"
+    file $checkdir/$filetocheck | grep ELF 1>/dev/null && echo "CHECK $checkdir" && break
+  done
+done
