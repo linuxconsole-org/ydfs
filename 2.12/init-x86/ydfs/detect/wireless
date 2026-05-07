@@ -1,17 +1,22 @@
 if [ -e /disk/wifi.txt ]
 then
-  SSID=$(cat /disk/wifi.txt|cut -d':' -f1)
-  KEY=$(cat /disk/wifi.txt|cut -d':' -f2)
-
-  echo $SSID $KEY
-  ls /sys/class/net/ | while read network
+  nmcli dev wifi | grep Infra | gawk '{print $2}' | while read SSID
   do
-    [ -e /sys/class/net/$network/wireless ] || continue
-    echo Network $network  
-    echo nmcli dev wifi connect $SSID password "$KEY"
-    nmcli dev wifi connect $SSID password "$KEY"
-    # sleep 5
+    echo -n "$SSID : key exists ?"
+    KEY=$(grep ":$SSID:" /disk/wifi.txt | cut -d':' -f3)
+    [ "$KEY" = "" ] && echo " .. No " && continue
+    echo " .. Yes"
+    echo $SSID $KEY
+    ls /sys/class/net/ | while read network
+    do
+      [ -e /sys/class/net/$network/wireless ] || continue
+      echo Network $network  
+      # echo nmcli dev wifi connect $SSID password "$KEY"
+      nmcli dev wifi connect $SSID password "$KEY"
+    #  sleep 5
     # udhcpd
-    # udhcpc -i $network -t 5 -q -S -s /etc/udhcpc/simple.script
+    #  udhcpc -i $network -t 5 -q -S -s /etc/udhcpc/simple.script
+    done
+    break
   done
 fi
