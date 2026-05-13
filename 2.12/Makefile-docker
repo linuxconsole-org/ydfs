@@ -136,3 +136,6 @@ buildme-docker:
 fast-files:
 	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make fast-files'
 
+check-strip-dir:
+	${COMPOSE} ${DOCKER_OPTIONS} -c '${BUILD_COMMAND} ${OPTION_BUILD} make check-strip-dir'
+

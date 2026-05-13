@@ -54,6 +54,7 @@ then
 
 MAXMEMORY=$(cat /proc/meminfo |grep MemTotal | cut -d':' -f2 | tr -s ' ' | cut -d' ' -f2)
 MAXMEMORYGIGA=$(expr $MAXMEMORY / 1024 / 1024)
+
 if [ $MAXMEMORYGIGA -gt 10 ]
 then
   echo High mem
@@ -135,14 +136,39 @@ then
 fi
 
 [ "$MENUCONFIG" = "YES" ] && make menuconfig O=$BUILD_DIR
-  install -d $HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
-  DATE=`date +"%Y_%m_%d"`
-  cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config.$DATE
+install -d $HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
+DATE=`date +"%Y_%m_%d"`
+cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config.$DATE
 git add /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
-  cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
-  [ "$ARCH" != "arm" ] && cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/config
+cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
+[ "$ARCH" != "arm" ] && cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/config
 [ "$SUBARCH" = "raspi-qemu" ] && cp $BUILD_DIR/.config $HOME_DIBAB/config/kernel-raspi-qemu/config
   # cp $HOME_DIBAB/config/initramfs-$ARCH.txt $BUILD_DIR 
+
+MAXMEMORY=$(cat /proc/meminfo |grep MemTotal | cut -d':' -f2 | tr -s ' ' | cut -d' ' -f2)
+MAXMEMORYGIGA=$(expr $MAXMEMORY / 1024 / 1024)
+
+
+[ -e $BUILD_DIR/.config-strip ] && rm $BUILD_DIR/.config-strip
+
+echo "Disable debug in Config"
+
+cat $BUILD_DIR/.config | while read line
+do
+  echo $line | grep "_DEBUG_" && continue
+  echo "$line" >> $BUILD_DIR/.config-strip
+done
+
+mv $BUILD_DIR/.config-strip $BUILD_DIR/.config
+
+if [ $MAXMEMORYGIGA -gt 10 ]
+then
+  echo High mem
+  make O=$BUILD_DIR -k -j5 
+else
+  echo Low mem
+  make O=$BUILD_DIR -k -j2 
+fi
 
   make bzImage O=$BUILD_DIR || exit 1
 #   make bzImage CONFIG_DEBUG_SECTION_MISMATCH=y O=$BUILD_DIR || exit 1
@@ -151,8 +177,8 @@ git add /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
   grep '# CONFIG_MODULES is not set' $BUILD_DIR/.config
   if [ $? != 0 ]
   then
-    make modules O=$BUILD_DIR || exit 0
-    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
+    ZSTD_CLEVEL=19 make INSTALL_MOD_STRIP=1 modules O=$BUILD_DIR || exit 0
+    ZSTD_CLEVEL=19 make INSTALL_MOD_STRIP=1 modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
     /sbin/depmod -b $HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3" -m "$KERNEL3"
     [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"-pae/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
   fi

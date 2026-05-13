@@ -2,6 +2,6 @@
 #git://github.com/CachyOS/CachyOS-Welcome.git#tag=v0.16.3
 https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.46.tar.bz2
 https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.3.tar.bz2
-git://dev.gnupg.org/source/gnupg.git#tag=gnupg-2.4.9
+https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.9.tar.bz2
 https://github.com/ostreedev/ostree/releases/download/v2026.1/libostree-2026.1.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.17.6/flatpak-1.17.6.tar.xz

@@ -40,7 +40,7 @@ echo "BUILDOPKG=$BUILDOPKG" >> config.ini
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
 echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> config.ini
 
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} kde-${ARCH} mate-${ARCH}"' >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} mate-${ARCH}"' >> config.ini
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then
@@ -121,7 +121,7 @@ BOOT=NAND
 		then
                   echo "KERNEL3=SYSTEM" >> config.ini
 		else
-                  echo "KERNEL3=6.18.21" >> config.ini
+                  echo "KERNEL3=6.18.29" >> config.ini
 		fi
 	      fi
 	      echo "BUSYBOX=1.36.1" >> config.ini

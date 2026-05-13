@@ -1,11 +1,11 @@
-ROOT_DIR=/usr/lib
+ROOT_DIR=$HOME/ydfs/modules/x86_64/
 find $ROOT_DIR -type d | while read checkdir
 do
   ls $checkdir | while read filetocheck
   do
-    [ -d $checkdir/$filetocheck ] && continue
+    [ -d "$checkdir/$filetocheck" ] && continue
     # sleep 1
     # echo "? $checkdir/$filetocheck"
-    file $checkdir/$filetocheck | grep ELF 1>/dev/null && echo "CHECK $checkdir" && break
+    file "$checkdir/$filetocheck" | grep ELF 1>/dev/null && echo "$checkdir" && break
   done
 done

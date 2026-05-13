@@ -53,7 +53,7 @@ https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.46.tar.bz2
 https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.6.3.tar.bz2
 https://gnupg.org/ftp/gcrypt/libassuan/libassuan-2.5.5.tar.bz2
 https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.9.4.tar.bz2
-git://dev.gnupg.org/source/gnupg.git#tag=gnupg-2.4.9
+https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.9.tar.bz2
 https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.17.0.tar.bz2
 https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.tar.gz
 https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz

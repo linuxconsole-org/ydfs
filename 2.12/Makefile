@@ -473,3 +473,6 @@ openxr: ${LCMBUILD}/openxr-${ARCH}.squashfs
 ${LCMBUILD}/openxr-${ARCH}.squashfs : packages/list-openxr
 	bash scripts/make_packages openxr
 	SKIP_STRIP=OK bash scripts/make_module openxr
+
+check-strip-dir:
+	bash scripts/check_strip_dir > $(HOME)/iso/dir-to-strip.txt
