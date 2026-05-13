@@ -119,6 +119,7 @@ cp -fR init-$ARCH/* $INITRAMFS
 echo "$DISTRONAME" > $INITRAMFS/ydfs-name
 basename $HOME > $INITRAMFS/ydfs-home
 echo $GIT_BRANCH > $INITRAMFS/ydfs-release
+echo $YDFS_TAG > $INITRAMFS/ydfs-tag
 
 # if [ ! -e $HOME/ydfs/src/yaffs2utils-read-only/src/buildok ]
 # then

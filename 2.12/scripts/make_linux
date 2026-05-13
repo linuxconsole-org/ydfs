@@ -148,18 +148,16 @@ cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
 MAXMEMORY=$(cat /proc/meminfo |grep MemTotal | cut -d':' -f2 | tr -s ' ' | cut -d' ' -f2)
 MAXMEMORYGIGA=$(expr $MAXMEMORY / 1024 / 1024)
 
-
-[ -e $BUILD_DIR/.config-strip ] && rm $BUILD_DIR/.config-strip
-
-echo "Disable debug in Config"
-
-cat $BUILD_DIR/.config | while read line
-do
-  echo $line | grep "_DEBUG_" && continue
-  echo "$line" >> $BUILD_DIR/.config-strip
-done
-
-mv $BUILD_DIR/.config-strip $BUILD_DIR/.config
+if [ ! -e $BUILD_DIR/.config-strip ]
+then
+  echo "Disable debug in Config"
+  cat $BUILD_DIR/.config | while read line
+  do
+    echo $line | grep "_DEBUG_" && continue
+    echo "$line" >> $BUILD_DIR/.config-strip
+  done
+  cp $BUILD_DIR/.config-strip $BUILD_DIR/.config
+fi
 
 if [ $MAXMEMORYGIGA -gt 10 ]
 then

@@ -30,11 +30,19 @@ export SKIPOPKG
 export SEND_BUILD_LOG
 export TOOLCHAIN
 export HOME_DIBAB
+
 ifeq ($(GIT_BRANCH),)
   export YDFS=$(shell basename ${PWD})
 else
   export YDFS=$(GIT_BRANCH)
 endif
+
+ifeq ($(GIT_TAG),)
+  export YDFS_TAG=$(shell basename ${PWD})
+else
+  export YDFS_TAG=$(GIT_TAG)
+endif
+
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
 export MKSQUASHFS_OPT
@@ -196,7 +204,6 @@ wineprogs:
 test:
 	bash scripts/make_test
 fast-files:
-	# YDFS=${YDFS} bash scripts/make_fast_files
 	bash scripts/make_fast_files
 test-liveusb:
 	bash scripts/make_test bootusb
