@@ -15,16 +15,16 @@ then
       mkdir $HOME/iso
       chmod 777 $HOME/iso
     fi
-    [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
-    echo "Check $HOME/iso/$YDFS-$ARCH.tar.gz, please wait..."
-    echo "tar tzf $HOME/iso/$YDFS-$ARCH.tar.gz"
+    [ ! -e $HOME/iso/$YDFS_TAG-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS_TAG-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS_TAG-$ARCH.tar.gz
+    echo "Check $HOME/iso/$YDFS_TAG-$ARCH.tar.gz, please wait..."
+    echo "tar tzf $HOME/iso/$YDFS_TAG-$ARCH.tar.gz"
     sleep 5
-    tar tzf $HOME/iso/$YDFS-$ARCH.tar.gz 1> /dev/null || rm $HOME/iso/$YDFS-$ARCH.tar.gz
-    [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && exit 2
-    [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
+    tar tzf $HOME/iso/$YDFS_TAG-$ARCH.tar.gz 1> /dev/null || rm $HOME/iso/$YDFS_TAG-$ARCH.tar.gz
+    [ ! -e $HOME/iso/$YDFS_TAG-$ARCH.tar.gz ] && exit 2
+    [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS_TAG-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS_TAG-multilib.tar.gz https://jukebox.linuxconsole.org/fast/$YDFS_TAG-multilib.tar.gz
     cd $HOME
-    [ ! -e $ARCH/bin/pip3 ] && echo "Untar $HOME/iso/$YDFS-$ARCH.tar.gz, please wait..."
-    [ ! -e $ARCH/bin/pip3 ] && tar xzf $HOME/iso/$YDFS-$ARCH.tar.gz
+    [ ! -e $ARCH/bin/pip3 ] && echo "Untar $HOME/iso/$YDFS_TAG-$ARCH.tar.gz, please wait..."
+    [ ! -e $ARCH/bin/pip3 ] && tar xzf $HOME/iso/$YDFS_TAG-$ARCH.tar.gz
     touch $HOME/$ARCH/buildenv
   fi
 else

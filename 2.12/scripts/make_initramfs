@@ -1,6 +1,5 @@
 . ./config.ini
 
-
 #From ydfs3 branch : mkinitramfs/hook/modules.hook
 
 msgwarn() {

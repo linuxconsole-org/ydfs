@@ -3,10 +3,9 @@
 cd $HOME
 echo "Ydfs relase is $YDFS" && sleep 2
 echo "Ydfs tag is $YDFS_TAG" && sleep 2
-exit 1
 
-[ ! -e $HOME/iso/$YDFS$YDFS_TAG-$ARCH.tar.gz ] && tar czvf $HOME/iso/$YDFS$YDFS_TAG-$ARCH.tar.gz $ARCH
-[ ! -e $HOME/iso/kernel-modules-$YDFS$YDFS_TAG-$ARCH.tar.gz ] && tar czvf $HOME/iso/kernel-modules-$YDFS$YDFS_TAG-$ARCH.tar.gz ydfs/kernel-$ARCH 
-[ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS$YDFS_TAG-multilib.tar.gz ] && tar czvf $HOME/iso/$YDFS$YDFS_TAG-multilib.tar.gz multilib
-[ ! -e $HOME/iso/kernel-$YDFS$YDFS_TAG-$ARCH.tar.gz ] && tar czhvf $HOME/iso/kernel-$YDFS$YDFS_TAG-$ARCH.tar.gz ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage
+# [ ! -e $HOME/iso/$YDFS_TAG-$ARCH.tar.gz ] && tar czvf $HOME/iso/$YDFS_TAG-$ARCH.tar.gz $ARCH
+[ ! -e $HOME/iso/kernel-modules-$YDFS_TAG-$ARCH.tar.gz ] && tar czvf $HOME/iso/kernel-modules-$YDFS_TAG-$ARCH.tar.gz ydfs/kernel-$ARCH 
+# [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS_TAG-multilib.tar.gz ] && tar czvf $HOME/iso/$YDFS_TAG-multilib.tar.gz multilib
+[ ! -e $HOME/iso/kernel-$YDFS_TAG-$ARCH.tar.gz ] && tar czhvf $HOME/iso/kernel-$YDFS_TAG-$ARCH.tar.gz ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage
 echo OK
