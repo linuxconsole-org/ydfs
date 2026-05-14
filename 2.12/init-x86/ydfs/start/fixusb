@@ -11,3 +11,14 @@ do
      done
   fi
 done
+
+if [ -e /disk/fixusb ]
+then
+   ls /disk/fixusb |while read file
+   do
+     echo /disk/fixusb/$file
+     cat /disk/fixusb/$file
+     sleep 1
+     bash /disk/fixusb/$file
+   done
+fi

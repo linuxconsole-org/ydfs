@@ -37,6 +37,27 @@ LABEL="media_by_label_auto_mount_end"
 ' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 
 echo '
+KERNEL!="nvme0n1p[1-9]", GOTO="media_by_label_auto_mount_end"
+# Import FS infos
+IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
+IMPORT{program}="/bin/detectmount %N"
+ENV{MOUNTED}=="YES", GOTO="media_by_label_auto_mount_end"
+
+# Get a label if present, otherwise specify one
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{dir_name}="usbhd-%k"
+
+ENV{ID_FS_TYPE}=="vfat", ENV{mount_options}="-o user,umask=0000"
+
+ACTION=="add", ENV{ID_FS_TYPE}=="exfat",  RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}", RUN+="/usr/sbin/mount.exfat /dev/%k /media/%E{dir_name}"
+
+ACTION=="remove",  ENV{ID_FS_TYPE}=="exfat", ENV{dir_name}!="", RUN+="/busybox/bin/umount -l /media/%E{dir_name}", RUN+="/busybox/bin/rmdir /media/%E{dir_name}"
+
+# Exit
+LABEL="media_by_label_auto_mount_end"
+' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount-nvme.rules
+
+echo '
 KERNEL!="sd[a-z]", GOTO="media_by_label_auto_mount_end"
 # Import FS infos
 IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
@@ -55,7 +76,7 @@ ACTION=="remove",  ENV{ID_FS_TYPE}=="exfat", ENV{dir_name}!="", RUN+="/busybox/b
 
 # Exit
 LABEL="media_by_label_auto_mount_end"
-' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount-exfat.rules
+' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount-sda.rules
 
 echo '
 
@@ -79,3 +100,17 @@ install -d /root/firmware
 # /bin/mountsfsrw /root/firmware /lib/firmware # echo "Firmwares mounted rw"
 
 # /ydfs/start/umountuser-daemon &
+for device in `ls /sys/class/block/`
+do
+	continue
+	mount | grep $device > /dev/null && continue
+	if [ ! -e /dev/$device ]
+	then
+		echo "Creating $device"
+		mknod /dev/$device b `cat /sys/class/block/$device/dev | cut -d ':' -f1` `cat /sys/class/block/$device/dev | cut -d ':' -f2`
+	fi
+	echo -n "$device ? "
+	install -d /media/$device
+	/ntfs-3g -o remove_hiberfile /media/$device 2>/dev/null || mount /dev/$device /media/$device -o rw 2>/dev/null || continue
+	echo "OK"
+done
