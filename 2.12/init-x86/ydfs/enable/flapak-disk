@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ ! -e /disk/flatpak.loop ]
+then
+  echo "Enable 10G loopback file on /disk/flatpak.loop"
+  fallocate -l 10G /disk/flatpak.loop
+  mke2fs -F -j flatpak.loop
+fi
+
+install -d /flatpak
+mount /disk/flatpak.loop /flatpak -o loop
+[ -e /flatpak/lost+found ] && rmdir /flatpak/lost+found
+ln -sf /flatpak /home/linuxconsole2026/x86_64/var/lib/flatpak
