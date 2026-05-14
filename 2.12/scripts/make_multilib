@@ -465,7 +465,7 @@ unset MAKE
 	#ln -s $HOME/multilib/lib/libffi.so.8 $HOME/multilib/lib/libffi.so.6
 	#[ -e $HOME/llvm-multilib ] && continue
 	#cd $HOME
-	#[ ! -e llvm11-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm11-multilib.tar.gz
+	#[ ! -e llvm11-multilib.tar.gz ] && wget https://jukebox.linuxconsole.org/toolchains/llvm11-multilib.tar.gz
 	#tar xzvhf llvm11-multilib.tar.gz
 	echo "Build $HOME_DIBAB/scripts/build-llvm-clang"
 	$HOME_DIBAB/scripts/build-llvm-clang || exit 4

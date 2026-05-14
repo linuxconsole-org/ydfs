@@ -2,7 +2,7 @@ echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">
     <files>
       <file name=\"linuxconsole.2.3-x86.iso\">
       <resources>
-        <url type=\"http\">http://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
+        <url type=\"http\">https://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
       </resources>
       </file>
     </files>
@@ -13,7 +13,7 @@ echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">
     <files>
       <file name=\"linuxconsole.2.3-x86.iso\">
       <resources>
-        <url type=\"http\">http://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
+        <url type=\"http\">https://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
       </resources>
       </file>
     </files>

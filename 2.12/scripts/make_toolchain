@@ -54,7 +54,7 @@
       else
         install -d $HOME/ydfs/x-tools/
         cd $HOME/ydfs/x-tools/
-        wget http://jukebox.linuxconsole.org/toolchains/$CPU-ydfs-linux-toolchain.tar.bz2 || exit $?
+        wget https://jukebox.linuxconsole.org/toolchains/$CPU-ydfs-linux-toolchain.tar.bz2 || exit $?
         tar xjvf $CPU-ydfs-linux-toolchain.tar.bz2 || exit $?
       fi
     fi
@@ -68,7 +68,7 @@ then
     then
       install -d $HOME/ydfs/toolchain/arm
       cd $HOME/ydfs/toolchain/arm
-      [ ! -e arm-linux-gcc-4.4.3.tgz ] && wget http://jukebox.linuxconsole.org/mini2440/arm-linux-gcc-4.4.3.tgz
+      [ ! -e arm-linux-gcc-4.4.3.tgz ] && wget https://jukebox.linuxconsole.org/mini2440/arm-linux-gcc-4.4.3.tgz
       tar xzvf arm-linux-gcc-4.4.3.tgz
     fi
   fi

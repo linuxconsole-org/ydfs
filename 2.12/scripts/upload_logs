@@ -7,5 +7,5 @@ do
   install -d /tmp/logs
   cp $file /tmp/logs/$name.log
   echo "put $name"
-  curl -F "uploadedfile=@/tmp/logs/$name.log" http://jukebox.linuxconsole.org/uploader.php
+  curl -F "uploadedfile=@/tmp/logs/$name.log" https://jukebox.linuxconsole.org/uploader.php
 done

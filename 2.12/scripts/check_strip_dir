@@ -6,6 +6,8 @@ do
     [ -d "$checkdir/$filetocheck" ] && continue
     # sleep 1
     # echo "? $checkdir/$filetocheck"
-    file "$checkdir/$filetocheck" | grep ELF 1>/dev/null && echo "$checkdir" && break
+    echo "$checkdir/$filetocheck" | grep lib/grub 1>/dev/null && continue
+    file "$checkdir/$filetocheck" | grep ELF 1>/dev/null || continue 
+    echo "$checkdir/$filetocheck"
   done
 done

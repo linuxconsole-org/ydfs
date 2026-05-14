@@ -145,14 +145,14 @@ install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 
 echo "Striping $HOME/ydfs/modules/$ARCH"
-cat $HOME_DIBAB/data/dir-to-strip.txt | while read dirtostrip
+cat $HOME_DIBAB/data/dir-to-strip.txt | while read filetostrip
 do
-  echo "$dirtostrip"
-  strip "$dirtostrip"
+  # echo "$filetostrip"
+  strip "$filetostrip" 
 done
 
-echo "Restore grub files"
-cp -a /tmp/grub/$HOME/$ARCH/* $HOME/ydfs/modules/$ARCH/
+#echo "Restore grub files"
+#cp -a /tmp/grub/$HOME/$ARCH/* $HOME/ydfs/modules/$ARCH/ || exit 1
 
 [ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
 chmod +s $HOME/ydfs/modules/$ARCH/bin/su

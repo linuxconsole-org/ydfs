@@ -16,7 +16,7 @@ index 29d88f7..5c1baf7 100644
 +	{
 +		cpuarch = "x86";
 +	}
-+  downloadfile(QString("http://jukebox.linuxconsole.org/official/albatros/%1/ydfs-%2.iso").arg(relname,cpuarch), isotmpf);
++  downloadfile(QString("https://jukebox.linuxconsole.org/official/albatros/%1/ydfs-%2.iso").arg(relname,cpuarch), isotmpf);
 +  extractiso(isotmpf);
 +}
 +
@@ -30,21 +30,21 @@ index 29d88f7..5c1baf7 100644
 +
  if (nameDistro == "LinuxConsole")
  {
--  downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(QString(relname)), isotmpf);
+-  downloadfile(QString("https://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(QString(relname)), isotmpf);
 +/*
 +	if (isarch64)
 +	{
 +		cpuarch = "x86_64";
-+  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole/%1/%2.iso").arg(cpuarch,relname), isotmpf);
++  		downloadfile(QString("https://jukebox.linuxconsole.org/official/linuxconsole/%1/%2.iso").arg(cpuarch,relname), isotmpf);
 +	}
 +	else
 +*/
 +	{
 +		cpuarch = "x86";
 +		if(relname == "2.0")
-+  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole.2.0-x86.iso"), isotmpf);
++  		downloadfile(QString("https://jukebox.linuxconsole.org/official/linuxconsole.2.0-x86.iso"), isotmpf);
 +		else
-+  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(relname), isotmpf);
++  		downloadfile(QString("https://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(relname), isotmpf);
 +	}
    extractiso(isotmpf);
  }
@@ -55,7 +55,7 @@ index 29d88f7..5c1baf7 100644
  
 +if (nameDistro == "Papyrus")
 +{
-+  downloadfile(QString("http://jukebox.linuxconsole.org/official/papyrus.%1-x86.iso").arg(relname), isotmpf);
++  downloadfile(QString("https://jukebox.linuxconsole.org/official/papyrus.%1-x86.iso").arg(relname), isotmpf);
 +  extractiso(isotmpf);
 +}
  if (nameDistro == "Parted Magic")

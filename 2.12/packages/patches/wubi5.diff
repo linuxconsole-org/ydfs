@@ -196,8 +196,8 @@ Binary files data/images/Wubi.ico	2011-08-02 17:07:39 +0000 and data/images/Wubi
 +arch=i386
 +name=LinuxConsole
 +packages=linuxconsole-standard
-+metalink=http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-i386.metalink
++metalink=https://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-i386.metalink
++metalink2=https://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -206,8 +206,8 @@ Binary files data/images/Wubi.ico	2011-08-02 17:07:39 +0000 and data/images/Wubi
 +arch=amd64
 +name=LinuxConsole
 +packages=linuxconsole-standard
-+metalink=http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-amd64.metalink
++metalink=https://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-amd64.metalink
++metalink2=https://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
  
