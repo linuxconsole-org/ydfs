@@ -171,6 +171,7 @@ KERNEL=$KERNEL3
                 kernel/drivers/cdrom
                 kernel/drivers/scsi/sr_mod*
                 kernel/drivers/ata
+                kernel/drivers/md
                 kernel/drivers/usb/host
                 kernel/drivers/fs/isofs
                 kernel/drivers/fs/nls

@@ -15,7 +15,7 @@ done
 echo
 
 echo -n "Loading kernel modules : "
-for module in isofs overlay cdrom ata-piix nls-iso8859-1 usb-storage xhci-pci ata-generic ata-generic exfat cdrom sr_mod pata-acpi loop squashfs
+for module in dm_mod isofs overlay cdrom ata-piix nls-iso8859-1 usb-storage xhci-pci ata-generic ata-generic exfat cdrom sr_mod pata-acpi loop squashfs
 do
     modprobe $module 2>/dev/null || continue
     echo -n "$module "
