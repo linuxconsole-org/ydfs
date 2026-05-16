@@ -32,3 +32,10 @@ OPTION_BUILD=BUILDME=OK
 bash 2.12/scripts/echo-archpkg pipewire
 ```
 
+# Build manualy if last failed
+
+```
+make buildme
+```
+
+> Try building manualy, report issue on https://github.com/linuxconsole-org/ydfs/issues
