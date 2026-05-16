@@ -52,20 +52,31 @@ make verbose-iso
 # Tips
 [tips](/TIPS.md)
 
-# News
+# News - 1.12
 
-Kernel config based on Arch linux
-Kernel module on initramfs
-Pivot-root
-Auto connect wireless
+## Kernel config based on Arch linux
 
+> To improve hardware compatilibity
 
-# Todo 
+## Kernel module on initramfs
 
-Reduce size for initramfs + kernel drivers + 
+> Previously all kernel modules needed for booting were building in the kernel
 
-# WSL Build
+## Pivot-root / Flatpak
+
+> On early booting, pivot root is enabled on tmpfs. This makes possible using Flatpak
+
+## Auto connect wireless
+
+> By writing a /ydfs/wireless.cfg file on the USB key, Wireless network will be up at statup
+
+Reduce size for firmares modules 
+
+## WSL Build
 
 I works ! (Make fast-iso)
 
 ![wslbuild](/img/ydfs-2.12-WSL.png)
+
+# Todo
+[todo](/TODO.md)
