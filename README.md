@@ -3,7 +3,7 @@
 This branch is designed to build LinuxConsole 2026 ISO, modules and packages
 ![logo](/2.12/logos/linuxconsole.png)
 
-> Using Docker for the full build is highly recommended, building whithout official docker image will need your hacks
+> Using Docker for the full build is highly recommended, building whithout official docker image will need your own hacks
 
 # Fast build (makes Iso)
 
@@ -52,4 +52,3 @@ make verbose-iso
 
 # Todo
 [todo](/TODO.md)
-
